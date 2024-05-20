@@ -4,21 +4,32 @@ import { load } from "cheerio";
 export default class Scraper {
   constructor() {}
 
-  async scrape() {
+  async scrape(testSet?: string[]) {
     try {
       // Gets the list containing words + pages
-      const alphabet = await this.scrapeAlphabet();
-      let currentLetter = "a";
-      let currentPage = "https://www.thesaurus.com/list/a/1";
+      const alphabet = testSet ?? (await this.scrapeAlphabet());
+      let words: { [key: string]: string[] } = {};
 
       for (const letter of alphabet) {
         // First, get the number of pages for the current letter
         const baseLink = `https://www.thesaurus.com/list/${letter}`;
         const lastPage = await this.getLastPage(baseLink, letter);
+        let wordsForLetter: string[] = [];
 
-        currentLetter = letter;
-        currentPage = `https://www.thesaurus.com${lastPage}`;
+        for (let page = 1; page <= lastPage; page++) {
+          console.log(
+            `Current letter: ${letter} --- Current page: ${page}/${lastPage}`
+          );
+
+          const pageLink = `${baseLink}/${page}`;
+          const pageWords = await this.scrapeWords(pageLink);
+          wordsForLetter.push(...pageWords);
+        }
+
+        words[letter] = wordsForLetter;
       }
+
+      console.log(words);
     } catch (error) {
       console.error("Error occurred during scraping:", error);
     }
@@ -59,12 +70,12 @@ export default class Scraper {
     try {
       const $ = await this.init(url);
 
-      let lastPage = $('ul [data-type="paging-arrow"] a').last().attr("href");
-
-      // If lastPage is undefined
-      if (!lastPage) {
-        lastPage = `/list/${letter}/1`;
-      }
+      let lastPage = parseInt(
+        $('ul [data-type="paging-arrow"] a')
+          .last()
+          .attr("href")
+          ?.split("/")[3] || "1"
+      );
 
       return lastPage;
     } catch (error) {
