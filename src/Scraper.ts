@@ -8,14 +8,16 @@ export default class Scraper {
     try {
       // Gets the list containing words + pages
       const alphabet = await this.scrapeAlphabet();
+      let currentLetter = "a";
+      let currentPage = "https://www.thesaurus.com/list/a/1";
 
       for (const letter of alphabet) {
-        // Gets words page 1 of each letter
-        const words = await this.scrapeWords(
-          `https://www.thesaurus.com/list/${letter}`
-        );
+        // First, get the number of pages for the current letter
+        const baseLink = `https://www.thesaurus.com/list/${letter}`;
+        const lastPage = await this.getLastPage(baseLink, letter);
 
-        console.log(words);
+        currentLetter = letter;
+        currentPage = `https://www.thesaurus.com${lastPage}`;
       }
     } catch (error) {
       console.error("Error occurred during scraping:", error);
@@ -36,7 +38,6 @@ export default class Scraper {
       );
     }
   }
-
   private async scrapeAlphabet() {
     try {
       const $ = await this.init("https://www.thesaurus.com/list/a");
@@ -53,6 +54,25 @@ export default class Scraper {
       throw new Error("Error scraping alphabet: " + error.message);
     }
   }
+
+  private async getLastPage(url: string, letter: string) {
+    try {
+      const $ = await this.init(url);
+
+      let lastPage = $('ul [data-type="paging-arrow"] a').last().attr("href");
+
+      // If lastPage is undefined
+      if (!lastPage) {
+        lastPage = `/list/${letter}/1`;
+      }
+
+      return lastPage;
+    } catch (error) {
+      //@ts-ignore
+      throw new Error("Error getting total pages: " + error.message);
+    }
+  }
+
   private async scrapeWords(url: string) {
     try {
       const words: string[] = [];
