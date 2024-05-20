@@ -14,7 +14,7 @@ export type LexicalCategory =
 
 export interface Family {
   category: LexicalCategory;
-  like: string;
+  like: string[];
   synonyms: Match;
   antonyms: Match;
 }

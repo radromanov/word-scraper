@@ -7,7 +7,7 @@ export default class Scraper {
 
   async scrape(testSet?: string[]) {
     try {
-      this.scrapeWord("accord");
+      this.scrapeWord("play");
       //   // Gets the list containing words + pages
       //   const alphabet = testSet ?? (await this.scrapeAlphabet());
       //   let words: Letter = {};
@@ -105,13 +105,13 @@ export default class Scraper {
                 antonyms: { strongest: [], strong: [], weak: [] },
                 synonyms: { strongest: [], strong: [], weak: [] },
                 category: "noun",
-                like: "test",
+                like: [],
               },
               {
                 antonyms: { strongest: [], strong: [], weak: [] },
                 synonyms: { strongest: [], strong: [], weak: [] },
                 category: "preposition",
-                like: "test 2",
+                like: [],
               },
             ],
           });
@@ -127,29 +127,52 @@ export default class Scraper {
 
   private async scrapeWord(word: string) {
     const $ = await this.init(`https://www.thesaurus.com/browse/${word}`);
-    const families: Family[] = [];
 
-    $('[data-type="synonym-and-antonym-card"] div p').each(
-      (_index, element) => {
-        if ("id" in element.attribs) {
-          const family = $(`[id="${element.attribs.id}"]`).text().split("  ");
+    $('[data-type="synonym-and-antonym-card"]').each((_index, element) => {
+      const familyElement = $(element);
+      const categoryText = familyElement.find("div p").first().text().trim();
 
-          const category = family[0] as LexicalCategory;
-          const like = family[1];
+      // Extract the lexical category (noun, verb, etc.)
+      const category = categoryText.split(" ")[0] as LexicalCategory;
 
-          families.push({
-            category,
-            like,
-            synonyms: { strongest: [], strong: [], weak: [] },
-            antonyms: { strongest: [], strong: [], weak: [] },
-          });
+      // Extract the "like" part (the text after "as in")
+      const likeMatch = categoryText.match(/as in (.+)$/);
+      const like = likeMatch ? likeMatch[1].trim().split(",") : [];
+
+      const family: Family = {
+        category,
+        like,
+        synonyms: { strongest: [], strong: [], weak: [] },
+        antonyms: { strongest: [], strong: [], weak: [] },
+      };
+
+      // Extracting synonyms
+      familyElement.find("div div div").each((_idx, synonymElement) => {
+        const strengthClass = $(synonymElement).children("p").first().text();
+
+        let strength: "strong" | "strongest" | "weak" | null = null;
+
+        if (strengthClass?.includes("Strongest")) {
+          strength = "strongest";
+        } else if (strengthClass?.includes("Strong")) {
+          strength = "strong";
+        } else if (strengthClass?.includes("Weak")) {
+          strength = "weak";
         }
-      }
-    );
 
-    console.log(families);
+        $(synonymElement)
+          .find("span")
+          .each((_i, span) => {
+            const synonym = $(span).text().trim();
 
-    return families;
+            if (strength && !family.synonyms[strength].includes(synonym)) {
+              family.synonyms[strength].push(synonym);
+            }
+          });
+      });
+
+      console.log(family);
+    });
   }
 
   private wordIsValid(word: string) {
