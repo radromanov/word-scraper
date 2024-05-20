@@ -1,9 +1,10 @@
-type Match = {
+export type Match = {
+  strongest: string[];
   strong: string[];
   weak: string[];
 };
 
-type LexicalCategory =
+export type LexicalCategory =
   | "noun"
   | "adjective"
   | "adverb"
@@ -11,7 +12,7 @@ type LexicalCategory =
   | "conjunction"
   | "preposition";
 
-interface Family {
+export interface Family {
   category: LexicalCategory;
   like: string;
   synonyms: Match;
