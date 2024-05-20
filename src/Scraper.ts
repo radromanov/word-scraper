@@ -1,5 +1,6 @@
 import axios from "axios";
 import { load } from "cheerio";
+import type { Letter, Word } from "../lib/types";
 
 export default class Scraper {
   constructor() {}
@@ -8,28 +9,30 @@ export default class Scraper {
     try {
       // Gets the list containing words + pages
       const alphabet = testSet ?? (await this.scrapeAlphabet());
-      let words: { [key: string]: string[] } = {};
+      let words: Letter = {};
 
       for (const letter of alphabet) {
+        console.log(`Current letter: '${letter}'`);
         // First, get the number of pages for the current letter
         const baseLink = `https://www.thesaurus.com/list/${letter}`;
         const lastPage = await this.getLastPage(baseLink, letter);
-        let wordsForLetter: string[] = [];
 
+        let wordsForLetter: Word[] = [];
+
+        // Start scraping from page 1
         for (let page = 1; page <= lastPage; page++) {
-          console.log(
-            `Current letter: ${letter} --- Current page: ${page}/${lastPage}`
-          );
+          console.log(`  --> Page ${page}/${lastPage}`);
 
           const pageLink = `${baseLink}/${page}`;
+
+          // Access each `pageLink` and scrape the page's words
           const pageWords = await this.scrapeWords(pageLink);
           wordsForLetter.push(...pageWords);
         }
 
-        words[letter] = wordsForLetter;
+        words[letter] = [...wordsForLetter];
+        console.log(`✅ Finished '${letter}' successfully. Continuing...`);
       }
-
-      console.log(words);
     } catch (error) {
       console.error("Error occurred during scraping:", error);
     }
@@ -84,15 +87,44 @@ export default class Scraper {
     }
   }
 
+  private wordIsValid(word: string) {
+    return (
+      // Word cannot be of more than 1 set of characters, hyphens are allowed
+      word.split(" ").length === 1 &&
+      // word cannot include any brackets
+      !word.includes("(") &&
+      !word.includes(")")
+    );
+  }
+
   private async scrapeWords(url: string) {
     try {
-      const words: string[] = [];
+      const words: Word[] = [];
 
       const $ = await this.init(url);
 
       $('[data-type="browse-list"] ul li a').each((_index, element) => {
         const word = $(element).text().trim();
-        words.push(word);
+
+        if (this.wordIsValid(word)) {
+          words.push({
+            word,
+            families: [
+              {
+                antonyms: { strong: [], weak: [] },
+                synonyms: { strong: [], weak: [] },
+                category: "noun",
+                like: "test",
+              },
+              {
+                antonyms: { strong: [], weak: [] },
+                synonyms: { strong: [], weak: [] },
+                category: "preposition",
+                like: "test 2",
+              },
+            ],
+          });
+        }
       });
 
       return words;
