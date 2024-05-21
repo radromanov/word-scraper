@@ -61,6 +61,21 @@ export function extractSynonymsOrAntonyms(
   return result;
 }
 
+export async function limit<T>(
+  attempt: number,
+  defaultVal: T,
+  callback: (attempt: number) => Promise<T>
+) {
+  const MAX_RETRIES = 3;
+
+  if (attempt < MAX_RETRIES) {
+    return await callback(attempt + 1);
+  } else {
+    console.log("Max retries reached. Exiting.");
+    return defaultVal;
+  }
+}
+
 export function isValid(word: string) {
   return (
     // Word cannot be of more than 1 set of characters, hyphens are allowed

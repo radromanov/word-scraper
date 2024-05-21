@@ -1,5 +1,7 @@
-import axios from "axios";
 import Scraper from "./Scraper";
+import { scrape } from "./core";
 
-const scaper = new Scraper();
-const data = await scaper.scrape(["a"]);
+// const scaper = new Scraper();
+// const data = await scaper.scrape(["a"]);
+
+await scrape();
