@@ -47,6 +47,7 @@ export async function scrape(dev: boolean = false) {
 async function scrapeCategories(attempt: number = 1): Promise<string[]> {
   const ENTRY_LINK = "https://www.thesaurus.com/list";
   const alphabet: string[] = [];
+  const filtered: string[] = [];
 
   try {
     const cheerio = await init(ENTRY_LINK + "/a");
@@ -61,8 +62,19 @@ async function scrapeCategories(attempt: number = 1): Promise<string[]> {
       console.log(`✅Found items on attempt ${attempt}, continuing...`);
       items.each((_index, element) => {
         const letter = cheerio(element).text().trim();
-        alphabet.push(letter);
+        // Only add alphabetical characters
+        if (/^[a-zA-Z]$/.test(letter)) {
+          alphabet.push(letter);
+        } else {
+          filtered.push(letter);
+        }
       });
+      console.log(`   --- 💰Collected ${alphabet.length} items.`);
+      console.log(
+        `   --- ♻️Filtered ${filtered.length} ${
+          filtered.length > 1 ? "items" : "item"
+        }.`
+      );
     }
 
     if (!alphabet.length) {
