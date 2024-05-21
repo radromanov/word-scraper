@@ -63,7 +63,7 @@ export function extractSynonymsOrAntonyms(
 }
 
 export async function limit<T>(
-  prefix: string,
+  context: string,
   url: string,
   initialVal: T,
   attempt: number,
@@ -73,42 +73,58 @@ export async function limit<T>(
 
   if (attempt < MAX_RETRIES) {
     console.log(
-      `[${prefix.toUpperCase()}]   --- Attempt ${attempt + 1} of ${MAX_RETRIES}`
+      `[${context.toUpperCase()}]   --- Attempt ${
+        attempt + 1
+      } of ${MAX_RETRIES}`
     );
     return await callback(url, initialVal, attempt + 1);
   } else {
     console.log(
-      `[${prefix.toUpperCase()}]   --- ❌Max retries reached. Exiting.`
+      `[${context.toUpperCase()}]   --- ❌Max retries reached. Exiting.`
     );
     return initialVal;
   }
 }
 
+export function prepareLinks(categories: string[]) {
+  const ENTRY_LINK = "https://www.thesaurus.com/list";
+
+  categories = categories.map((category) => `${ENTRY_LINK}/${category}`);
+
+  if (categories.length) {
+    console.log(
+      `[CATEGORIES]   --- ⚙️Prepared ${categories.length} category ${
+        categories.length > 1 ? "links" : "link"
+      } for extraction, initializing...\n`
+    );
+  } else {
+    console.log(`[CATEGORIES]   --- ❌No category links found. Exiting.\n`);
+  }
+  return categories;
+}
+
 export function formatDuration(ms: number): string {
+  const hours = Math.floor(ms / (1000 * 60 * 60));
+  const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((ms % (1000 * 60)) / 1000);
   const milliseconds = Math.floor(ms % 1000);
-  const seconds = Math.floor((ms / 1000) % 60);
-  const minutes = Math.floor((ms / (1000 * 60)) % 60);
-  const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
 
-  const formatted = [
-    hours > 0 ? `${hours}h` : "",
-    minutes > 0 ? `${minutes}m` : "",
-    seconds > 0 ? `${seconds}s` : "",
-    `${milliseconds}ms`,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return formatted;
+  if (hours) {
+    return `${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`;
+  } else if (minutes) {
+    return `${minutes}m ${seconds}s ${milliseconds}ms`;
+  } else if (seconds) {
+    return `${seconds}s ${milliseconds}ms`;
+  } else {
+    return `${milliseconds}ms`;
+  }
 }
 
 export function isValid(word: string) {
   return (
-    // Word cannot be of more than 1 set of characters, hyphens are allowed
     word.split(" ").length === 1 &&
-    // word cannot include any brackets
-    !word.includes("(") &&
-    !word.includes(")")
+    word.length > 3 &&
+    !/[\/\\\-.''()0-9]/.test(word)
   );
 }
 
@@ -126,10 +142,7 @@ export async function saveState<T>(filename: string, state: T) {
 }
 
 // Function to load state from a file
-export async function loadState<T>(
-  filename: string,
-  state: T
-): Promise<T | null> {
+export async function loadState<T>(filename: string, state: T): Promise<T> {
   try {
     const file = Bun.file(filename);
 
@@ -144,6 +157,6 @@ export async function loadState<T>(
 
     await Bun.write(filename, newState);
 
-    return null;
+    return state;
   }
 }
