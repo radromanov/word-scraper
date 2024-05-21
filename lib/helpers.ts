@@ -1,9 +1,23 @@
-import axios from "axios";
+import axios, { type AxiosProxyConfig } from "axios";
 import { load, type AnyNode, type Cheerio, type CheerioAPI } from "cheerio";
 import type { LexicalCategory, Match } from "./types";
 
 export async function init(url: string) {
   console.log(`[INIT] Initializing Cheerio for URL: ${url}\n`);
+  let proxy: AxiosProxyConfig;
+
+  async function obtainProxy() {
+    const response = await axios.get("https://iproyal.com/free-proxy-list/");
+    const html = response.data;
+    const cheerio = load(html);
+
+    console.log(
+      cheerio(".even:bg-tertiaryContainer")
+        .find(cheerio(".astro-lmapxigl").text())
+        .text()
+    );
+  }
+
   try {
     const response = await axios.get(url);
     const html = response.data;
