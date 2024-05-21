@@ -54,10 +54,11 @@ async function scrapeCategories(attempt: number = 1): Promise<string[]> {
     const items = cheerio('[data-type="az-menu"] menu li');
 
     if (items.length === 0) {
-      console.log("No items found, retrying...", attempt);
+      console.log(`⏸️No items found on attempt ${attempt}, retrying...`);
 
       return await limit(attempt, alphabet, scrapeCategories);
     } else {
+      console.log(`✅Found items on attempt ${attempt}, continuing...`);
       items.each((_index, element) => {
         const letter = cheerio(element).text().trim();
         alphabet.push(letter);

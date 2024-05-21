@@ -69,9 +69,10 @@ export async function limit<T>(
   const MAX_RETRIES = 3;
 
   if (attempt < MAX_RETRIES) {
+    console.log(`   --- Attempt ${attempt + 1} of ${MAX_RETRIES}\n`);
     return await callback(attempt + 1);
   } else {
-    console.log("Max retries reached. Exiting.");
+    console.log("   --- ❌Max retries reached. Exiting.");
     return defaultVal;
   }
 }
