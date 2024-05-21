@@ -1,61 +1,45 @@
-import axios from "axios";
-import { load } from "cheerio";
-import type { Family, Letter, LexicalCategory, Word } from "../lib/types";
+import type { Family, Letter, Word } from "../lib/types";
+import { extractCategoryAndLike, init, isValid } from "../lib/helpers";
 
 export default class Scraper {
   constructor() {}
 
   async scrape(testSet?: string[]) {
     try {
-      this.scrapeWord("play");
-      //   // Gets the list containing words + pages
-      //   const alphabet = testSet ?? (await this.scrapeAlphabet());
-      //   let words: Letter = {};
+      // Gets the list containing words + pages
+      const alphabet = testSet ?? (await this.scrapeAlphabet());
+      let words: Letter = {};
 
-      //   for (const letter of alphabet) {
-      //     console.log(`Current letter: '${letter}'`);
-      //     // First, get the number of pages for the current letter
-      //     const baseLink = `https://www.thesaurus.com/list/${letter}`;
-      //     const lastPage = await this.getLastPage(baseLink);
+      for (const letter of alphabet) {
+        console.log(`Current letter: '${letter}'`);
+        // First, get the number of pages for the current letter
+        const baseLink = `https://www.thesaurus.com/list/${letter}`;
+        const lastPage = await this.getLastPage(baseLink);
 
-      //     let wordsForLetter: Word[] = [];
+        let wordsForLetter: Word[] = [];
 
-      //     // Start scraping from page 1
-      //     for (let page = 1; page <= lastPage; page++) {
-      //       console.log(`  --> Page ${page}/${lastPage}`);
+        // Start scraping from page 1
+        for (let page = 1; page <= lastPage; page++) {
+          console.log(`  --> Page ${page}/${lastPage}`);
 
-      //       const pageLink = `${baseLink}/${page}`;
+          const pageLink = `${baseLink}/${page}`;
 
-      //       // Access each `pageLink` and scrape the page's words
-      //       const pageWords = await this.scrapeWords(pageLink);
-      //       wordsForLetter.push(...pageWords);
-      //     }
+          // Access each `pageLink` and scrape the page's words
+          const pageWords = await this.scrapeWords(pageLink);
+          wordsForLetter.push(...pageWords);
+        }
 
-      //     words[letter] = [...wordsForLetter];
-      //     console.log(`✅ Finished '${letter}' successfully. Continuing...`);
-      //   }
+        words[letter] = [...wordsForLetter];
+        console.log(`✅ Finished '${letter}' successfully. Continuing...`);
+      }
     } catch (error) {
       console.error("Error occurred during scraping:", error);
     }
   }
 
-  private async init(url: string) {
-    try {
-      const response = await axios.get(url);
-      const html = response.data;
-
-      const $ = load(html);
-      return $;
-    } catch (error) {
-      throw new Error(
-        // @ts-ignore
-        `Error initializing Cheerio with URL ${url}: ${error.message}`
-      );
-    }
-  }
   private async scrapeAlphabet() {
     try {
-      const $ = await this.init("https://www.thesaurus.com/list/a");
+      const $ = await init("https://www.thesaurus.com/list/a");
 
       const alphabet =
         $("nav")
@@ -72,7 +56,7 @@ export default class Scraper {
 
   private async getLastPage(url: string) {
     try {
-      const $ = await this.init(url);
+      const $ = await init(url);
 
       let lastPage = parseInt(
         $('ul [data-type="paging-arrow"] a')
@@ -92,12 +76,12 @@ export default class Scraper {
     try {
       const words: Word[] = [];
 
-      const $ = await this.init(url);
+      const $ = await init(url);
 
       $('[data-type="browse-list"] ul li a').each((_index, element) => {
         const word = $(element).text().trim();
 
-        if (this.wordIsValid(word)) {
+        if (isValid(word)) {
           words.push({
             word,
             families: [
@@ -118,6 +102,19 @@ export default class Scraper {
         }
       });
 
+      let families: Family[] = [];
+
+      for (const word of words) {
+        const family = await this.scrapeWord(word.word);
+
+        if (family.length) {
+          families.push(...family);
+        } else {
+          continue;
+        }
+      }
+
+      console.log(families);
       return words;
     } catch (error) {
       // @ts-ignore
@@ -126,18 +123,14 @@ export default class Scraper {
   }
 
   private async scrapeWord(word: string) {
-    const $ = await this.init(`https://www.thesaurus.com/browse/${word}`);
+    const $ = await init(`https://www.thesaurus.com/browse/${word}`);
+
+    const families: Family[] = [];
 
     $('[data-type="synonym-and-antonym-card"]').each((_index, element) => {
       const familyElement = $(element);
       const categoryText = familyElement.find("div p").first().text().trim();
-
-      // Extract the lexical category (noun, verb, etc.)
-      const category = categoryText.split(" ")[0] as LexicalCategory;
-
-      // Extract the "like" part (the text after "as in")
-      const likeMatch = categoryText.match(/as in (.+)$/);
-      const like = likeMatch ? likeMatch[1].trim().split(",") : [];
+      const { category, like } = extractCategoryAndLike(categoryText);
 
       const family: Family = {
         category,
@@ -171,17 +164,10 @@ export default class Scraper {
           });
       });
 
-      console.log(family);
+      families.push(family);
     });
-  }
 
-  private wordIsValid(word: string) {
-    return (
-      // Word cannot be of more than 1 set of characters, hyphens are allowed
-      word.split(" ").length === 1 &&
-      // word cannot include any brackets
-      !word.includes("(") &&
-      !word.includes(")")
-    );
+    console.log(families);
+    return families;
   }
 }
