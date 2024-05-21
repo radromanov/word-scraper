@@ -63,19 +63,24 @@ export function extractSynonymsOrAntonyms(
 }
 
 export async function limit<T>(
+  prefix: string,
+  url: string,
+  initialVal: T,
   attempt: number,
-  defaultVal: T,
-  callback: (attempt: number, ...args: any[]) => Promise<T>,
-  ...args: any[]
+  callback: (url: string, initialVal: T, attempt: number) => Promise<T>
 ): Promise<T> {
   const MAX_RETRIES = 5;
 
   if (attempt < MAX_RETRIES) {
-    console.log(`[LIMIT]   --- Attempt ${attempt + 1} of ${MAX_RETRIES}\n`);
-    return await callback(attempt + 1, ...args);
+    console.log(
+      `[${prefix.toUpperCase()}]   --- Attempt ${attempt + 1} of ${MAX_RETRIES}`
+    );
+    return await callback(url, initialVal, attempt + 1);
   } else {
-    console.log("[LIMIT]   --- ❌Max retries reached. Exiting.");
-    return defaultVal;
+    console.log(
+      `[${prefix.toUpperCase()}]   --- ❌Max retries reached. Exiting.`
+    );
+    return initialVal;
   }
 }
 
@@ -105,4 +110,40 @@ export function isValid(word: string) {
     !word.includes("(") &&
     !word.includes(")")
   );
+}
+
+// Function to save state to a file
+export async function saveState<T>(filename: string, state: T) {
+  let newState;
+
+  if (typeof state !== "string") {
+    newState = JSON.stringify(state);
+  } else {
+    newState = state;
+  }
+
+  await Bun.write(filename, JSON.stringify(newState));
+}
+
+// Function to load state from a file
+export async function loadState<T>(
+  filename: string,
+  state: T
+): Promise<T | null> {
+  try {
+    const file = Bun.file(filename);
+
+    return await file.json();
+  } catch (error: any) {
+    let newState;
+    if (typeof state !== "string") {
+      newState = JSON.stringify(state);
+    } else {
+      newState = state;
+    }
+
+    await Bun.write(filename, newState);
+
+    return null;
+  }
 }

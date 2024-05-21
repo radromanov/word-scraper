@@ -1,6 +1,13 @@
+import { unlink } from "node:fs/promises";
 import axios from "axios";
 import { load } from "cheerio";
-import { formatDuration, isValid, limit } from "../lib/helpers";
+import {
+  formatDuration,
+  isValid,
+  limit,
+  loadState,
+  saveState,
+} from "../lib/helpers";
 
 export async function init(url: string) {
   //console.log(`[INIT] Initializing Cheerio for URL: ${url}`);
@@ -44,18 +51,69 @@ export async function init(url: string) {
 }
 
 export async function scrape(dev: boolean = false) {
-  const categories = await scrapeCategories();
+  const startTime = performance.now();
+
+  const categories = await scrapeCategories("https://www.thesaurus.com/list/a");
   const links = prepareLinks(categories);
-  const words = await scrapeWords(1, links, {});
+
+  let state = await loadState<{
+    currentLetter: string;
+    currentLinkIndex: number;
+    words: { [letter: string]: string[] };
+  }>("scrape_state.json", {
+    currentLetter: "a",
+    currentLinkIndex: 0,
+    words: {},
+  });
+
+  if (!state) {
+    // If no saved state found, initialize a new state
+    state = {
+      currentLetter: "a",
+      currentLinkIndex: 0,
+      words: {},
+    };
+
+    let total = 0;
+
+    for (let i = state.currentLinkIndex; i < links.length; i++) {
+      const link = links[i];
+      const currentLetter = link[link.length - 1];
+
+      // Skip to the next letter if already processed
+      if (currentLetter < state.currentLetter) continue;
+
+      try {
+        const wordsForLetter = await scrapeWords(link);
+        state.words[currentLetter] = wordsForLetter;
+
+        total += wordsForLetter.length;
+
+        state.currentLetter = currentLetter;
+        state.currentLinkIndex = i + 1; // Update the current link index
+        await saveState("scrape_state.json", state); // Save the state after each successful iteration
+      } catch (error: any) {
+        console.error(`Error scraping ${currentLetter}:`, error.message);
+      }
+    }
+
+    await unlink("scrape_state.json");
+
+    const endTime = performance.now();
+    const duration = formatDuration(endTime - startTime);
+    console.log(`\n🎉Collected ${total} words -- ${duration}`);
+  }
 }
 
-async function scrapeCategories(attempt: number = 1): Promise<string[]> {
-  const ENTRY_LINK = "https://www.thesaurus.com/list";
-  const alphabet: string[] = [];
+async function scrapeCategories(
+  url: string,
+  alphabet: string[] = [],
+  attempt = 1
+): Promise<string[]> {
   const filtered: string[] = [];
 
   try {
-    const cheerio = await init(ENTRY_LINK + "/a");
+    const cheerio = await init(url);
 
     const items = cheerio('[data-type="az-menu"] menu li');
 
@@ -64,7 +122,13 @@ async function scrapeCategories(attempt: number = 1): Promise<string[]> {
         `[CATEGORIES] ⏸️No items found on attempt ${attempt}, retrying...`
       );
 
-      return await limit(attempt, alphabet, scrapeCategories);
+      return await limit<string[]>(
+        "CATEGORIES",
+        url,
+        alphabet,
+        attempt,
+        scrapeCategories
+      );
     } else {
       console.log(
         `[CATEGORIES] ✅Found items on attempt ${attempt}, continuing...`
@@ -106,56 +170,54 @@ function prepareLinks(categories: string[]) {
 
     links.push(link);
   }
-  console.log(
-    `[CATEGORIES]   --- ⚙️Prepared ${links.length} ${
-      links.length > 1 ? "links" : "link"
-    } for extraction, initializing...\n`
-  );
+
+  if (links.length) {
+    console.log(
+      `[CATEGORIES]   --- ⚙️Prepared ${links.length} category ${
+        links.length > 1 ? "links" : "link"
+      } for extraction, initializing...\n`
+    );
+  } else {
+    console.log(`[CATEGORIES]   --- ❌No category links found. Exiting.\n`);
+  }
   return links;
 }
 
 async function scrapeWords(
-  attempt: number = 1,
-  links: string[],
-  words: { [letter: string]: string[] }
-): Promise<{ [letter: string]: string[] }> {
-  let total = 0;
-  const startTime = performance.now(); // Start the timer
+  url: string,
+  words: string[] = [],
+  attempt = 1
+): Promise<string[]> {
+  const cheerio = await init(url);
 
-  for (const link of links) {
-    const cheerio = await init(link);
+  const currentLetter = url[url.length - 1];
 
-    const currentLetter = link[link.length - 1];
-    const wordsForLetter: string[] = [];
+  const items = cheerio('[data-type="browse-list"] ul li');
 
-    const items = cheerio('[data-type="browse-list"] ul li');
+  if (items.length === 0) {
+    console.log(
+      `[WORDS - ${currentLetter.toUpperCase()}] ⏸️No items found on attempt ${attempt}, retrying...`
+    );
 
-    if (items.length === 0) {
-      console.log(
-        `[WORDS - ${currentLetter.toUpperCase()}] ⏸️No items found on attempt ${attempt}, retrying...`
-      );
+    return await limit<string[]>(
+      `words - ${currentLetter}`,
+      url,
+      words,
+      attempt,
+      scrapeWords
+    );
+  } else {
+    console.log(
+      `[WORDS - ${currentLetter.toUpperCase()}] ✅Found items on attempt ${attempt}, continuing...`
+    );
+    items.each((_index, element) => {
+      const word = cheerio(element).text().trim();
 
-      return await limit(attempt, words, scrapeWords, links, words);
-    } else {
-      console.log(
-        `[WORDS - ${currentLetter.toUpperCase()}] ✅Found items on attempt ${attempt}, continuing...\n`
-      );
-      items.each((_index, element) => {
-        const word = cheerio(element).text().trim();
-
-        if (isValid(word)) {
-          wordsForLetter.push(word);
-          total++;
-        }
-      });
-    }
-
-    words[currentLetter] = [...wordsForLetter];
+      if (isValid(word)) {
+        words.push(word);
+      }
+    });
   }
 
-  const endTime = performance.now(); // Start the timer
-  const duration = formatDuration(endTime - startTime);
-
-  console.log(`[WORDS] Collected ${total} words total -- ${duration}.`);
   return words;
 }
