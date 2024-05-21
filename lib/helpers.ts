@@ -3,6 +3,7 @@ import { load, type AnyNode, type Cheerio, type CheerioAPI } from "cheerio";
 import type { LexicalCategory, Match } from "./types";
 
 export async function init(url: string) {
+  console.log(`[INIT] Initializing Cheerio for URL: ${url}\n`);
   try {
     const response = await axios.get(url);
     const html = response.data;
@@ -10,7 +11,7 @@ export async function init(url: string) {
     return load(html);
   } catch (error: any) {
     throw new Error(
-      `Error initializing Cheerio with URL ${url}: ${error.message}`
+      `[INIT] Error initializing Cheerio with URL ${url}: ${error.message}\n`
     );
   }
 }
@@ -64,17 +65,36 @@ export function extractSynonymsOrAntonyms(
 export async function limit<T>(
   attempt: number,
   defaultVal: T,
-  callback: (attempt: number) => Promise<T>
-) {
-  const MAX_RETRIES = 3;
+  callback: (attempt: number, ...args: any[]) => Promise<T>,
+  ...args: any[]
+): Promise<T> {
+  const MAX_RETRIES = 5;
 
   if (attempt < MAX_RETRIES) {
-    console.log(`   --- Attempt ${attempt + 1} of ${MAX_RETRIES}\n`);
-    return await callback(attempt + 1);
+    console.log(`[LIMIT]   --- Attempt ${attempt + 1} of ${MAX_RETRIES}\n`);
+    return await callback(attempt + 1, ...args);
   } else {
-    console.log("   --- ❌Max retries reached. Exiting.");
+    console.log("[LIMIT]   --- ❌Max retries reached. Exiting.");
     return defaultVal;
   }
+}
+
+export function formatDuration(ms: number): string {
+  const milliseconds = Math.floor(ms % 1000);
+  const seconds = Math.floor((ms / 1000) % 60);
+  const minutes = Math.floor((ms / (1000 * 60)) % 60);
+  const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+
+  const formatted = [
+    hours > 0 ? `${hours}h` : "",
+    minutes > 0 ? `${minutes}m` : "",
+    seconds > 0 ? `${seconds}s` : "",
+    `${milliseconds}ms`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return formatted;
 }
 
 export function isValid(word: string) {
