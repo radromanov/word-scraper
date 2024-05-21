@@ -42,6 +42,7 @@ export async function init(url: string) {
 
 export async function scrape(dev: boolean = false) {
   const categories = await scrapeCategories();
+  const links = await scrapeLinks(categories);
 }
 
 async function scrapeCategories(attempt: number = 1): Promise<string[]> {
@@ -86,4 +87,21 @@ async function scrapeCategories(attempt: number = 1): Promise<string[]> {
     console.error(`Error in scrapeCategories: ${error.message}`);
     return alphabet;
   }
+}
+
+async function scrapeLinks(categories: string[]) {
+  const ENTRY_LINK = "https://www.thesaurus.com/list";
+  const links: string[] = [];
+
+  for (const category of categories) {
+    const link = ENTRY_LINK + `/${category}`;
+
+    links.push(link);
+  }
+  console.log(
+    `   --- ⚙️Prepared ${links.length} ${
+      links.length > 1 ? "links" : "link"
+    } for extraction, initializing...`
+  );
+  return links;
 }
