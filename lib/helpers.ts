@@ -1,62 +1,54 @@
-import { type AnyNode, type Cheerio, type CheerioAPI } from "cheerio";
-import type { LexicalCategory, Match } from "./types";
+export const AXIOS_CONFIG = {
+  headers: {
+    "User-Agent":
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+  },
+  timeout: 10000, // Fails the request if it takes more than 10 seconds
+  validateStatus: (status: number) => status < 500, // Resolve only if the status code is less than 500; 4xx errors are handled in catch
+};
 
-export function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export const CATEGORIES = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
 
-export function extractCategoryAndLike(text: string): {
-  category: LexicalCategory;
-  like: string[];
-} {
-  const category = text.split(" ")[0] as LexicalCategory;
+// Helper function to introduce a random delay
+export function delay(min: number, max: number) {
+  const delay = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  const likeMatch = text.match(/as in (.+)$/);
-  const like = likeMatch ? likeMatch[1].trim().split(",") : [];
+  console.log(`[DELAY] 🔄Delaying by ${duration(delay)}.`);
 
-  return { category, like };
-}
-
-export function extractSynonymsOrAntonyms(
-  $: CheerioAPI,
-  familyElement: Cheerio<AnyNode>,
-  type: "synonym" | "antonym"
-) {
-  const result: Match = { strongest: [], strong: [], weak: [] };
-  const selector =
-    type === "synonym"
-      ? "div[data-type='synonym-list']"
-      : "div[data-type='antonym-list']";
-
-  familyElement.find(selector).each((_idx, element) => {
-    const strengthClass = $(element).parent().attr("class");
-
-    let strength: "strong" | "strongest" | "weak" | null = null;
-    if (strengthClass?.includes("strongest")) {
-      strength = "strongest";
-    } else if (strengthClass?.includes("strong")) {
-      strength = "strong";
-    } else {
-      strength = "weak";
-    }
-
-    $(element)
-      .find("li")
-      .each((_i, li) => {
-        const word = $(li).text().trim();
-        if (strength) result[strength].push(word);
-      });
-  });
-
-  return result;
+  return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
 export async function limit<T>(
   context: string,
-  url: string,
-  initialVal: T,
   attempt: number,
-  callback: (url: string, initialVal: T, attempt: number) => Promise<T>
+  callback: () => Promise<T>
 ): Promise<T> {
   const MAX_RETRIES = 5;
 
@@ -66,33 +58,21 @@ export async function limit<T>(
         attempt + 1
       } of ${MAX_RETRIES}`
     );
-    return await callback(url, initialVal, attempt + 1);
   } else {
     console.log(
       `[${context.toUpperCase()}]   --- ❌Max retries reached. Exiting.`
     );
-    return initialVal;
   }
+  return await callback();
 }
 
-export function prepareLinks(categories: string[]) {
-  const ENTRY_LINK = "https://www.thesaurus.com/list";
+export function linkify(category: string) {
+  const link = `${process.env.BASE_LINK}${category}`;
 
-  categories = categories.map((category) => `${ENTRY_LINK}/${category}`);
-
-  if (categories.length) {
-    console.log(
-      `[CATEGORIES]   --- ⚙️Prepared ${categories.length} category ${
-        categories.length > 1 ? "links" : "link"
-      } for extraction, initializing...\n`
-    );
-  } else {
-    console.log(`[CATEGORIES]   --- ❌No category links found. Exiting.\n`);
-  }
-  return categories;
+  return link;
 }
 
-export function formatDuration(ms: number): string {
+export function duration(ms: number): string {
   const hours = Math.floor(ms / (1000 * 60 * 60));
   const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((ms % (1000 * 60)) / 1000);

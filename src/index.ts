@@ -1,11 +1,16 @@
-import Proxy from "./Proxy";
+import { scraper } from "./core";
 
 declare module "bun" {
   interface Env {
     PROXY_LIST: string;
+    BASE_LINK: string;
+    CATEGORY_LINK: string;
+    WORD_LINK: string;
   }
 }
 
-const proxy = new Proxy();
+const { scrapeWords, scrapeWord } = scraper;
 
-await proxy.get();
+// await scrapeWords(true);
+console.log("============= HERE STARTS A WORD ===============");
+await scrapeWord(true);

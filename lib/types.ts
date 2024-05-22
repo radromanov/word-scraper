@@ -33,3 +33,15 @@ export interface Word {
 export type Letter = {
   [K in string]: Word[];
 };
+
+export type ScrapeOpts = {
+  dev?: boolean;
+};
+
+export type LoadOpts = {
+  url: string;
+  suspense?: {
+    min: number;
+    max: number;
+  };
+};
