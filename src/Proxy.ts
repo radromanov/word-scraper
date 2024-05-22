@@ -12,6 +12,8 @@ import type { ProxyResult } from "../lib/types";
  */
 
 class Proxy {
+  private currentProxy: ProxyResult | null = null;
+  private requests: number;
   private visited: number[] = [];
   private used: ProxyResult[] = [];
   private available: ProxyResult[] = [];
@@ -25,14 +27,35 @@ class Proxy {
     this.url = "";
     this.page = -1;
     this.time = "";
+    this.requests = 0;
+  }
+
+  async incr() {
+    // if requests reach 500, we need to .shift() the available array for a new one
+    this.requests++;
+  }
+
+  private async reset() {
+    this.requests = 0;
+  }
+
+  async get() {
+    if (this.requests >= 500 || !this.currentProxy) {
+      await this.obtain();
+      await this.use();
+      // Reset the requests counter after obtaining and using a proxy
+      this.reset();
+    }
+
+    return this.currentProxy!;
   }
 
   // Initialize Cheerio with HTML from a URL
   private async init(url: string) {
     try {
-      const response = await axios.get(url); // Fetch the main page HTML
+      const response = await axios.get(url);
       const html = response.data;
-      return load(html); // Load HTML into Cheerio
+      return load(html);
     } catch (error: any) {
       console.error(
         `Error initializing Cheerio with url ${url}:`,
@@ -45,7 +68,8 @@ class Proxy {
   }
 
   // Obtain a proxy by navigating pages and extracting proxies
-  async obtain() {
+  private async obtain() {
+    console.log("Obtaining new proxy, please wait...");
     this.time = "";
     const startTime = performance.now();
 
@@ -65,17 +89,48 @@ class Proxy {
     );
     console.log("[OBTAIN] 🎯 Total attempts:", this.visited.length);
     console.log(`[OBTAIN] 🕐 Time taken:`, this.time);
-    console.log("[OBTAIN] Picking from proxies...", this.available);
+
+    console.log(`[OBTAIN] Available proxies:`, this.available);
+    console.log("[OBTAIN] Upcoming proxies:", this.next);
 
     this.time = "";
   }
 
-  // Get proxy list from the current URL
-  async getList(): Promise<void> {
-    const cheerio = await this.init(this.url);
+  // Use a proxy and refresh if necessary
+  private async use() {
+    if (this.available.length === 0) {
+      await this.obtain();
+    }
 
-    console.log("[PROXIES] 🌎 Current URL:", this.url);
-    console.log("[PROXIES] 📄 Current Page:", this.page);
+    const proxy = this.available.shift();
+
+    if (proxy) {
+      this.currentProxy = proxy;
+      this.used.push(proxy);
+      console.log("[PROXY] 💻 Using proxy:", this.currentProxy);
+    } else {
+      await this.obtain();
+    }
+
+    await this.refresh();
+  }
+
+  private async refresh() {
+    while (this.available.length < 10 && this.next.length > 0) {
+      const nextProxy = this.next.shift();
+      if (nextProxy) {
+        this.available.push(nextProxy);
+      }
+    }
+
+    if (this.next.length === 0) {
+      console.log("[REFRESH] Filling next array...");
+      await this.pickPage();
+      await this.getList();
+    }
+  }
+  private async getList(): Promise<void> {
+    const cheerio = await this.init(this.url);
 
     // Parse HTML to extract proxy details
     cheerio(".grid.card-mode-layout").each((_i, element) => {
@@ -101,15 +156,32 @@ class Proxy {
         this.protocolIsValid(protocol) &&
         !this.isUsed(proxy)
       ) {
-        this.available.push(proxy);
+        if (this.next.length < 10)
+          // Always push the proxy to the next array
+          this.next.push(proxy);
       }
     });
 
-    // No valid proxies found, retry
+    // Check if the available array is empty
+    if (this.available.length === 0) {
+      // If available array is empty, fill it with proxies from the next array
+      while (this.available.length < 10 && this.next.length > 0) {
+        const proxy = this.next.shift();
+        if (proxy) {
+          this.available.push(proxy);
+        }
+      }
+
+      // Pick a new page and get the list of proxies
+      await this.pickPage();
+      await this.getList();
+    }
+
+    // If no valid proxies found, retry
     if (this.available.length === 0) {
       console.log("[PROXIES] ♻️ No valid proxies found, retrying...\n");
       await this.pickPage();
-      return await this.getList();
+      await this.getList();
     }
   }
 
@@ -136,7 +208,7 @@ class Proxy {
   }
 
   // Pick a random page from the proxy list
-  async pickPage() {
+  private async pickPage() {
     const BASE_LINK = process.env.PROXY_LIST;
     const cheerio = await this.init(BASE_LINK);
 
@@ -158,17 +230,16 @@ class Proxy {
 
   // Generate a random page number
   private async generatePage(last: number): Promise<number> {
-    let current = Math.floor(Math.random() * last) + 1; // Generate a random page number
+    let current = Math.floor(Math.random() * last) + 1;
 
     while (this.visited.includes(current)) {
       console.log(`Page number ${current} already used, skipping...`);
       console.log(`Visited pages: ${this.visited}\n`);
       await delay(1500); // Delay before retrying
-      current = Math.floor(Math.random() * last) + 1; // Generate a new random page number
+      current = Math.floor(Math.random() * last) + 1;
     }
 
-    this.visited.push(current); // Add to visited pages
-
+    this.visited.push(current);
     return current;
   }
 }
