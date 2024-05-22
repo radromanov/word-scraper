@@ -1,5 +1,5 @@
 import axios from "axios";
-import { load, type AnyNode, type Cheerio } from "cheerio";
+import { load } from "cheerio";
 import { delay, formatDuration } from "../lib/helpers";
 import type { ProxyResult } from "../lib/types";
 
@@ -39,18 +39,18 @@ class Proxy {
         error.message
       );
       throw new Error(
-        `Error initializing Cheerio with url ${url}:`,
-        error.message
+        `Error initializing Cheerio with url ${url}: ${error.message}`
       );
     }
   }
 
+  // Obtain a proxy by navigating pages and extracting proxies
   async obtain() {
     this.time = "";
     const startTime = performance.now();
 
     if (this.visited.length > 1) {
-      await delay(2500); // Add delay after the first attempt
+      await delay(2500);
     }
 
     await this.pickPage();
@@ -59,22 +59,23 @@ class Proxy {
     const endTime = performance.now();
     this.time = formatDuration(endTime - startTime);
 
-    console.log("\n[OBTAIN] ✈️Visited pages:", this.visited);
+    console.log("\n[OBTAIN] ✈️ Visited pages:", this.visited);
     console.log(
-      `[OBTAIN] 💰Found ${this.available.length} proxies on page ${this.url}`
+      `[OBTAIN] 💰 Found ${this.available.length} proxies on page ${this.url}`
     );
-    console.log("[OBTAIN] 🎯Total attempts:", this.visited.length);
-    console.log(`[OBTAIN] 🕐Time taken:`, this.time);
+    console.log("[OBTAIN] 🎯 Total attempts:", this.visited.length);
+    console.log(`[OBTAIN] 🕐 Time taken:`, this.time);
+    console.log("[OBTAIN] Picking from proxies...", this.available);
 
     this.time = "";
   }
 
-  // Method to get proxy list from a specific URL
+  // Get proxy list from the current URL
   async getList(): Promise<void> {
     const cheerio = await this.init(this.url);
 
-    console.log("[PROXIES] 🌎Current URL:", this.url);
-    console.log("[PROXIES] 📄Current Page:", this.page);
+    console.log("[PROXIES] 🌎 Current URL:", this.url);
+    console.log("[PROXIES] 📄 Current Page:", this.page);
 
     // Parse HTML to extract proxy details
     cheerio(".grid.card-mode-layout").each((_i, element) => {
@@ -93,30 +94,48 @@ class Proxy {
         .text()
         .trim();
 
+      const proxy = { host, port, protocol };
+
       if (
-        (this.hostIsValid(host) && protocol === "http") ||
-        protocol === "https"
+        this.hostIsValid(host) &&
+        this.protocolIsValid(protocol) &&
+        !this.isUsed(proxy)
       ) {
-        this.available.push({ host, port, protocol });
+        this.available.push(proxy);
       }
     });
 
-    // No valid proxiies found
+    // No valid proxies found, retry
     if (this.available.length === 0) {
-      console.log("[PROXIES] ♻️No valid proxies found, retrying...\n");
+      console.log("[PROXIES] ♻️ No valid proxies found, retrying...\n");
       await this.pickPage();
       return await this.getList();
     }
   }
 
-  private hostIsValid(host: string) {
-    // Validate host/IP address format
+  // Validate protocol
+  private protocolIsValid(protocol: string): boolean {
+    return protocol === "https" || protocol === "http";
+  }
+
+  // Validate host/IP address format
+  private hostIsValid(host: string): boolean {
     const hostRegex =
       /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     return hostRegex.test(host);
   }
 
-  // Method to pick a random page from the proxy list
+  // Check if the proxy is already used
+  private isUsed(proxy: ProxyResult): boolean {
+    return this.used.some(
+      (element) =>
+        element.host === proxy.host &&
+        element.port === proxy.port &&
+        element.protocol === proxy.protocol
+    );
+  }
+
+  // Pick a random page from the proxy list
   async pickPage() {
     const BASE_LINK = process.env.PROXY_LIST;
     const cheerio = await this.init(BASE_LINK);
@@ -132,22 +151,20 @@ class Proxy {
     );
 
     this.page = await this.generatePage(lastPage);
-    const PAGE_LINK = BASE_LINK + `?page=${this.page}`;
-    this.url = PAGE_LINK;
+    this.url = `${BASE_LINK}?page=${this.page}`;
 
-    return PAGE_LINK;
+    return this.url;
   }
 
   // Generate a random page number
-  private async generatePage(last: number) {
+  private async generatePage(last: number): Promise<number> {
     let current = Math.floor(Math.random() * last) + 1; // Generate a random page number
 
     while (this.visited.includes(current)) {
       console.log(`Page number ${current} already used, skipping...`);
       console.log(`Visited pages: ${this.visited}\n`);
-      current = Math.floor(Math.random() * last) + 1; // Generate a new random page number
-
       await delay(1500); // Delay before retrying
+      current = Math.floor(Math.random() * last) + 1; // Generate a new random page number
     }
 
     this.visited.push(current); // Add to visited pages
