@@ -12,7 +12,8 @@ declare module "bun" {
 }
 
 const proxy = new Proxy();
-await proxy.pickPage();
+
+await proxy.obtain();
 
 // // Function to scrape proxy data from a given URL
 // async function config(url: string) {
