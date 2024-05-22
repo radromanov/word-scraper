@@ -1,25 +1,22 @@
 import axios from "axios";
 import { load } from "cheerio";
 import { delay } from "../lib/helpers";
+import type { Proxy } from "../lib/types";
 
 // Function to scrape proxy data from a given URL
 async function config(url: string) {
-  const response = await axios.get(url);
+  const response = await axios.get(url); // Fetch the HTML from the URL
   const html = response.data;
-  const cheerio = load(html);
+  const cheerio = load(html); // Load HTML into Cheerio
 
-  const splitUrl = url.split("=");
-  const currentPage = splitUrl[splitUrl.length - 1];
+  const currentPage = url.split("=").pop(); // Extract current page number from URL
 
-  const results: {
-    host: string;
-    port: number;
-    protocol: string;
-  }[] = [];
+  const results: Proxy[] = [];
 
   console.log("Current page:", currentPage);
   console.log("--- URL:", url);
 
+  // Parse HTML to extract proxy details
   cheerio(".grid.card-mode-layout").each((_i, element) => {
     const host = cheerio(element)
       .find(".flex.items-center")
@@ -37,24 +34,26 @@ async function config(url: string) {
       .text()
       .trim();
 
+    // Validate IP address format
     const ipRegex =
       /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     if (ipRegex.test(host)) {
-      results.push({ host, port: parseInt(port, 10), protocol });
+      results.push({ host, port: parseInt(port, 10), protocol }); // Add valid proxies to results
     }
   });
 
-  return results;
+  return results; // Return list of proxies
 }
 
 // Function to navigate to a random page on the proxy list
 async function goToPage() {
   const BASE_LINK = "https://iproyal.com/free-proxy-list/";
 
-  const response = await axios.get(BASE_LINK);
+  const response = await axios.get(BASE_LINK); // Fetch the main page HTML
   const html = response.data;
   const cheerio = load(html);
 
+  // Extract the last page number
   const lastPage = parseInt(
     cheerio("[data-v-1e25dd90] .outlined-button")
       .prev()
@@ -64,23 +63,22 @@ async function goToPage() {
     10
   );
 
-  const randomPage = Math.floor(Math.random() * lastPage) + 1;
+  const randomPage = Math.floor(Math.random() * lastPage) + 1; // Generate a random page number
   const PAGE_LINK = BASE_LINK + `?page=${randomPage}`;
-  return PAGE_LINK;
+  return PAGE_LINK; // Return the URL of the random page
 }
 
 // Main function to obtain a random HTTP or HTTPS proxy
-export async function obtainProxy(attempt: number = 1) {
-  // Add delay after the first attempt
+export async function obtainProxy(attempt = 1) {
   if (attempt > 1) {
-    await delay(2500);
+    await delay(2500); // Add delay after the first attempt
   }
 
-  const page = await goToPage();
-  const proxy = await config(page);
+  const page = await goToPage(); // Get a random page URL
+  const proxy = await config(page); // Scrape proxies from the page
   console.log(proxy);
 
-  // Filter out proxies with SOCKS protocols and match the required IP, port, and location
+  // Filter out SOCKS proxies
   const filteredProxy = proxy.filter(
     ({ protocol }) => protocol === "http" || protocol === "https"
   );
@@ -89,13 +87,13 @@ export async function obtainProxy(attempt: number = 1) {
     console.log(
       `No matching proxies found. Looking for a new proxy... ${attempt}\n`
     );
-    return obtainProxy(attempt + 1); // Retry to obtain a new proxy
+    return obtainProxy(attempt + 1); // Retry if no valid proxies are found
   }
 
   const randomProxy = Math.floor(Math.random() * filteredProxy.length);
 
   console.log(`Found proxy on page ${page}`, filteredProxy[randomProxy]);
-  return filteredProxy[randomProxy];
+  return filteredProxy[randomProxy]; // Return a random valid proxy
 }
 
 await obtainProxy();

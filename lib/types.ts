@@ -1,3 +1,9 @@
+export type Proxy = {
+  host: string;
+  port: number;
+  protocol: string;
+};
+
 export type Match = {
   strongest: string[];
   strong: string[];
