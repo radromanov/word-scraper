@@ -1,33 +1,64 @@
-import axios, { type AxiosProxyConfig } from "axios";
+import axios from "axios";
 import { load, type AnyNode, type Cheerio, type CheerioAPI } from "cheerio";
 import type { LexicalCategory, Match } from "./types";
 
-export async function init(url: string) {
-  console.log(`[INIT] Initializing Cheerio for URL: ${url}\n`);
-  let proxy: AxiosProxyConfig;
+async function config(url: string) {
+  const response = await axios.get(url);
+  const html = response.data;
+  const cheerio = load(html);
 
-  async function obtainProxy() {
-    const response = await axios.get("https://iproyal.com/free-proxy-list/");
-    const html = response.data;
-    const cheerio = load(html);
+  const result: { host: string; port: number; protocol: string }[] = [];
+  const lines = cheerio("section .astro-lmapxigl .overflow-auto .grid")
+    .text()
+    .trim()
+    .split("\n");
 
-    console.log(
-      cheerio(".even:bg-tertiaryContainer")
-        .find(cheerio(".astro-lmapxigl").text())
-        .text()
-    );
-  }
+  lines.forEach((line) => {
+    const match = line.match(/^(\d+\.\d+\.\d+\.\d+)(\d+)(https|http)/);
 
-  try {
-    const response = await axios.get(url);
-    const html = response.data;
+    if (match) {
+      result.push({
+        host: match[1],
+        port: parseInt(match[2]),
+        protocol: match[3],
+      });
+    }
+  });
 
-    return load(html);
-  } catch (error: any) {
-    throw new Error(
-      `[INIT] Error initializing Cheerio with URL ${url}: ${error.message}\n`
-    );
-  }
+  console.log(result);
+
+  return result;
+}
+
+async function goToPage() {
+  const BASE_LINK = "https://iproyal.com/free-proxy-list/";
+
+  const response = await axios.get(BASE_LINK);
+  const html = response.data;
+  const cheerio = load(html);
+
+  const lastPage = parseInt(
+    cheerio("[data-v-1e25dd90] .outlined-button").prev().text().split(" ")[1],
+    10
+  );
+
+  const randomPage = Math.floor(Math.random() * lastPage) + 1;
+  const PAGE_LINK = BASE_LINK + `?page=${randomPage}`;
+  return PAGE_LINK;
+}
+
+export async function obtainProxy() {
+  const page = await goToPage();
+  const proxy = await config(page);
+
+  const randomProxy = Math.floor(Math.random() * proxy.length);
+
+  console.log(proxy[randomProxy]);
+  return proxy[randomProxy];
+}
+
+export function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function extractCategoryAndLike(text: string): {

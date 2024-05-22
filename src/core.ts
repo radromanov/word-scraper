@@ -2,18 +2,28 @@ import { unlink } from "node:fs/promises";
 import axios from "axios";
 import { load } from "cheerio";
 import {
+  delay,
   formatDuration,
   isValid,
   limit,
   loadState,
+  obtainProxy,
   prepareLinks,
   saveState,
 } from "../lib/helpers";
 
 export async function init(url: string) {
   //console.log(`[INIT] Initializing Cheerio for URL: ${url}`);
+  let proxy = await obtainProxy();
+
+  console.log(`[INIT] Initializing Cheerio for URL: ${url}`);
+  console.log(`[INIT] Current proxy settings: ${proxy}\n`);
+
+  await delay(5000);
+
   try {
     const response = await axios.get(url, {
+      proxy,
       timeout: 10000, // Fails the request if it takes more than 10 seconds
       validateStatus: (status) => status < 500, // Resolve only if the status code is less than 500; 4xx errors are handled in catch
     });
