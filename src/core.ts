@@ -7,7 +7,6 @@ import {
   isValid,
   limit,
   loadState,
-  obtainProxy,
   prepareLinks,
   saveState,
 } from "../lib/helpers";

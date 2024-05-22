@@ -1,4 +1,4 @@
-export type Proxy = {
+export type ProxyResult = {
   host: string;
   port: number;
   protocol: string;
