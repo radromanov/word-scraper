@@ -1,4 +1,5 @@
-import { scraper } from "./core";
+import Scraper from "./Scraper";
+// import { scraper } from "./core";
 
 declare module "bun" {
   interface Env {
@@ -9,6 +10,8 @@ declare module "bun" {
   }
 }
 
-const { scrape } = scraper;
+// const { scrape } = scraper;
 
-await scrape();
+// await scrape();
+const scraper = new Scraper(true);
+await scraper.exec();

@@ -1,0 +1,4317 @@
+{
+  "aardvark": {
+    "type": "noun",
+    "examples": ["nocturnal animal"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["anteater", "edentate", "farrow"],
+      "weak": ["ant bear"]
+    }
+  },
+  "abaca": {
+    "type": "noun",
+    "examples": ["hemp"],
+    "synonyms": {
+      "strongest": [
+        "bhang",
+        "cannabis",
+        "fiber",
+        "flax",
+        "hashish",
+        "jute",
+        "marijuana"
+      ],
+      "strong": ["bang", "fennel", "manila"],
+      "weak": ["ambary", "kef", "kif"]
+    }
+  },
+  "aback": {
+    "type": "adverb",
+    "examples": ["taken unawares"],
+    "synonyms": {
+      "strongest": ["surprised"],
+      "strong": [],
+      "weak": ["confused", "thrown off", "thrown off guard"]
+    }
+  },
+  "abacus": {
+    "type": "noun",
+    "examples": ["computer"],
+    "synonyms": {
+      "strongest": [
+        "data processor",
+        "desktop computer",
+        "PC",
+        "personal computer"
+      ],
+      "strong": [
+        "central processing unit",
+        "CPU",
+        "device",
+        "handheld computer",
+        "laptop",
+        "machine",
+        "mainframe",
+        "micro",
+        "microcomputer",
+        "mini",
+        "minicomputer",
+        "notebook",
+        "notebook computer",
+        "processor",
+        "tablet"
+      ],
+      "weak": [
+        "artificial intelligence",
+        "brain",
+        "electronic brain",
+        "number cruncher",
+        "thinking machine"
+      ]
+    }
+  },
+  "Abaddon": {
+    "type": "noun",
+    "examples": ["purgatory"],
+    "synonyms": {
+      "strongest": ["limbo"],
+      "strong": [
+        "abyss",
+        "Gehenna",
+        "Hades",
+        "perdition",
+        "pit",
+        "suffering",
+        "underworld"
+      ],
+      "weak": [
+        "bottomless pit",
+        "everlasting fire",
+        "fire and brimstone",
+        "infernal regions",
+        "lower world",
+        "nether world",
+        "place of torment"
+      ]
+    }
+  },
+  "abaft": {
+    "type": "adjective",
+    "examples": ["to the rear"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["astern"],
+      "weak": ["back", "behind", "rearward"]
+    }
+  },
+  "abalienate": {
+    "type": "verb",
+    "examples": ["cede"],
+    "synonyms": {
+      "strongest": [
+        "capitulate",
+        "communicate",
+        "concede",
+        "give in",
+        "give up",
+        "grant",
+        "hand over",
+        "relinquish",
+        "renounce",
+        "sign over",
+        "transfer",
+        "waive"
+      ],
+      "strong": [
+        "abdicate",
+        "accord",
+        "alien",
+        "alienate",
+        "allow",
+        "convey",
+        "drop",
+        "fold",
+        "leave",
+        "resign",
+        "vouchsafe",
+        "yield"
+      ],
+      "weak": [
+        "come across with",
+        "deed",
+        "fork over",
+        "make over",
+        "part with",
+        "remise",
+        "throw in the sponge",
+        "throw in the towel"
+      ]
+    }
+  },
+  "abalone": {
+    "type": "noun",
+    "examples": ["shell"],
+    "synonyms": {
+      "strongest": ["mollusk"],
+      "strong": ["ear", "ormer"],
+      "weak": []
+    }
+  },
+  "abandoned": {
+    "type": "adjective",
+    "examples": ["free from moral restraint", "uninhibited"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["corrupt", "depraved", "wanton"],
+      "weak": [
+        "dissolute",
+        "immoral",
+        "incontinent",
+        "incorrigible",
+        "licentious",
+        "profligate",
+        "shameless",
+        "sinful",
+        "uncontrolled",
+        "unprincipled",
+        "unrestrained",
+        "wicked",
+        "wild"
+      ]
+    }
+  },
+  "abandonedly": {
+    "type": "adverb",
+    "examples": ["perforce"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "defenselessly",
+        "dependently",
+        "feebly",
+        "involuntarily",
+        "powerlessly",
+        "weakly",
+        "willy-nilly"
+      ]
+    }
+  },
+  "abandoner": {
+    "type": "noun",
+    "examples": ["renegade"],
+    "synonyms": {
+      "strongest": [
+        "defector",
+        "deserter",
+        "dissident",
+        "heretic",
+        "insurgent",
+        "mutineer",
+        "traitor"
+      ],
+      "strong": [
+        "apostate",
+        "backslider",
+        "betrayer",
+        "double-crosser",
+        "escapee",
+        "exile",
+        "fugitive",
+        "iconoclast",
+        "outlaw",
+        "rebel",
+        "recreant",
+        "refugee",
+        "snake",
+        "tergiversator",
+        "turnabout",
+        "turncoat"
+      ],
+      "weak": ["forsaker", "schismatic", "snake in the grass"]
+    }
+  },
+  "abandoning": {
+    "type": "noun",
+    "examples": ["cancellation"],
+    "synonyms": {
+      "strongest": [
+        "abandonment",
+        "abolition",
+        "annulment",
+        "dissolution",
+        "elimination",
+        "repeal",
+        "retirement",
+        "reversal",
+        "revocation"
+      ],
+      "strong": [
+        "abrogation",
+        "deletion",
+        "dissolving",
+        "invalidation",
+        "nullification",
+        "recall",
+        "repudiation",
+        "retraction",
+        "undoing"
+      ],
+      "weak": [
+        "abolishing",
+        "canceling",
+        "invalidating",
+        "overruling",
+        "quashing",
+        "recalling",
+        "retracting",
+        "reversing",
+        "revoking",
+        "withdrawing"
+      ]
+    }
+  },
+  "abandonment": {
+    "type": "noun",
+    "examples": ["abandon"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "carelessness",
+        "lightheartedness",
+        "recklessness",
+        "unrestraint",
+        "wantonness",
+        "wildness"
+      ],
+      "weak": []
+    }
+  },
+  "abase": {
+    "type": "verb",
+    "examples": ["deprive of self-esteem", "confidence"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "belittle",
+        "debase",
+        "degrade",
+        "demean",
+        "diminish",
+        "disgrace",
+        "dishonor",
+        "humble",
+        "humiliate",
+        "lower",
+        "mortify",
+        "reduce",
+        "shame"
+      ],
+      "weak": []
+    }
+  },
+  "abased": {
+    "type": "adjective",
+    "examples": ["praetorian"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "degenerate",
+        "evil",
+        "low",
+        "mercenary",
+        "miscreant",
+        "profligate"
+      ],
+      "weak": [
+        "abandoned",
+        "baneful",
+        "boorish",
+        "degraded",
+        "deleterious",
+        "depraved",
+        "dishonored",
+        "dissolute",
+        "flagitious",
+        "infamous",
+        "loose",
+        "monstrous",
+        "nefarious",
+        "perverse",
+        "rotten",
+        "venal",
+        "villainous"
+      ]
+    }
+  },
+  "abasement": {
+    "type": "noun",
+    "examples": ["disgrace"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "degradation",
+        "dishonor",
+        "downgrade",
+        "humiliation",
+        "shame"
+      ],
+      "weak": []
+    }
+  },
+  "abashed": {
+    "type": "adjective",
+    "examples": ["exhibiting mental discomfort", "ill at ease"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bewildered",
+        "bugged",
+        "chagrined",
+        "confounded",
+        "confused",
+        "crushed",
+        "discombobulated",
+        "disconcerted",
+        "embarrassed",
+        "fazed",
+        "fuddled",
+        "humbled",
+        "humiliated",
+        "mortified",
+        "rattled",
+        "shamed"
+      ],
+      "weak": ["ashamed", "in a tizzy", "taken aback"]
+    }
+  },
+  "abashment": {
+    "type": "noun",
+    "examples": ["embarrassment"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "chagrin",
+        "confusion",
+        "discomfiture",
+        "discomposure",
+        "distress",
+        "mortification",
+        "shame"
+      ],
+      "weak": []
+    }
+  },
+  "abate": {
+    "type": "verb",
+    "examples": ["decrease or be decreased in intensity or amount"],
+    "synonyms": {
+      "strongest": [
+        "decrease",
+        "diminish",
+        "dwindle",
+        "ebb",
+        "recede",
+        "slacken",
+        "subside",
+        "taper",
+        "taper off",
+        "wane"
+      ],
+      "strong": [
+        "allay",
+        "cool",
+        "decline",
+        "dull",
+        "moderate",
+        "quell",
+        "reduce",
+        "remediate",
+        "slow",
+        "subdue"
+      ],
+      "weak": ["let up"]
+    }
+  },
+  "abated": {
+    "type": "adjective",
+    "examples": ["relieved"],
+    "synonyms": {
+      "strongest": ["diminished"],
+      "strong": [
+        "allayed",
+        "alleviated",
+        "anesthetized",
+        "assuaged",
+        "eased",
+        "lightened",
+        "mitigated",
+        "palliated",
+        "salved",
+        "softened",
+        "soothed"
+      ],
+      "weak": []
+    }
+  },
+  "abatement": {
+    "type": "noun",
+    "examples": ["lessening"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["decline", "decrease", "discount", "reduction"],
+      "weak": []
+    }
+  },
+  "abating": {
+    "type": "adjective",
+    "examples": ["waning"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["ebbing", "lessening"],
+      "weak": ["declinatory", "decrescent"]
+    }
+  },
+  "abattoir": {
+    "type": "noun",
+    "examples": ["slaughterhouse"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["butchery", "shambles", "stockyard"],
+      "weak": []
+    }
+  },
+  "abba": {
+    "type": "noun",
+    "examples": ["bishop"],
+    "synonyms": {
+      "strongest": [
+        "administrator",
+        "cleric",
+        "director",
+        "patriarch",
+        "pontiff",
+        "pope",
+        "prelate",
+        "priest"
+      ],
+      "strong": [
+        "angel",
+        "archer",
+        "berretta",
+        "cap",
+        "coadjutor",
+        "diocesan",
+        "metropolitan",
+        "miter",
+        "mitre",
+        "overseer",
+        "primate",
+        "suffragan"
+      ],
+      "weak": []
+    }
+  },
+  "abbe": {
+    "type": "noun",
+    "examples": ["father"],
+    "synonyms": {
+      "strongest": ["minister"],
+      "strong": [
+        "clergyman",
+        "confessor",
+        "ecclesiastic",
+        "padre",
+        "parson",
+        "pastor",
+        "preacher",
+        "reverend"
+      ],
+      "weak": ["cure", "curé"]
+    }
+  },
+  "abbess": {
+    "type": "noun",
+    "examples": ["prelate"],
+    "synonyms": {
+      "strongest": ["bishop"],
+      "strong": [
+        "abbot",
+        "archbishop",
+        "cardinal",
+        "dignitary",
+        "ecclesiastic",
+        "hierarch"
+      ],
+      "weak": []
+    }
+  },
+  "abbey": {
+    "type": "noun",
+    "examples": ["building that houses monks", "nuns", "or priests", "church"],
+    "synonyms": {
+      "strongest": ["nunnery"],
+      "strong": [
+        "cloister",
+        "convent",
+        "friary",
+        "ministry",
+        "monastery",
+        "priory",
+        "temple"
+      ],
+      "weak": []
+    }
+  },
+  "abbot": {
+    "type": "noun",
+    "examples": ["prior"],
+    "synonyms": {
+      "strongest": ["monk"],
+      "strong": ["friar", "rector"],
+      "weak": ["abbot-general", "archabbot"]
+    }
+  },
+  "abbreviate": {
+    "type": "verb",
+    "examples": ["cut short an activity"],
+    "synonyms": {
+      "strongest": ["abort", "truncate"],
+      "strong": ["curtail", "restrict"],
+      "weak": ["stop short"]
+    }
+  },
+  "abbreviated": {
+    "type": "adjective",
+    "examples": ["thumbnail"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["brief", "compact", "short", "summary"],
+      "weak": [
+        "abridged",
+        "concise",
+        "contracted",
+        "curtailed",
+        "epigrammatic",
+        "short and sweet",
+        "succinct",
+        "to the point",
+        "truncated"
+      ]
+    }
+  },
+  "abbreviating": {
+    "type": "noun",
+    "examples": ["reducing"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "compressing",
+        "condensing",
+        "contracting",
+        "contraction",
+        "decreasing",
+        "dieting",
+        "diminishing",
+        "discounting",
+        "downsizing",
+        "lessening",
+        "reduction",
+        "shortening",
+        "shrinking"
+      ],
+      "weak": ["cutting down", "marking down", "paring down"]
+    }
+  },
+  "abbreviations": {
+    "type": "noun",
+    "examples": ["something shortened"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "abridgement",
+        "abstract",
+        "abstraction",
+        "clipping",
+        "compendium",
+        "compression",
+        "condensation",
+        "contraction",
+        "digest",
+        "outline",
+        "precis",
+        "précis",
+        "reduction",
+        "sketch",
+        "summary",
+        "syllabus",
+        "synopsis"
+      ],
+      "weak": []
+    }
+  },
+  "abdicate": {
+    "type": "verb",
+    "examples": ["give up a right", "position", "or power"],
+    "synonyms": {
+      "strongest": ["forgo", "relinquish", "renounce", "step down", "vacate"],
+      "strong": [
+        "abandon",
+        "abjure",
+        "abnegate",
+        "cede",
+        "drop",
+        "leave",
+        "quit",
+        "resign",
+        "retire",
+        "surrender",
+        "waive",
+        "withdraw",
+        "yield"
+      ],
+      "weak": [
+        "bag it",
+        "bail out",
+        "demit",
+        "give up",
+        "leave high and dry",
+        "leave holding the bag",
+        "leave in the lurch",
+        "opt out",
+        "quitclaim",
+        "sell out"
+      ]
+    }
+  },
+  "abdication": {
+    "type": "noun",
+    "examples": ["relinquishment"],
+    "synonyms": {
+      "strongest": ["abandonment"],
+      "strong": [
+        "disavowal",
+        "disclaimer",
+        "quitclaim",
+        "renunciation",
+        "resignation",
+        "retirement",
+        "surrender"
+      ],
+      "weak": ["demission", "stepping down"]
+    }
+  },
+  "abdomen": {
+    "type": "noun",
+    "examples": ["the stomach and area directly below in an animate being"],
+    "synonyms": {
+      "strongest": ["belly", "gut", "midriff", "midsection", "tummy"],
+      "strong": [
+        "bowels",
+        "breadbasket",
+        "corporation",
+        "guts",
+        "intestines",
+        "middle",
+        "paunch",
+        "pot",
+        "potbelly",
+        "venter",
+        "viscera"
+      ],
+      "weak": ["bay window", "spare tire"]
+    }
+  },
+  "abdoment": {
+    "type": "noun",
+    "examples": ["waist"],
+    "synonyms": {
+      "strongest": ["midriff", "waistline"],
+      "strong": ["gut", "middle", "midsection"],
+      "weak": []
+    }
+  },
+  "abdominal": {
+    "type": "adjective",
+    "examples": ["concerning the stomach and the area below it"],
+    "synonyms": {
+      "strongest": ["intestinal", "visceral"],
+      "strong": ["belly"],
+      "weak": ["duodenal", "gastric", "stomachic", "ventral"]
+    }
+  },
+  "abdominals": {
+    "type": "noun",
+    "examples": ["abdominal muscle"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "celiac muscle",
+        "peritoneum",
+        "stomach muscle",
+        "stomachal muscle",
+        "stomachic muscle",
+        "tummy muscle",
+        "viscera"
+      ]
+    }
+  },
+  "abduct": {
+    "type": "verb",
+    "examples": ["take by force and without permission"],
+    "synonyms": {
+      "strongest": ["kidnap", "seize", "snatch"],
+      "strong": ["grab", "remove", "shanghai", "sneeze"],
+      "weak": [
+        "carry off",
+        "dognap",
+        "make off with",
+        "put the snatch on",
+        "spirit away"
+      ]
+    }
+  },
+  "abducted": {
+    "type": "adjective",
+    "examples": ["taken away by force"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["appropriated", "kidnapped", "seized", "snatched", "stolen"],
+      "weak": []
+    }
+  },
+  "abduction": {
+    "type": "noun",
+    "examples": ["taking away by force"],
+    "synonyms": {
+      "strongest": ["kidnapping", "rape", "seizure", "theft"],
+      "strong": ["appropriation"],
+      "weak": []
+    }
+  },
+  "abecedarian": {
+    "type": "noun",
+    "examples": ["beginner"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "amateur",
+        "dabbler",
+        "fledgling",
+        "learner",
+        "neophyte",
+        "novice",
+        "tenderfoot"
+      ],
+      "weak": []
+    }
+  },
+  "abecedary": {
+    "type": "noun",
+    "examples": ["teacher"],
+    "synonyms": {
+      "strongest": [
+        "assistant",
+        "coach",
+        "educator",
+        "faculty member",
+        "instructor",
+        "lecturer",
+        "professor",
+        "scholar",
+        "schoolteacher",
+        "supervisor",
+        "tutor"
+      ],
+      "strong": [
+        "adviser",
+        "disciplinarian",
+        "guide",
+        "mentor",
+        "pedagogue",
+        "preceptor",
+        "pundit",
+        "teach",
+        "trainer"
+      ],
+      "weak": []
+    }
+  },
+  "abed": {
+    "type": "adjective",
+    "examples": ["sleeping"],
+    "synonyms": {
+      "strongest": ["comatose", "unconscious"],
+      "strong": ["slumbering"],
+      "weak": ["dormant", "inactive", "latent"]
+    }
+  },
+  "abend": {
+    "type": "noun",
+    "examples": ["abnormal end of task"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["abort", "crash", "loss"]
+    }
+  },
+  "aberrance": {
+    "type": "noun",
+    "examples": ["abnormality"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "aberrancy",
+        "aberration",
+        "anomaly",
+        "deviation",
+        "divergence",
+        "irregularity",
+        "unnaturalness"
+      ],
+      "weak": ["preternaturalness"]
+    }
+  },
+  "aberrancy": {
+    "type": "noun",
+    "examples": ["abnormality"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "aberrance",
+        "aberration",
+        "anomaly",
+        "deviation",
+        "divergence",
+        "irregularity",
+        "unnaturalness"
+      ],
+      "weak": ["preternaturalness"]
+    }
+  },
+  "aberrant": {
+    "type": "adjective",
+    "examples": ["not normal", "varying from the usual"],
+    "synonyms": {
+      "strongest": ["abnormal"],
+      "strong": ["deviant", "psycho", "weird"],
+      "weak": [
+        "atypical",
+        "bizarre",
+        "different",
+        "flaky",
+        "mental",
+        "nonstandard",
+        "odd",
+        "off-base",
+        "off-color",
+        "out of line",
+        "peculiar",
+        "strange",
+        "unusual"
+      ]
+    }
+  },
+  "aberrational": {
+    "type": "adjective",
+    "examples": ["straying"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["aberrant", "aberrative", "errant"]
+    }
+  },
+  "aberrative": {
+    "type": "adjective",
+    "examples": ["straying"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["aberrant", "aberrational", "errant"]
+    }
+  },
+  "abetment": {
+    "type": "noun",
+    "examples": ["help"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "aid",
+        "assist",
+        "assistance",
+        "encouragement",
+        "endorsement",
+        "hand",
+        "relief",
+        "succor",
+        "support"
+      ],
+      "weak": []
+    }
+  },
+  "abetted": {
+    "type": "adjective",
+    "examples": ["helped"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "accompanied",
+        "advised",
+        "assisted",
+        "backed",
+        "befriended",
+        "bolstered",
+        "encouraged",
+        "maintained",
+        "nursed",
+        "relieved",
+        "subsidized",
+        "supported",
+        "sustained"
+      ],
+      "weak": ["taken care of"]
+    }
+  },
+  "abetting": {
+    "type": "adjective",
+    "examples": ["supportive"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "accessory",
+        "adjuvant",
+        "ancillary",
+        "appurtenant",
+        "assistant",
+        "backup",
+        "collateral",
+        "complementary",
+        "contributory",
+        "extra",
+        "reserve",
+        "secondary",
+        "spare",
+        "subordinate",
+        "subservient",
+        "subsidiary",
+        "supporting"
+      ]
+    }
+  },
+  "abettor": {
+    "type": "noun",
+    "examples": ["assistant"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "accessory",
+        "accomplice",
+        "confederate",
+        "cooperator",
+        "helper",
+        "second",
+        "supporter"
+      ],
+      "weak": ["co-conspirator", "partner in crime"]
+    }
+  },
+  "abeyance": {
+    "type": "noun",
+    "examples": ["being inactive or suspended"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "discontinuation",
+        "dormancy",
+        "inactivity",
+        "intermission",
+        "latency",
+        "postponement",
+        "quiescence",
+        "recess",
+        "remission",
+        "suspension",
+        "waiting"
+      ],
+      "weak": ["temporarily deferred"]
+    }
+  },
+  "abeyancy": {
+    "type": "noun",
+    "examples": ["abeyance"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "deferral",
+        "dormancy",
+        "intermission",
+        "latency",
+        "postponement",
+        "quiescence",
+        "suspension"
+      ]
+    }
+  },
+  "abeyant": {
+    "type": "adjective",
+    "examples": ["latent"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "dormant",
+        "inactive",
+        "inoperative",
+        "quiescent",
+        "sleeping",
+        "suspended"
+      ]
+    }
+  },
+  "abhor": {
+    "type": "verb",
+    "examples": ["regard with contempt or disgust"],
+    "synonyms": {
+      "strongest": ["despise", "detest", "hate", "loathe", "scorn"],
+      "strong": ["abominate"],
+      "weak": [
+        "be allergic to",
+        "be down on",
+        "be grossed out by",
+        "have no use for"
+      ]
+    }
+  },
+  "abhorred": {
+    "type": "adjective",
+    "examples": ["unpopular"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "avoided",
+        "creepy",
+        "despised",
+        "detested",
+        "disesteemed",
+        "disfavored",
+        "disliked",
+        "drip",
+        "dumpy",
+        "execrated",
+        "gross",
+        "loathed",
+        "loser",
+        "lousy",
+        "obnoxious",
+        "ostracized",
+        "out",
+        "out of favor",
+        "rejected",
+        "scorned",
+        "shunned",
+        "unaccepted",
+        "unattractive",
+        "uncared-for",
+        "undesirable",
+        "unloved",
+        "unvalued",
+        "unwanted",
+        "unwelcome",
+        "weird",
+        "wimpy"
+      ]
+    }
+  },
+  "abhorrence": {
+    "type": "noun",
+    "examples": ["disgust"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "detestation",
+        "disgust",
+        "enmity",
+        "hate",
+        "hatred",
+        "horror",
+        "loathing",
+        "malice",
+        "odium",
+        "repugnance",
+        "revulsion"
+      ],
+      "weak": []
+    }
+  },
+  "abhorrent": {
+    "type": "adjective",
+    "examples": ["disgusting"],
+    "synonyms": {
+      "strongest": ["despicable", "loathsome", "repulsive"],
+      "strong": [],
+      "weak": ["detestable", "execrable", "offensive", "revolting"]
+    }
+  },
+  "abhorring": {
+    "type": "verb",
+    "examples": ["regard with contempt or disgust"],
+    "synonyms": {
+      "strongest": ["despise", "detest", "hate", "loathe", "scorn"],
+      "strong": ["abominate"],
+      "weak": [
+        "be allergic to",
+        "be down on",
+        "be grossed out by",
+        "have no use for"
+      ]
+    }
+  },
+  "abide": {
+    "type": "verb",
+    "examples": ["stop temporarily and wait for"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "anticipate",
+        "bide",
+        "expect",
+        "linger",
+        "pause",
+        "remain",
+        "rest",
+        "sojourn",
+        "stay",
+        "stop",
+        "tarry",
+        "wait"
+      ],
+      "weak": ["stick around"]
+    }
+  },
+  "abider": {
+    "type": "noun",
+    "examples": ["supporter"],
+    "synonyms": {
+      "strongest": [
+        "ally",
+        "defender",
+        "follower",
+        "patron",
+        "proponent",
+        "support"
+      ],
+      "strong": [
+        "abettor",
+        "adherent",
+        "bearer",
+        "booster",
+        "brace",
+        "exponent",
+        "paraclete",
+        "pillar",
+        "seconder",
+        "suspender",
+        "sustainer",
+        "upholder"
+      ],
+      "weak": []
+    }
+  },
+  "abiding": {
+    "type": "adjective",
+    "examples": ["continuing or existing for an indefinite time"],
+    "synonyms": {
+      "strongest": [
+        "continuing",
+        "enduring",
+        "eternal",
+        "everlasting",
+        "lasting",
+        "persistent",
+        "steadfast"
+      ],
+      "strong": ["fast", "persisting", "steady"],
+      "weak": ["constant", "indissoluble", "permanent", "perpetual"]
+    }
+  },
+  "abidingness": {
+    "type": "noun",
+    "examples": ["constancy"],
+    "synonyms": {
+      "strongest": [
+        "dependability",
+        "perseverance",
+        "steadfastness",
+        "steadiness",
+        "trustworthiness",
+        "truthfulness"
+      ],
+      "strong": [
+        "adherence",
+        "allegiance",
+        "ardor",
+        "attachment",
+        "certainty",
+        "decision",
+        "determination",
+        "devotedness",
+        "devotion",
+        "doggedness",
+        "eagerness",
+        "earnestness",
+        "endurance",
+        "faith",
+        "fealty",
+        "fidelity",
+        "firmness",
+        "follow through",
+        "honesty",
+        "honor",
+        "integrity",
+        "love",
+        "loyalty",
+        "permanence",
+        "principle",
+        "regularity",
+        "resolution",
+        "stability",
+        "staunchness",
+        "surety",
+        "tenacity",
+        "trustiness",
+        "unchangeableness",
+        "uniformity",
+        "zeal"
+      ],
+      "weak": ["unfailingness"]
+    }
+  },
+  "abigail": {
+    "type": "noun",
+    "examples": ["lady's maid"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "companion",
+        "confidante",
+        "domestic",
+        "lady-in-waiting",
+        "lady's attendant",
+        "waiting woman"
+      ]
+    }
+  },
+  "abilities": {
+    "type": "noun",
+    "examples": ["right stuff"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "bravery",
+        "courage",
+        "credentials",
+        "dependability",
+        "drive",
+        "essential qualities",
+        "experience",
+        "guts",
+        "knowledge",
+        "power",
+        "qualifications",
+        "self-confidence",
+        "skills",
+        "talent",
+        "the goods",
+        "the makings",
+        "the stuff",
+        "what it takes"
+      ]
+    }
+  },
+  "ability": {
+    "type": "noun",
+    "examples": ["natural or acquired power in a"],
+    "synonyms": {
+      "strongest": [
+        "capability",
+        "expertise",
+        "ingenuity",
+        "proficiency",
+        "skill",
+        "strength",
+        "talent"
+      ],
+      "strong": [
+        "adroitness",
+        "bent",
+        "cleverness",
+        "command",
+        "craft",
+        "deftness",
+        "expertness",
+        "finesse",
+        "flair",
+        "genius",
+        "gift",
+        "handiness",
+        "knack",
+        "know-how",
+        "mastery",
+        "savvy",
+        "skillfulness"
+      ],
+      "weak": [
+        "mind for",
+        "particular activity adeptness",
+        "the goods",
+        "the right stuff",
+        "what it takes"
+      ]
+    }
+  },
+  "abiogenetic": {
+    "type": "adjective",
+    "examples": ["genetic"],
+    "synonyms": {
+      "strongest": ["ancestral", "hereditary", "historical"],
+      "strong": [],
+      "weak": [
+        "digenetic",
+        "eugenic",
+        "genesiological",
+        "genital",
+        "matriclinous",
+        "patrimonial",
+        "phytogenetic",
+        "sporogenous",
+        "xenogenetic"
+      ]
+    }
+  },
+  "abiogenic": {
+    "type": "adjective",
+    "examples": ["inorganic"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "dead",
+        "extinct",
+        "inanimate",
+        "lifeless",
+        "manmade",
+        "mineral",
+        "not living",
+        "not natural"
+      ]
+    }
+  },
+  "abject": {
+    "type": "adjective",
+    "examples": ["hopeless and downtrodden"],
+    "synonyms": {
+      "strongest": ["wretched"],
+      "strong": [],
+      "weak": [
+        "base",
+        "contemptible",
+        "degraded",
+        "dejected",
+        "deplorable",
+        "dishonorable",
+        "fawning",
+        "forlorn",
+        "groveling",
+        "hangdog",
+        "humiliated",
+        "low",
+        "miserable",
+        "outcast",
+        "pitiable",
+        "servile",
+        "submissive",
+        "worthless"
+      ]
+    }
+  },
+  "abjection": {
+    "type": "noun",
+    "examples": ["wretchedness"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "affliction",
+        "agony",
+        "anguish",
+        "depression",
+        "desolation",
+        "despair",
+        "despondency",
+        "discomfort",
+        "discontent",
+        "distress",
+        "grief",
+        "melancholia",
+        "pain",
+        "sadness",
+        "suffering",
+        "torment",
+        "unhappiness",
+        "woe"
+      ],
+      "weak": []
+    }
+  },
+  "abjectly": {
+    "type": "adverb",
+    "examples": ["obsequiously"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["subserviently"],
+      "weak": [
+        "dutifully",
+        "fawningly",
+        "grovelingly",
+        "ingratiatingly",
+        "obediently",
+        "slavishly",
+        "sycophantically"
+      ]
+    }
+  },
+  "abjectness": {
+    "type": "noun",
+    "examples": ["depression"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "abasement",
+        "abjection",
+        "blahs",
+        "bleakness",
+        "bummer",
+        "cheerlessness",
+        "dejection",
+        "desolation",
+        "desperation",
+        "despondency",
+        "discouragement",
+        "dispiritedness",
+        "distress",
+        "dole",
+        "dolefulness",
+        "dolor",
+        "downheartedness",
+        "dreariness",
+        "dullness",
+        "dumps",
+        "ennui",
+        "gloom",
+        "gloominess",
+        "heavyheartedness",
+        "hopelessness",
+        "lowness",
+        "melancholia",
+        "melancholy",
+        "misery",
+        "mortification",
+        "qualm",
+        "sadness",
+        "sorrow",
+        "trouble",
+        "unhappiness",
+        "vapors",
+        "woefulness",
+        "worry"
+      ],
+      "weak": [
+        "blue funk",
+        "disconsolation",
+        "heaviness of heart",
+        "lugubriosity",
+        "the blues"
+      ]
+    }
+  },
+  "abjuration": {
+    "type": "noun",
+    "examples": ["retraction"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["backdown", "recantation", "renunciation", "withdrawal"],
+      "weak": ["palinode"]
+    }
+  },
+  "abjure": {
+    "type": "verb",
+    "examples": ["give up"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "forswear",
+        "recant",
+        "renege",
+        "renounce",
+        "retract",
+        "withdraw"
+      ],
+      "weak": ["abstain from", "take back"]
+    }
+  },
+  "ablate": {
+    "type": "verb",
+    "examples": ["wear away"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["erode", "evaporate", "melt", "vaporize"],
+      "weak": []
+    }
+  },
+  "ablation": {
+    "type": "noun",
+    "examples": ["wear and tear"],
+    "synonyms": {
+      "strongest": ["depletion", "depreciation", "erosion"],
+      "strong": [],
+      "weak": [
+        "attrition",
+        "consumption",
+        "decrement",
+        "dissipation",
+        "hard wear",
+        "overuse",
+        "ravages of time",
+        "wearing away",
+        "weathering"
+      ]
+    }
+  },
+  "ablaze": {
+    "type": "adjective",
+    "examples": ["brightly illuminated"],
+    "synonyms": {
+      "strongest": ["aflame", "aglow"],
+      "strong": [],
+      "weak": [
+        "brilliant",
+        "flashing",
+        "gleaming",
+        "glowing",
+        "incandescent",
+        "luminous",
+        "radiant",
+        "refulgent",
+        "sparkling"
+      ]
+    }
+  },
+  "able": {
+    "type": "adjective",
+    "examples": ["able to perform well", "having a proven capacity"],
+    "synonyms": {
+      "strongest": [
+        "adept",
+        "apt",
+        "capable",
+        "competent",
+        "proficient",
+        "skilled"
+      ],
+      "strong": [
+        "accomplished",
+        "adroit",
+        "effective",
+        "experienced",
+        "practiced",
+        "qualified",
+        "skillful",
+        "talented"
+      ],
+      "weak": [
+        "clever",
+        "facile",
+        "know one's onions",
+        "know the ropes",
+        "masterful",
+        "masterly",
+        "savvy",
+        "smart",
+        "trained",
+        "up to snuff"
+      ]
+    }
+  },
+  "ablegate": {
+    "type": "noun",
+    "examples": ["pope"],
+    "synonyms": {
+      "strongest": ["pontiff"],
+      "strong": [
+        "legate",
+        "nuncio",
+        "otho",
+        "papacy",
+        "pontifical",
+        "popery",
+        "see",
+        "vatican",
+        "vicegerent"
+      ],
+      "weak": [
+        "bishop of rome",
+        "paparchy",
+        "pontifex maximus",
+        "popedom",
+        "popish"
+      ]
+    }
+  },
+  "ableness": {
+    "type": "noun",
+    "examples": ["strong point"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "ability",
+        "aptitude",
+        "competence",
+        "eminency",
+        "faculty",
+        "gift",
+        "long suit",
+        "medium",
+        "metier",
+        "métier",
+        "oyster",
+        "speciality",
+        "specialty",
+        "strength",
+        "strong suit",
+        "talent",
+        "thing"
+      ]
+    }
+  },
+  "ablest": {
+    "type": "adjective",
+    "examples": ["able to perform well", "having a proven capacity"],
+    "synonyms": {
+      "strongest": [
+        "capable",
+        "effective",
+        "efficient",
+        "intelligent",
+        "keen",
+        "prepared",
+        "responsible",
+        "skilled",
+        "smart"
+      ],
+      "strong": [],
+      "weak": [
+        "accomplished",
+        "adroit",
+        "agile",
+        "artful",
+        "au fait",
+        "brilliant",
+        "clever",
+        "deft",
+        "dexterous",
+        "effectual",
+        "equal to",
+        "experienced",
+        "expert",
+        "facile",
+        "gifted",
+        "ingenious",
+        "know backwards and forwards",
+        "know one's onions",
+        "know the ropes",
+        "learned",
+        "masterful",
+        "masterly",
+        "powerful",
+        "practiced",
+        "proficient",
+        "qualified",
+        "savvy",
+        "sharp",
+        "skillful",
+        "talented",
+        "there",
+        "trained",
+        "up to it",
+        "up to snuff",
+        "up to speed",
+        "with it"
+      ]
+    }
+  },
+  "abloom": {
+    "type": "adjective",
+    "examples": ["flowering"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["flourishing"],
+      "weak": ["florescent", "in bloom", "inflorescent"]
+    }
+  },
+  "ablution": {
+    "type": "noun",
+    "examples": ["washing"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bath",
+        "cleansing",
+        "decontamination",
+        "lavation",
+        "purification",
+        "shower"
+      ],
+      "weak": ["showering"]
+    }
+  },
+  "ablutionary": {
+    "type": "adjective",
+    "examples": ["washing"],
+    "synonyms": { "strongest": [], "strong": [], "weak": [] }
+  },
+  "ablutions": {
+    "type": "noun",
+    "examples": ["toilet"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["attire", "dressing", "grooming", "makeup", "toilette"],
+      "weak": ["getting ready", "tidy-up", "wash-up"]
+    }
+  },
+  "ably": {
+    "type": "adverb",
+    "examples": ["capably"],
+    "synonyms": {
+      "strongest": ["adroitly", "competently"],
+      "strong": ["capably"],
+      "weak": []
+    }
+  },
+  "abnegation": {
+    "type": "noun",
+    "examples": ["denial", "renouncement of something"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "abandonment",
+        "abstinence",
+        "forbearance",
+        "refusal",
+        "rejection",
+        "relinquishment",
+        "renunciation",
+        "sacrifice",
+        "self-denial",
+        "surrender",
+        "temperance"
+      ],
+      "weak": ["eschewal", "giving up", "nixing", "stonewall"]
+    }
+  },
+  "abnormal": {
+    "type": "adjective",
+    "examples": ["different from standard or norm"],
+    "synonyms": {
+      "strongest": [
+        "aberrant",
+        "anomalous",
+        "atypical",
+        "bizarre",
+        "exceptional",
+        "extraordinary",
+        "irregular",
+        "odd",
+        "peculiar",
+        "strange",
+        "uncommon",
+        "unexpected",
+        "unnatural",
+        "unusual",
+        "weird"
+      ],
+      "strong": [],
+      "weak": [
+        "anomalistic",
+        "curious",
+        "deviant",
+        "deviate",
+        "deviating",
+        "divergent",
+        "eccentric",
+        "fantastic",
+        "funny",
+        "grody",
+        "gross",
+        "heteroclite",
+        "heterodox",
+        "heteromorphic",
+        "off-base",
+        "off-color",
+        "out of line",
+        "preternatural",
+        "screwy",
+        "spastic",
+        "unorthodox"
+      ]
+    }
+  },
+  "abnormalities": {
+    "type": "noun",
+    "examples": ["being different from standard or norm"],
+    "synonyms": {
+      "strongest": ["anomaly", "deformity", "flaw", "irregularity"],
+      "strong": [
+        "aberrancy",
+        "aberration",
+        "bizarreness",
+        "deviance",
+        "deviation",
+        "eccentricity",
+        "exception",
+        "extraordinariness",
+        "oddity",
+        "peculiarity",
+        "singularity",
+        "strangeness",
+        "uncommonness",
+        "unnaturalness",
+        "unusualness",
+        "weirdness"
+      ],
+      "weak": ["anomalism", "atypicalness", "deviancy", "preternaturalness"]
+    }
+  },
+  "abnormality": {
+    "type": "noun",
+    "examples": ["being different from standard or norm"],
+    "synonyms": {
+      "strongest": ["anomaly", "deformity", "flaw", "irregularity"],
+      "strong": [
+        "aberrancy",
+        "aberration",
+        "bizarreness",
+        "deviance",
+        "deviation",
+        "eccentricity",
+        "exception",
+        "extraordinariness",
+        "oddity",
+        "peculiarity",
+        "singularity",
+        "strangeness",
+        "uncommonness",
+        "unnaturalness",
+        "unusualness",
+        "weirdness"
+      ],
+      "weak": ["anomalism", "atypicalness", "deviancy", "preternaturalness"]
+    }
+  },
+  "abnormally": {
+    "type": "adverb",
+    "examples": ["unnaturally"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["peculiarly", "perversely", "strangely", "uncommonly"]
+    }
+  },
+  "aboard": {
+    "type": "adjective",
+    "examples": ["on or in a transportation object"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "boarded",
+        "consigned",
+        "embarked",
+        "en route",
+        "in transit",
+        "loaded",
+        "on",
+        "on board",
+        "traveling"
+      ]
+    }
+  },
+  "abolished": {
+    "type": "adjective",
+    "examples": ["ruined"],
+    "synonyms": {
+      "strongest": ["collapsed", "demolished", "ravaged", "smashed", "wrecked"],
+      "strong": [
+        "annihilated",
+        "crashed",
+        "crushed",
+        "decayed",
+        "desolated",
+        "exterminated",
+        "extinguished",
+        "extirpated",
+        "subverted",
+        "totaled"
+      ],
+      "weak": ["extinct", "torn down"]
+    }
+  },
+  "abolishing": {
+    "type": "noun",
+    "examples": ["ruination"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "abolition",
+        "annihilation",
+        "bane",
+        "carnage",
+        "crushing",
+        "devastation",
+        "dissolving",
+        "downfall",
+        "elimination",
+        "end",
+        "eradication",
+        "extermination",
+        "extinction",
+        "extinguishing",
+        "extirpation",
+        "havoc",
+        "invalidation",
+        "liquidation",
+        "loss",
+        "massacre",
+        "murder",
+        "overthrow",
+        "ravaging",
+        "ruin",
+        "sacking",
+        "shattering",
+        "slaughter",
+        "slaying",
+        "subjugation",
+        "subversion",
+        "undoing",
+        "wrack",
+        "wreck",
+        "wreckage",
+        "wrecking"
+      ],
+      "weak": [
+        "assassinating",
+        "disintegrating",
+        "disrupting",
+        "invalidating",
+        "subverting"
+      ]
+    }
+  },
+  "abolishment": {
+    "type": "noun",
+    "examples": ["abolition"],
+    "synonyms": {
+      "strongest": [
+        "abrogation",
+        "annulment",
+        "dissolution",
+        "elimination",
+        "nullification"
+      ],
+      "strong": [
+        "cancellation",
+        "ending",
+        "invalidation",
+        "vitiation",
+        "voidance"
+      ],
+      "weak": ["defeasance", "rescinding"]
+    }
+  },
+  "abolition": {
+    "type": "noun",
+    "examples": ["formal act of putting an end to", "annulling"],
+    "synonyms": {
+      "strongest": [
+        "abolishment",
+        "abrogation",
+        "annulment",
+        "cancellation",
+        "destruction",
+        "dissolution",
+        "elimination",
+        "eradication",
+        "nullification",
+        "overthrow",
+        "repeal",
+        "revocation",
+        "termination",
+        "withdrawal"
+      ],
+      "strong": [
+        "annihilation",
+        "end",
+        "ending",
+        "extirpation",
+        "invalidation",
+        "negation",
+        "obliteration",
+        "repudiation",
+        "rescission",
+        "subversion",
+        "suppression",
+        "voiding"
+      ],
+      "weak": [
+        "overturning",
+        "quashing",
+        "rescinding",
+        "rescindment",
+        "wiping out"
+      ]
+    }
+  },
+  "abolitionism": {
+    "type": "noun",
+    "examples": ["freedom"],
+    "synonyms": {
+      "strongest": [
+        "autonomy",
+        "citizenship",
+        "democracy",
+        "emancipation",
+        "exemption",
+        "immunity",
+        "liberation",
+        "privilege",
+        "release",
+        "relief",
+        "self-determination",
+        "self-government",
+        "sovereignty"
+      ],
+      "strong": [
+        "abolition",
+        "autarchy",
+        "deliverance",
+        "delivery",
+        "discharge",
+        "disengagement",
+        "enfranchisement",
+        "franchise",
+        "impunity",
+        "liberty",
+        "manumission",
+        "parole",
+        "prerogative",
+        "probation",
+        "rescue",
+        "salvage",
+        "salvation"
+      ],
+      "weak": [
+        "disimprisonment",
+        "extriction",
+        "home rule",
+        "representative government"
+      ]
+    }
+  },
+  "abolitionist": {
+    "type": "noun",
+    "examples": ["person wanting something ended"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["activist", "advocate", "opponent", "revolutionary"],
+      "weak": []
+    }
+  },
+  "abominable": {
+    "type": "adjective",
+    "examples": ["awful", "detestable"],
+    "synonyms": {
+      "strongest": [
+        "abhorrent",
+        "atrocious",
+        "awful",
+        "contemptible",
+        "despicable",
+        "disgusting",
+        "heinous",
+        "horrible",
+        "horrid",
+        "odious",
+        "reprehensible",
+        "repugnant",
+        "repulsive",
+        "revolting",
+        "terrible",
+        "vile",
+        "wretched"
+      ],
+      "strong": [],
+      "weak": [
+        "bad",
+        "base",
+        "beastly",
+        "cursed",
+        "foul",
+        "grim",
+        "grody",
+        "gross",
+        "hairy",
+        "hateful",
+        "hellish",
+        "loathsome",
+        "lousy",
+        "nauseating",
+        "obnoxious",
+        "offensive",
+        "repellent",
+        "rotten",
+        "sleazy",
+        "stinking"
+      ]
+    }
+  },
+  "abominably": {
+    "type": "adverb",
+    "examples": ["badly"],
+    "synonyms": {
+      "strongest": ["awkwardly", "clumsily", "poorly"],
+      "strong": [],
+      "weak": [
+        "blunderingly",
+        "carelessly",
+        "crudely",
+        "defectively",
+        "erroneously",
+        "faultily",
+        "feebly",
+        "haphazardly",
+        "imperfectly",
+        "incompetently",
+        "ineffectively",
+        "ineptly",
+        "maladroitly",
+        "negligently",
+        "shoddily",
+        "stupidly",
+        "unfavorably",
+        "unfortunately",
+        "unsatisfactorily",
+        "unskillfully",
+        "unsuccessfully",
+        "weakly",
+        "wrong",
+        "wrongly"
+      ]
+    }
+  },
+  "abominate": {
+    "type": "verb",
+    "examples": ["detest"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["abhor", "despise", "dislike", "hate", "loathe"],
+      "weak": []
+    }
+  },
+  "abomination": {
+    "type": "noun",
+    "examples": ["wrongdoing"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["crime", "offense", "wrong"],
+      "weak": []
+    }
+  },
+  "aboriginal": {
+    "type": "adjective",
+    "examples": ["original", "first in a place"],
+    "synonyms": {
+      "strongest": ["earliest", "original"],
+      "strong": ["ancient", "endemic", "first", "native", "primary"],
+      "weak": ["indigenous"]
+    }
+  },
+  "abort": {
+    "type": "verb",
+    "examples": ["terminate or fail to complete pregnancy"],
+    "synonyms": { "strongest": ["miscarry"], "strong": [], "weak": [] }
+  },
+  "aborticide": {
+    "type": "noun",
+    "examples": ["abortion"],
+    "synonyms": {
+      "strongest": ["miscarriage"],
+      "strong": ["feticide", "termination"],
+      "weak": []
+    }
+  },
+  "abortion": {
+    "type": "noun",
+    "examples": ["unsuccessful attempt"],
+    "synonyms": {
+      "strongest": ["failure"],
+      "strong": ["disappointment", "disaster", "fiasco"],
+      "weak": ["misadventure"]
+    }
+  },
+  "abortive": {
+    "type": "adjective",
+    "examples": ["failing to achieve a goal"],
+    "synonyms": {
+      "strongest": ["failed", "fruitless", "futile", "unsuccessful"],
+      "strong": [],
+      "weak": [
+        "failing",
+        "ineffective",
+        "ineffectual",
+        "miscarried",
+        "unavailing",
+        "unproductive",
+        "useless",
+        "vain",
+        "worthless"
+      ]
+    }
+  },
+  "abound": {
+    "type": "verb",
+    "examples": ["exist in abundance"],
+    "synonyms": {
+      "strongest": ["flourish", "proliferate", "thrive"],
+      "strong": [
+        "crowd",
+        "flow",
+        "infest",
+        "overflow",
+        "swarm",
+        "swell",
+        "teem"
+      ],
+      "weak": [
+        "be alive with",
+        "be all over the place",
+        "be knee deep in",
+        "be no end to",
+        "be plentiful",
+        "be thick with",
+        "be up to one's ears in",
+        "crawl with",
+        "have a full plate"
+      ]
+    }
+  },
+  "abounded": {
+    "type": "verb",
+    "examples": ["exist in abundance"],
+    "synonyms": {
+      "strongest": ["flourish", "proliferate", "thrive"],
+      "strong": [
+        "crowd",
+        "flow",
+        "infest",
+        "overflow",
+        "swarm",
+        "swell",
+        "teem"
+      ],
+      "weak": [
+        "be alive with",
+        "be all over the place",
+        "be knee deep in",
+        "be no end to",
+        "be plentiful",
+        "be thick with",
+        "be up to one's ears in",
+        "crawl with",
+        "have a full plate"
+      ]
+    }
+  },
+  "abounding": {
+    "type": "adjective",
+    "examples": ["plentiful"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["filled", "flush", "replete", "teeming"],
+      "weak": [
+        "abundant",
+        "bountiful",
+        "copious",
+        "plenteous",
+        "prodigal",
+        "profuse",
+        "prolific"
+      ]
+    }
+  },
+  "abounds": {
+    "type": "verb",
+    "examples": ["exist in abundance"],
+    "synonyms": {
+      "strongest": ["flourish", "proliferate", "thrive"],
+      "strong": [
+        "crowd",
+        "flow",
+        "infest",
+        "overflow",
+        "swarm",
+        "swell",
+        "teem"
+      ],
+      "weak": [
+        "be alive with",
+        "be all over the place",
+        "be knee deep in",
+        "be no end to",
+        "be plentiful",
+        "be thick with",
+        "be up to one's ears in",
+        "crawl with",
+        "have a full plate"
+      ]
+    }
+  },
+  "about": {
+    "type": "preposition",
+    "examples": ["on every side", "in every direction"],
+    "synonyms": {
+      "strongest": ["around", "through"],
+      "strong": [],
+      "weak": ["encircling", "round", "surrounding", "throughout"]
+    }
+  },
+  "Babbit": {
+    "type": "noun",
+    "examples": ["conformist"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bourgeois",
+        "emulator",
+        "follower",
+        "sheep",
+        "traditionalist"
+      ],
+      "weak": [
+        "brick in a wall",
+        "conventionalist",
+        "one of the herd",
+        "rubber stamp",
+        "yes-person"
+      ]
+    }
+  },
+  "babble": {
+    "type": "verb",
+    "examples": ["talk trivially", "often incessantly"],
+    "synonyms": {
+      "strongest": ["blubber", "burble", "mumble", "murmur", "mutter"],
+      "strong": [
+        "blab",
+        "blurt",
+        "cackle",
+        "chat",
+        "chatter",
+        "gibber",
+        "gossip",
+        "gush",
+        "jabber",
+        "patter",
+        "prate",
+        "prattle",
+        "rant",
+        "rave",
+        "squeal",
+        "tattle",
+        "yak"
+      ],
+      "weak": [
+        "go on",
+        "run off at the mouth",
+        "run on",
+        "spill the beans",
+        "talk foolishly",
+        "talk incoherently",
+        "talk nonsensically",
+        "yakety-yak"
+      ]
+    }
+  },
+  "babblemouth": {
+    "type": "noun",
+    "examples": ["blabbermouth"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "babbler",
+        "blabber",
+        "blowhard",
+        "chatterbox",
+        "chatterer",
+        "gasbag",
+        "gossiper",
+        "gossipmonger",
+        "jabberer",
+        "loudmouth",
+        "squealer",
+        "tattletale",
+        "windbag"
+      ],
+      "weak": [
+        "bag of wind",
+        "bigmouth",
+        "blabberer",
+        "gabber",
+        "motor-mouth",
+        "yapper"
+      ]
+    }
+  },
+  "babbler": {
+    "type": "noun",
+    "examples": ["tattler"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "blabbermouth",
+        "busybody",
+        "chatterbox",
+        "chatterer",
+        "flibbertigibbet",
+        "gossiper",
+        "gossipmonger",
+        "informer",
+        "meddler",
+        "newsmonger",
+        "parrot",
+        "prattler",
+        "rumormonger",
+        "scandalmonger",
+        "snoop",
+        "tabby",
+        "talebearer",
+        "taleteller",
+        "tattle",
+        "tattletale",
+        "telltale",
+        "whisperer"
+      ],
+      "weak": ["blab", "circulator", "scandalizer"]
+    }
+  },
+  "babbling": {
+    "type": "adjective",
+    "examples": ["murmuring"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["bubbling", "burbling", "gurgling", "rippling"],
+      "weak": []
+    }
+  },
+  "babe": {
+    "type": "noun",
+    "examples": ["(offensive) attractive woman"],
+    "synonyms": {
+      "strongest": [
+        "bathing beauty",
+        "beauty queen",
+        "cover girl",
+        "cutie",
+        "cutie-pie",
+        "doll",
+        "dollface",
+        "fox",
+        "glamor girl",
+        "good-looking woman",
+        "pin-up",
+        "tomato"
+      ],
+      "strong": [],
+      "weak": []
+    }
+  },
+  "babel": {
+    "type": "noun",
+    "examples": ["confusion"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bedlam",
+        "clang",
+        "din",
+        "discord",
+        "hubbub",
+        "hullabaloo",
+        "jargon",
+        "pandemonium",
+        "racket",
+        "tower",
+        "tumult",
+        "turmoil"
+      ],
+      "weak": []
+    }
+  },
+  "babied": {
+    "type": "verb",
+    "examples": ["treat like a child"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "cherish",
+        "coddle",
+        "cosset",
+        "cuddle",
+        "dandle",
+        "foster",
+        "humor",
+        "indulge",
+        "nurse",
+        "overindulge",
+        "pamper",
+        "pet",
+        "please",
+        "satisfy",
+        "serve",
+        "spoil"
+      ],
+      "weak": ["cater to", "dote on"]
+    }
+  },
+  "babies": {
+    "type": "noun",
+    "examples": ["young"],
+    "synonyms": {
+      "strongest": ["baby", "family"],
+      "strong": ["brood", "infants", "issue", "litter", "offspring", "progeny"],
+      "weak": ["little ones"]
+    }
+  },
+  "babler": {
+    "type": "noun",
+    "examples": ["talker"],
+    "synonyms": {
+      "strongest": ["debater", "orator"],
+      "strong": [
+        "babbler",
+        "chatterbox",
+        "chatterer",
+        "interlocutor",
+        "lecturer",
+        "magpie",
+        "speaker"
+      ],
+      "weak": []
+    }
+  },
+  "baboon": {
+    "type": "noun",
+    "examples": ["ape"],
+    "synonyms": {
+      "strongest": ["monkey"],
+      "strong": ["chacma", "mandrill"],
+      "weak": []
+    }
+  },
+  "baboosh": {
+    "type": "noun",
+    "examples": ["slipper"],
+    "synonyms": {
+      "strongest": ["mule", "sandal"],
+      "strong": ["clog", "pump", "scuff"],
+      "weak": ["babouche", "pantofle", "slipshoe"]
+    }
+  },
+  "babouche": {
+    "type": "noun",
+    "examples": ["slipper"],
+    "synonyms": {
+      "strongest": ["mule", "sandal"],
+      "strong": ["clog", "pump", "scuff"],
+      "weak": ["baboosh", "pantofle", "slipshoe"]
+    }
+  },
+  "babushka": {
+    "type": "noun",
+    "examples": ["kerchief"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bandanna",
+        "handkerchief",
+        "hankie",
+        "scarf",
+        "shawl",
+        "veil"
+      ],
+      "weak": ["headrail"]
+    }
+  },
+  "baby": {
+    "type": "verb",
+    "examples": ["treat like a child"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "cherish",
+        "coddle",
+        "cosset",
+        "cuddle",
+        "dandle",
+        "foster",
+        "humor",
+        "indulge",
+        "nurse",
+        "overindulge",
+        "pamper",
+        "pet",
+        "please",
+        "satisfy",
+        "serve",
+        "spoil"
+      ],
+      "weak": ["cater to", "dote on"]
+    }
+  },
+  "babyhood": {
+    "type": "noun",
+    "examples": ["period of infancy"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["childhood"],
+      "weak": ["diaper days", "infanthood"]
+    }
+  },
+  "babying": {
+    "type": "noun",
+    "examples": ["indulgence"],
+    "synonyms": {
+      "strongest": [
+        "extravagance",
+        "kindness",
+        "leniency",
+        "permissiveness",
+        "privilege"
+      ],
+      "strong": [
+        "allowance",
+        "appeasement",
+        "attention",
+        "courtesy",
+        "endurance",
+        "excess",
+        "favor",
+        "fondling",
+        "fondness",
+        "forbearance",
+        "fulfillment",
+        "goodwill",
+        "hedonism",
+        "immoderation",
+        "intemperance",
+        "intemperateness",
+        "lenience",
+        "pampering",
+        "partiality",
+        "patience",
+        "petting",
+        "pleasing",
+        "profligacy",
+        "satiation",
+        "satisfaction",
+        "service",
+        "spoiling",
+        "tolerance",
+        "toleration",
+        "understanding"
+      ],
+      "weak": [
+        "coddling",
+        "favoring",
+        "gratifying",
+        "kowtowing",
+        "placating",
+        "profligateness",
+        "toadying",
+        "treating"
+      ]
+    }
+  },
+  "babyish": {
+    "type": "adjective",
+    "examples": ["acting like an infant"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "baby",
+        "childish",
+        "foolish",
+        "immature",
+        "infantile",
+        "juvenile",
+        "kid stuff",
+        "puerile",
+        "silly",
+        "sissy",
+        "sissyish",
+        "spoiled"
+      ]
+    }
+  },
+  "babyishness": {
+    "type": "noun",
+    "examples": ["inexperience"],
+    "synonyms": {
+      "strongest": ["ignorance", "imperfection"],
+      "strong": [
+        "callowness",
+        "childishness",
+        "greenness",
+        "incompleteness",
+        "infantilism",
+        "puerility",
+        "rawness"
+      ],
+      "weak": ["childish behavior", "inexpertness"]
+    }
+  },
+  "babylike": {
+    "type": "adjective",
+    "examples": ["puerile"],
+    "synonyms": {
+      "strongest": ["callow", "infantile"],
+      "strong": [],
+      "weak": [
+        "babyish",
+        "foolish",
+        "green",
+        "immature",
+        "inane",
+        "inexperienced",
+        "irresponsible",
+        "jejune",
+        "juvenile",
+        "naive",
+        "petty",
+        "ridiculous",
+        "silly",
+        "trivial",
+        "unfledged",
+        "ungrown",
+        "weak",
+        "young"
+      ]
+    }
+  },
+  "babyminding": {
+    "type": "noun",
+    "examples": ["child care"],
+    "synonyms": {
+      "strongest": ["babysitting", "day care", "governance"],
+      "strong": [],
+      "weak": ["family service", "infant care"]
+    }
+  },
+  "babysat": {
+    "type": "verb",
+    "examples": ["care for a child"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["guard", "sit", "tend", "watch"],
+      "weak": ["take care"]
+    }
+  },
+  "babysitting": {
+    "type": "noun",
+    "examples": ["child care"],
+    "synonyms": {
+      "strongest": ["day care", "governance"],
+      "strong": [],
+      "weak": ["babyminding", "family service", "infant care"]
+    }
+  },
+  "baccalaureate": {
+    "type": "noun",
+    "examples": ["undergraduate degree"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["bachelor's degree", "first degree"]
+    }
+  },
+  "bacchanalia": {
+    "type": "noun",
+    "examples": ["spree"],
+    "synonyms": {
+      "strongest": ["binge", "celebration", "orgy", "rampage"],
+      "strong": [
+        "ball",
+        "bash",
+        "caper",
+        "carousal",
+        "carousing",
+        "fling",
+        "frolic",
+        "jag",
+        "jamboree",
+        "junket",
+        "lark",
+        "merry-go-round",
+        "party",
+        "revel",
+        "rip",
+        "splurge",
+        "tear"
+      ],
+      "weak": ["field day", "high jinks", "high time", "spending expedition"]
+    }
+  },
+  "bacchanalian": {
+    "type": "noun",
+    "examples": ["reveler"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["bacchant", "merrymaker", "ranter", "roisterer"],
+      "weak": ["roysterer"]
+    }
+  },
+  "bacchanals": {
+    "type": "noun",
+    "examples": ["carousal"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "banquet",
+        "bender",
+        "binge",
+        "carouse",
+        "drunk",
+        "feast",
+        "festival",
+        "frolic",
+        "jamboree",
+        "orgy",
+        "revel",
+        "romp",
+        "saturnalia",
+        "shindy",
+        "spree",
+        "wassail"
+      ],
+      "weak": []
+    }
+  },
+  "bacchant": {
+    "type": "noun",
+    "examples": ["reveler"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["merrymaker", "ranter", "roisterer"],
+      "weak": ["bacchanalian", "roysterer"]
+    }
+  },
+  "bachelor": {
+    "type": "noun",
+    "examples": ["unmarried man or woman"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["celibate", "single", "stag"],
+      "weak": ["available", "single person", "unattached"]
+    }
+  },
+  "bacilli": {
+    "type": "noun",
+    "examples": ["bacteria"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["germs", "microbes", "organisms", "pathogens"],
+      "weak": []
+    }
+  },
+  "bacillus": {
+    "type": "noun",
+    "examples": ["virus"],
+    "synonyms": {
+      "strongest": [
+        "ailment",
+        "disease",
+        "germ",
+        "illness",
+        "infection",
+        "microbe",
+        "microorganism",
+        "pathogen",
+        "sickness"
+      ],
+      "strong": [],
+      "weak": []
+    }
+  },
+  "back": {
+    "type": "verb",
+    "examples": ["put in reverse direction"],
+    "synonyms": {
+      "strongest": ["withdraw"],
+      "strong": [
+        "backtrack",
+        "recede",
+        "regress",
+        "repel",
+        "repulse",
+        "retire",
+        "retract",
+        "retreat",
+        "reverse"
+      ],
+      "weak": ["drive back", "fall back", "turn tail"]
+    }
+  },
+  "backbite": {
+    "type": "verb",
+    "examples": ["defame"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "abuse",
+        "badmouth",
+        "calumniate",
+        "denigrate",
+        "gossip",
+        "lie",
+        "malign",
+        "scandalize",
+        "slander",
+        "spite",
+        "traduce",
+        "vilify"
+      ],
+      "weak": ["backstab"]
+    }
+  },
+  "backbiter": {
+    "type": "noun",
+    "examples": ["shrew"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "battle-ax",
+        "bitch",
+        "carper",
+        "detractor",
+        "dragon",
+        "fire-eater",
+        "fishwife",
+        "fury",
+        "harpy",
+        "harridan",
+        "hellion",
+        "muckraker",
+        "nag",
+        "ogress",
+        "porcupine",
+        "scold",
+        "she-devil",
+        "spitfire",
+        "termagant",
+        "tigress",
+        "virago",
+        "vixen"
+      ],
+      "weak": ["calumniator", "hell cat", "reviler", "she-wolf", "vituperator"]
+    }
+  },
+  "backbiting": {
+    "type": "noun",
+    "examples": ["hateful talk"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["abuse", "gossip", "lie", "slander", "spite"],
+      "weak": [
+        "aspersion",
+        "backstabbing",
+        "belittlement",
+        "calumniation",
+        "calumny",
+        "cattiness",
+        "defamation",
+        "denigration",
+        "depreciation",
+        "detraction",
+        "disparagement",
+        "invective",
+        "malice",
+        "obloquy",
+        "scandal",
+        "spitefulness",
+        "tale",
+        "traducement",
+        "vilification",
+        "vituperation"
+      ]
+    }
+  },
+  "backbreaker": {
+    "type": "noun",
+    "examples": ["sweat"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "chore",
+        "drudgery",
+        "effort",
+        "grind",
+        "labor",
+        "moil",
+        "slavery",
+        "task",
+        "toil",
+        "travail",
+        "work"
+      ],
+      "weak": []
+    }
+  },
+  "backbreaking": {
+    "type": "adjective",
+    "examples": ["strenuous"],
+    "synonyms": {
+      "strongest": ["arduous", "exhausting", "grueling", "laborious"],
+      "strong": [],
+      "weak": ["hard", "punishing", "taxing", "toilsome", "wearisome"]
+    }
+  },
+  "backcap": {
+    "type": "noun",
+    "examples": ["answer"],
+    "synonyms": {
+      "strongest": [
+        "comment",
+        "explanation",
+        "feedback",
+        "interpretation",
+        "justification",
+        "key",
+        "observation",
+        "rebuttal",
+        "remark",
+        "report",
+        "resolution",
+        "response",
+        "result",
+        "return",
+        "sign",
+        "solution",
+        "statement"
+      ],
+      "strong": [
+        "acknowledgment",
+        "antiphon",
+        "close",
+        "comeback",
+        "cooler",
+        "counterclaim",
+        "crack",
+        "defense",
+        "disclosure",
+        "echo",
+        "elucidation",
+        "guff",
+        "lip",
+        "plea",
+        "refutation",
+        "rejoinder",
+        "repartee",
+        "retort",
+        "riposte",
+        "topper",
+        "vindication",
+        "wisecrack"
+      ],
+      "weak": [
+        "back talk",
+        "Band-Aid",
+        "parting shot",
+        "pay dirt",
+        "quick fix",
+        "rhetorical question",
+        "thank-you note",
+        "the ticket"
+      ]
+    }
+  },
+  "backchat": {
+    "type": "noun",
+    "examples": ["impertinence"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "assurance",
+        "audacity",
+        "brazenness",
+        "cheek",
+        "chutzpah",
+        "crust",
+        "disrespect",
+        "effrontery",
+        "forwardness",
+        "freshness",
+        "gall",
+        "guff",
+        "hardihood",
+        "impropriety",
+        "impudence",
+        "incivility",
+        "insolence",
+        "lip",
+        "nerve",
+        "pertness",
+        "presumption",
+        "rudeness",
+        "sass",
+        "wisecrack"
+      ],
+      "weak": [
+        "back talk",
+        "comeback",
+        "disrespectfulness",
+        "insolency",
+        "smart mouth",
+        "wise guy"
+      ]
+    }
+  },
+  "backcountry": {
+    "type": "noun",
+    "examples": ["rural area"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": ["boondocks", "boonies", "bush", "farm", "hinterlands", "sticks"]
+    }
+  },
+  "backdate": {
+    "type": "verb",
+    "examples": ["antedate"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "antecede",
+        "come first",
+        "go before",
+        "misdate",
+        "precede",
+        "predate"
+      ],
+      "weak": ["anachronize", "date back", "forerun"]
+    }
+  },
+  "backdoor": {
+    "type": "adjective",
+    "examples": ["secret"],
+    "synonyms": {
+      "strongest": [
+        "classified",
+        "covert",
+        "furtive",
+        "hush-hush",
+        "mysterious",
+        "obscure",
+        "private",
+        "secluded",
+        "undercover",
+        "underground",
+        "undisclosed",
+        "unknown",
+        "unpublished"
+      ],
+      "strong": [
+        "close",
+        "closet",
+        "dark",
+        "deep",
+        "mystic",
+        "occult",
+        "unseen"
+      ],
+      "weak": [
+        "abstruse",
+        "ambiguous",
+        "arcane",
+        "camouflaged",
+        "cloak-and-dagger",
+        "clouded",
+        "conspiratorial",
+        "covered",
+        "cryptic",
+        "disguised",
+        "enigmatical",
+        "esoteric",
+        "mystical",
+        "on the Q.T.",
+        "out-of-the-way",
+        "recondite",
+        "reticent",
+        "retired",
+        "shrouded",
+        "strange",
+        "under wraps",
+        "unenlightened",
+        "unfrequented",
+        "unintelligible",
+        "veiled"
+      ]
+    }
+  },
+  "backdown": {
+    "type": "noun",
+    "examples": ["abjuration"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["recantation", "renunciation", "withdrawal"],
+      "weak": ["palinode"]
+    }
+  },
+  "backdrop": {
+    "type": "noun",
+    "examples": ["setting for something"],
+    "synonyms": { "strongest": ["scenery"], "strong": ["scrim"], "weak": [] }
+  },
+  "backed": {
+    "type": "adjective",
+    "examples": ["supplied with a back"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["reinforced", "stiffened", "strengthened"],
+      "weak": ["built-up"]
+    }
+  },
+  "backer": {
+    "type": "noun",
+    "examples": ["supporter"],
+    "synonyms": {
+      "strongest": [
+        "advocate",
+        "ally",
+        "benefactor",
+        "endorser",
+        "follower",
+        "patron",
+        "promoter",
+        "sponsor"
+      ],
+      "strong": [
+        "angel",
+        "champion",
+        "money",
+        "protagonist",
+        "underwriter",
+        "well-wisher"
+      ],
+      "weak": ["grubstaker", "meal ticket", "staker"]
+    }
+  },
+  "backfire": {
+    "type": "verb",
+    "examples": ["have an opposite effect"],
+    "synonyms": {
+      "strongest": ["fail", "flop"],
+      "strong": [
+        "backlash",
+        "boomerang",
+        "disappoint",
+        "miscarry",
+        "rebound",
+        "recoil",
+        "ricochet"
+      ],
+      "weak": ["bounce back", "spring back"]
+    }
+  },
+  "backflow": {
+    "type": "noun",
+    "examples": ["heartburn"],
+    "synonyms": {
+      "strongest": ["indigestion"],
+      "strong": ["pyrosis"],
+      "weak": [
+        "acid reflux",
+        "cardialgia",
+        "gastroesophageal reflux",
+        "water-brash"
+      ]
+    }
+  },
+  "background": {
+    "type": "noun",
+    "examples": ["experience or circumstances"],
+    "synonyms": {
+      "strongest": [
+        "backdrop",
+        "culture",
+        "education",
+        "environment",
+        "history",
+        "practice",
+        "qualification",
+        "tradition",
+        "training",
+        "upbringing"
+      ],
+      "strong": [
+        "accomplishments",
+        "acquirement",
+        "actions",
+        "atmosphere",
+        "attainment",
+        "aura",
+        "breeding",
+        "capacity",
+        "credentials",
+        "cultivation",
+        "deeds",
+        "framework",
+        "grounding",
+        "preparation",
+        "rearing",
+        "seasoning"
+      ],
+      "weak": []
+    }
+  },
+  "backgrounds": {
+    "type": "noun",
+    "examples": ["experience or circumstances"],
+    "synonyms": {
+      "strongest": [
+        "backdrop",
+        "culture",
+        "education",
+        "environment",
+        "history",
+        "practice",
+        "qualification",
+        "tradition",
+        "training",
+        "upbringing"
+      ],
+      "strong": [
+        "accomplishments",
+        "acquirement",
+        "actions",
+        "atmosphere",
+        "attainment",
+        "aura",
+        "breeding",
+        "capacity",
+        "credentials",
+        "cultivation",
+        "deeds",
+        "framework",
+        "grounding",
+        "preparation",
+        "rearing",
+        "seasoning"
+      ],
+      "weak": []
+    }
+  },
+  "backhanded": {
+    "type": "adjective",
+    "examples": ["underhanded"],
+    "synonyms": {
+      "strongest": ["sarcastic"],
+      "strong": [],
+      "weak": [
+        "ambiguous",
+        "double-edged",
+        "equivocal",
+        "sardonic",
+        "two-edged"
+      ]
+    }
+  },
+  "backhoe": {
+    "type": "noun",
+    "examples": ["excavator"],
+    "synonyms": {
+      "strongest": ["bulldozer", "digger"],
+      "strong": [],
+      "weak": ["heavy machinery"]
+    }
+  },
+  "backing": {
+    "type": "noun",
+    "examples": ["support"],
+    "synonyms": {
+      "strongest": [
+        "advocacy",
+        "aid",
+        "assistance",
+        "encouragement",
+        "endorsement",
+        "help",
+        "sponsorship",
+        "subsidy"
+      ],
+      "strong": [
+        "abetment",
+        "accompaniment",
+        "adherence",
+        "aegis",
+        "auspices",
+        "championing",
+        "championship",
+        "funds",
+        "grant",
+        "patronage",
+        "reinforcement",
+        "sanction",
+        "secondment"
+      ],
+      "weak": []
+    }
+  },
+  "backland": {
+    "type": "adjective",
+    "examples": ["inland"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "back-country",
+        "boondocks",
+        "central",
+        "heartland",
+        "hinterland",
+        "inward",
+        "midland",
+        "provincial",
+        "upcountry"
+      ]
+    }
+  },
+  "backlash": {
+    "type": "noun",
+    "examples": ["adverse reaction"],
+    "synonyms": {
+      "strongest": [
+        "reaction",
+        "repercussion",
+        "resentment",
+        "resistance",
+        "response",
+        "retaliation"
+      ],
+      "strong": [
+        "backfire",
+        "boomerang",
+        "counteraction",
+        "kickback",
+        "recoil",
+        "tangle"
+      ],
+      "weak": ["retroaction"]
+    }
+  },
+  "backlog": {
+    "type": "noun",
+    "examples": ["uncompleted work", "accumulation"],
+    "synonyms": {
+      "strongest": ["inventory", "stockpile"],
+      "strong": [
+        "excess",
+        "hoard",
+        "quantity",
+        "reservoir",
+        "resources",
+        "stock",
+        "store",
+        "supply"
+      ],
+      "weak": ["reserve"]
+    }
+  },
+  "backpack": {
+    "type": "noun",
+    "examples": ["sack carried on the back"],
+    "synonyms": {
+      "strongest": ["knapsack"],
+      "strong": ["haversack", "pack", "rucksack"],
+      "weak": []
+    }
+  },
+  "backpacker": {
+    "type": "noun",
+    "examples": ["mountaineer"],
+    "synonyms": {
+      "strongest": ["climber", "hiker"],
+      "strong": ["alpinist", "cragsman"],
+      "weak": ["cragswoman", "rock climber"]
+    }
+  },
+  "backpacking": {
+    "type": "noun",
+    "examples": ["hiking"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "exploring",
+        "hitchhiking",
+        "marching",
+        "rambling",
+        "walking",
+        "wandering"
+      ],
+      "weak": []
+    }
+  },
+  "backpedal": {
+    "type": "verb",
+    "examples": ["retrace one's step"],
+    "synonyms": {
+      "strongest": ["backtrack", "turn back"],
+      "strong": ["double", "return"],
+      "weak": ["double back", "go back"]
+    }
+  },
+  "backpedaling": {
+    "type": "noun",
+    "examples": ["turnaround"],
+    "synonyms": {
+      "strongest": ["turnabout", "U-turn"],
+      "strong": [
+        "annulment",
+        "cancellation",
+        "inversion",
+        "repeal",
+        "retraction",
+        "reversal",
+        "switch",
+        "transposition",
+        "volte-face"
+      ],
+      "weak": ["change in direction", "doubleback", "flip-flop", "rescinding"]
+    }
+  },
+  "backroom": {
+    "type": "noun",
+    "examples": ["politics"],
+    "synonyms": {
+      "strongest": ["campaigning", "government"],
+      "strong": [
+        "civics",
+        "electioneering",
+        "jungle",
+        "legislature",
+        "polity",
+        "statecraft",
+        "zoo"
+      ],
+      "weak": [
+        "affairs of state",
+        "domestic affairs",
+        "foreign affairs",
+        "government policy",
+        "hat in the ring",
+        "internal affairs",
+        "matters of state",
+        "political science",
+        "smoke-filled room",
+        "stateship"
+      ]
+    }
+  },
+  "backside": {
+    "type": "noun",
+    "examples": ["rear end"],
+    "synonyms": {
+      "strongest": ["butt", "posterior", "rump"],
+      "strong": [
+        "behind",
+        "bottom",
+        "buttocks",
+        "fanny",
+        "rear",
+        "seat",
+        "tail",
+        "tush"
+      ],
+      "weak": ["derriere"]
+    }
+  },
+  "backslapper": {
+    "type": "noun",
+    "examples": ["yes-person"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "apple-polisher",
+        "ass-kisser",
+        "assenter",
+        "bootlicker",
+        "brown-nose",
+        "camp follower",
+        "doormat",
+        "fawner",
+        "flatterer",
+        "flunky",
+        "groveler",
+        "kowtower",
+        "lackey",
+        "minion",
+        "pawn",
+        "puppet",
+        "sheep",
+        "stooge",
+        "sycophant",
+        "toady",
+        "underling",
+        "yes-man",
+        "yes-woman"
+      ]
+    }
+  },
+  "backslide": {
+    "type": "verb",
+    "examples": ["go astray"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "apostatize",
+        "deviate",
+        "lapse",
+        "relapse",
+        "revert",
+        "sin",
+        "slip"
+      ],
+      "weak": ["fall from grace", "leave the straight and narrow"]
+    }
+  },
+  "backslider": {
+    "type": "noun",
+    "examples": ["traitor"],
+    "synonyms": {
+      "strongest": [
+        "conspirator",
+        "deserter",
+        "hypocrite",
+        "impostor",
+        "informer",
+        "renegade",
+        "spy",
+        "turncoat"
+      ],
+      "strong": [
+        "apostate",
+        "betrayer",
+        "deceiver",
+        "defector",
+        "double-crosser",
+        "fink",
+        "intriguer",
+        "Judas",
+        "miscreant",
+        "quisling",
+        "rebel",
+        "snake",
+        "sneak",
+        "snitch",
+        "snitcher",
+        "squealer",
+        "tattletale",
+        "traducer",
+        "treasonist",
+        "two-timer",
+        "whistle-blower",
+        "wolf"
+      ],
+      "weak": ["back-stabber", "Benedict Arnold", "stool pigeon"]
+    }
+  },
+  "backsliding": {
+    "type": "noun",
+    "examples": ["relapse"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "backslide",
+        "lapse",
+        "lapsing",
+        "regression",
+        "relapsing",
+        "reversion",
+        "reverting"
+      ],
+      "weak": []
+    }
+  },
+  "backstab": {
+    "type": "verb",
+    "examples": ["attack indirectly"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "backbite",
+        "betray",
+        "double-cross",
+        "play Judas",
+        "sell down the river",
+        "slander",
+        "smear"
+      ]
+    }
+  },
+  "backstabbed": {
+    "type": "verb",
+    "examples": ["attack indirectly"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "backbite",
+        "betray",
+        "double-cross",
+        "play Judas",
+        "sell down the river",
+        "slander",
+        "smear"
+      ]
+    }
+  },
+  "backstabber": {
+    "type": "noun",
+    "examples": ["snake in the grass"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "creep",
+        "Pandora's box",
+        "pitfall",
+        "rat",
+        "rat fink",
+        "skunk",
+        "snake",
+        "sneak",
+        "trap",
+        "villain",
+        "viper",
+        "weasel"
+      ]
+    }
+  },
+  "backstage": {
+    "type": "adjective",
+    "examples": ["behind-the-scenes"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "behind the curtain",
+        "in a corner",
+        "in secret",
+        "in the dark",
+        "out of public view",
+        "sub-rosa"
+      ]
+    }
+  },
+  "backstairs": {
+    "type": "adjective",
+    "examples": ["secretive"],
+    "synonyms": {
+      "strongest": ["covert", "enigmatic", "reticent", "taciturn"],
+      "strong": [],
+      "weak": [
+        "buttoned-up",
+        "cagey",
+        "clammed up",
+        "close",
+        "close-mouthed",
+        "cryptic",
+        "feline",
+        "furtive",
+        "hushed",
+        "in chambers",
+        "in privacy",
+        "in private",
+        "in the background",
+        "in the dark",
+        "on the Q.T.",
+        "reserved",
+        "silent",
+        "tight-lipped",
+        "undercover",
+        "unforthcoming",
+        "withdrawn",
+        "zipped"
+      ]
+    }
+  },
+  "backstitching": {
+    "type": "noun",
+    "examples": ["sewing"],
+    "synonyms": {
+      "strongest": ["patching", "tailoring"],
+      "strong": [
+        "darning",
+        "dressmaking",
+        "embroidering",
+        "mending",
+        "needlecraft",
+        "needlework",
+        "seaming",
+        "stitchery"
+      ],
+      "weak": []
+    }
+  },
+  "backstop": {
+    "type": "noun",
+    "examples": ["fence"],
+    "synonyms": {
+      "strongest": [
+        "bar",
+        "barbed wire",
+        "barricade",
+        "block",
+        "dike",
+        "net",
+        "rail",
+        "railing",
+        "roadblock",
+        "wall"
+      ],
+      "strong": [
+        "balustrade",
+        "boards",
+        "chains",
+        "defense",
+        "guard",
+        "hedge",
+        "paling",
+        "palisade",
+        "pickets",
+        "posts",
+        "rampart",
+        "shield",
+        "stakes",
+        "stockade",
+        "stop"
+      ],
+      "weak": []
+    }
+  },
+  "backstreet": {
+    "type": "noun",
+    "examples": ["side street"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "alley",
+        "by-street",
+        "bylane",
+        "bypath",
+        "byroad",
+        "bystreet",
+        "byway",
+        "side road"
+      ]
+    }
+  },
+  "backsword": {
+    "type": "noun",
+    "examples": ["weapon"],
+    "synonyms": {
+      "strongest": [
+        "ammunition",
+        "bomb",
+        "cannon",
+        "firearm",
+        "gun",
+        "knife",
+        "machete",
+        "machine gun",
+        "missile",
+        "nerve gas",
+        "pistol",
+        "revolver",
+        "rifle",
+        "shotgun",
+        "sword",
+        "tear gas"
+      ],
+      "strong": [
+        "arbalest",
+        "archery",
+        "arrow",
+        "assegai",
+        "ax",
+        "axe",
+        "ballista",
+        "banderilla",
+        "barong",
+        "bat",
+        "baton",
+        "battle-ax",
+        "bayonet",
+        "bazooka",
+        "blackjack",
+        "blade",
+        "blowgun",
+        "bludgeon",
+        "boomerang",
+        "catapult",
+        "cleaver",
+        "club",
+        "crossbow",
+        "cudgel",
+        "cutlass",
+        "dagger",
+        "dart",
+        "dirk",
+        "flamethrower",
+        "harpoon",
+        "hatchet",
+        "howitzer",
+        "lance",
+        "musket",
+        "saber",
+        "scythe",
+        "slingshot",
+        "spear",
+        "spike",
+        "stiletto",
+        "switchblade"
+      ],
+      "weak": [
+        "anlace",
+        "atlatl",
+        "billy club",
+        "bow and arrow",
+        "bowie knife",
+        "brass knuckles",
+        "hunting knife",
+        "nuclear bomb",
+        "nunchaku"
+      ]
+    }
+  },
+  "backtalk": {
+    "type": "noun",
+    "examples": ["verbal impudence"],
+    "synonyms": { "strongest": [], "strong": ["lip", "sass"], "weak": [] }
+  },
+  "backtrack": {
+    "type": "verb",
+    "examples": ["retrace one's step"],
+    "synonyms": {
+      "strongest": ["backpedal", "go back"],
+      "strong": ["double", "return"],
+      "weak": ["double back", "turn back"]
+    }
+  },
+  "backtracking": {
+    "type": "noun",
+    "examples": ["U-turn"],
+    "synonyms": {
+      "strongest": ["change of mind", "reversal", "turnaround"],
+      "strong": ["retraction", "volte-face"],
+      "weak": [
+        "change of heart",
+        "change of plan",
+        "eating one's words",
+        "one-eighty",
+        "sea change",
+        "U-ey"
+      ]
+    }
+  },
+  "backup": {
+    "type": "noun",
+    "examples": ["support", "substitute"],
+    "synonyms": {
+      "strongest": ["substitute"],
+      "strong": [
+        "accompaniment",
+        "alternate",
+        "alternative",
+        "auxiliary",
+        "extra",
+        "reinforcement",
+        "stand-in"
+      ],
+      "weak": ["supporter"]
+    }
+  },
+  "backward": {
+    "type": "adverb",
+    "examples": ["toward the rear"],
+    "synonyms": { "strongest": ["toward the rear"], "strong": [], "weak": [] }
+  },
+  "backwardness": {
+    "type": "noun",
+    "examples": ["reluctance", "shyness"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [
+        "bashfulness",
+        "coyness",
+        "demureness",
+        "diffidence",
+        "hesitancy",
+        "reluctance",
+        "reticence",
+        "shyness",
+        "slowness",
+        "timidness"
+      ],
+      "weak": []
+    }
+  },
+  "backwards": {
+    "type": "adverb",
+    "examples": ["reverse to the usual way"],
+    "synonyms": {
+      "strongest": [],
+      "strong": [],
+      "weak": [
+        "back to front",
+        "inside out",
+        "retrograde",
+        "retrogressive",
+        "topsy-turvy",
+        "upside down"
+      ]
+    }
+  },
+  "backwash": {
+    "type": "noun",
+    "examples": ["repercussion"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["aftermath", "result", "wake"],
+      "weak": []
+    }
+  },
+  "backwater": {
+    "type": "verb",
+    "examples": ["rescind"],
+    "synonyms": {
+      "strongest": [
+        "abolish",
+        "abrogate",
+        "annul",
+        "cancel",
+        "dismantle",
+        "invalidate",
+        "lift",
+        "overturn",
+        "quash",
+        "renege",
+        "repeal",
+        "retract",
+        "reverse",
+        "revoke",
+        "set aside",
+        "void"
+      ],
+      "strong": [
+        "backpedal",
+        "countermand",
+        "forget",
+        "nix",
+        "recall",
+        "remove",
+        "scrub"
+      ],
+      "weak": [
+        "back out of",
+        "call off",
+        "crawl out of",
+        "pull the plug",
+        "wangle out",
+        "weasel out",
+        "X out"
+      ]
+    }
+  },
+  "backwoods": {
+    "type": "noun",
+    "examples": ["forests", "land distant from settled area"],
+    "synonyms": {
+      "strongest": ["backcountry", "outback"],
+      "strong": [
+        "boondocks",
+        "frontier",
+        "hinterland",
+        "interior",
+        "isolation",
+        "sticks",
+        "timberland",
+        "woodland"
+      ],
+      "weak": ["rural area", "terra incognita"]
+    }
+  },
+  "backwoodsman": {
+    "type": "noun",
+    "examples": ["backwoods dweller"],
+    "synonyms": {
+      "strongest": ["hinterlander", "mountain man", "woodsman"],
+      "strong": [
+        "bush dweller",
+        "bushman",
+        "country cousin",
+        "countryperson",
+        "frontiersman",
+        "rustic"
+      ],
+      "weak": ["hick", "hillbilly", "redneck"]
+    }
+  },
+  "backwoodsperson": {
+    "type": "noun",
+    "examples": ["backwoodsman"],
+    "synonyms": {
+      "strongest": ["hinterlander", "mountain man", "woodsman"],
+      "strong": [
+        "bush dweller",
+        "bushman",
+        "country cousin",
+        "countryperson",
+        "frontiersman",
+        "rustic"
+      ],
+      "weak": ["hick", "hillbilly", "redneck"]
+    }
+  },
+  "backwoodswoman": {
+    "type": "noun",
+    "examples": ["backwoodsman"],
+    "synonyms": {
+      "strongest": ["hinterlander", "mountain man", "woodsman"],
+      "strong": [
+        "bush dweller",
+        "bushman",
+        "country cousin",
+        "countryperson",
+        "frontiersman",
+        "rustic"
+      ],
+      "weak": ["hick", "hillbilly", "redneck"]
+    }
+  },
+  "backyard": {
+    "type": "noun",
+    "examples": ["expanse behind house"],
+    "synonyms": {
+      "strongest": [
+        "courtyard",
+        "garden",
+        "grass",
+        "lawn",
+        "patio",
+        "terrace",
+        "yard"
+      ],
+      "strong": [],
+      "weak": ["play area"]
+    }
+  },
+  "bacon": {
+    "type": "noun",
+    "examples": ["flitch"],
+    "synonyms": {
+      "strongest": ["pancetta", "pork"],
+      "strong": ["gammon", "rasher", "sowbelly"],
+      "weak": ["pork slab", "porkbellies"]
+    }
+  },
+  "bacteria": {
+    "type": "noun",
+    "examples": ["microorganisms"],
+    "synonyms": {
+      "strongest": [],
+      "strong": ["bacilli", "germs", "microbes", "organisms", "pathogens"],
+      "weak": []
+    }
+  },
+  "bactericidal": {
+    "type": "adjective",
+    "examples": ["antiseptic"],
+    "synonyms": {
+      "strongest": ["hygienic", "sterile"],
+      "strong": [
+        "antibacterial",
+        "antibiotic",
+        "clean",
+        "disinfectant",
+        "prophylactic"
+      ],
+      "weak": [
+        "aseptic",
+        "germ-destroying",
+        "germ-free",
+        "germicidal",
+        "medicated",
+        "pure",
+        "purifying",
+        "sanitary",
+        "sterilized",
+        "sterilizing",
+        "unpolluted"
+      ]
+    }
+  },
+  "bactericide": {
+    "type": "noun",
+    "examples": ["antiseptic"],
+    "synonyms": {
+      "strongest": ["disinfectant", "preservative"],
+      "strong": [
+        "detergent",
+        "germicide",
+        "preventative",
+        "preventive",
+        "prophylactic",
+        "purifier",
+        "sterilizer"
+      ],
+      "weak": []
+    }
+  },
+  "bacterium": {
+    "type": "noun",
+    "examples": ["microorganism"],
+    "synonyms": {
+      "strongest": ["microbe", "pathogen", "virus"],
+      "strong": ["bug", "disease"],
+      "weak": ["disease-causing agent", "parasite"]
+    }
+  }
+}
