@@ -9,7 +9,6 @@ declare module "bun" {
   }
 }
 
-const { scrapeWords, scrapeWord } = scraper;
+const { scrape } = scraper;
 
-await scrapeWords();
-// await scrapeWord();
+await scrape();

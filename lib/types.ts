@@ -18,7 +18,6 @@ export interface Definition {
   type: LexicalType;
   examples: string[];
   synonyms: Match;
-  antonyms: Match;
 }
 
 export type Word = {

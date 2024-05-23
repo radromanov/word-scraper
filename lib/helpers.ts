@@ -42,7 +42,7 @@ export const CATEGORIES = [
 export function delay(min: number, max: number) {
   const delay = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  console.log(`[DELAY] 🔄Delaying by ${duration(delay)}.`);
+  console.log(`   --- 🔄 Delaying by ${duration(delay)}.`);
 
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
