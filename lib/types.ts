@@ -1,8 +1,4 @@
-export type ProxyResult = {
-  host: string;
-  port: number;
-  protocol: string;
-};
+import type { CATEGORIES } from "./helpers";
 
 export type Match = {
   strongest: string[];
@@ -10,7 +6,7 @@ export type Match = {
   weak: string[];
 };
 
-export type LexicalCategory =
+export type LexicalType =
   | "noun"
   | "adjective"
   | "adverb"
@@ -18,17 +14,16 @@ export type LexicalCategory =
   | "conjunction"
   | "preposition";
 
-export interface Family {
-  category: LexicalCategory;
-  like: string[];
+export interface Definition {
+  type: LexicalType;
+  examples: string[];
   synonyms: Match;
   antonyms: Match;
 }
 
-export interface Word {
+export type Word = {
   word: string;
-  families: Family[];
-}
+};
 
 export type Letter = {
   [K in string]: Word[];
@@ -43,5 +38,18 @@ export type LoadOpts = {
   suspense?: {
     min: number;
     max: number;
+  };
+};
+
+// export type Category = (typeof CATEGORIES)[number];
+
+export type Category = {
+  [K in (typeof CATEGORIES)[number]]: {
+    words: {
+      [word: string]: {
+        link: string;
+        definition: Definition[];
+      }[];
+    }[];
   };
 };

@@ -11,6 +11,5 @@ declare module "bun" {
 
 const { scrapeWords, scrapeWord } = scraper;
 
-// await scrapeWords(true);
-console.log("============= HERE STARTS A WORD ===============");
-await scrapeWord(true);
+await scrapeWords();
+// await scrapeWord();

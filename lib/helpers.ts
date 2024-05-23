@@ -1,3 +1,5 @@
+import type { CheerioAPI, Element } from "cheerio";
+
 export const AXIOS_CONFIG = {
   headers: {
     "User-Agent":
@@ -34,7 +36,7 @@ export const CATEGORIES = [
   "x",
   "y",
   "z",
-];
+] as const;
 
 // Helper function to introduce a random delay
 export function delay(min: number, max: number) {
@@ -128,4 +130,34 @@ export async function loadState<T>(filename: string, state: T): Promise<T> {
 
     return state;
   }
+}
+
+export function captureExamples(cheerio: CheerioAPI, element: Element) {
+  return cheerio(element)
+    .find("strong")
+    .map((_i, el) =>
+      cheerio(el)
+        .text()
+        .split(/(;|,)\s+/)
+        .filter((el) => el !== "," && el !== ";")
+    )
+    .get();
+}
+
+export function captureGroup(
+  group: "Strongest" | "Strong" | "Weak",
+  cheerio: CheerioAPI,
+  element: Element
+) {
+  return cheerio(element)
+    .find(`p:contains("${group} match")`)
+    .next()
+    .children()
+    .map((_i, el) =>
+      cheerio(el)
+        .text()
+        .split(/(,)\s+/)
+        .filter((el) => el !== "," && el.length)
+    )
+    .get();
 }
