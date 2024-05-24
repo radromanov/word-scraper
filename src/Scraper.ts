@@ -21,6 +21,7 @@ class Scraper {
   private state: {
     currentLinkIndex: number;
     currentLetter: string;
+    currentWord: string;
     attempt: number;
     time: number;
   };
@@ -61,6 +62,7 @@ class Scraper {
     this.state = {
       currentLetter: "a",
       currentLinkIndex: 0,
+      currentWord: "",
       attempt: 0,
       time: 0,
     };
@@ -128,16 +130,22 @@ class Scraper {
         const items = cheerio('[data-type="browse-list"] ul li');
         const letter = link.slice(-1) as (typeof CATEGORIES)[number];
 
-        if (!items.length) {
-          throw new Error();
-        }
+        if (!items.length) throw new Error();
 
-        // const lastPage = await this.getPagesForLetter(link);
+        const lastPage = await this.getPagesForLetter();
+
+        console.log(lastPage);
 
         items.each((_i, element) => {
           const word = cheerio(element).text().trim();
+
+          if (!word.length) throw new Error();
+
           if (isValid(word)) {
             this.wordsForLetter[letter].push(word);
+
+            this.state.currentLinkIndex = i + 1;
+            this.state.currentWord = word;
           }
         });
       } catch (error) {
@@ -151,7 +159,9 @@ class Scraper {
     }
   }
 
-  private async getPagesForLetter(link: string) {
+  private async getPagesForLetter() {
+    const link = this.links[this.state.currentLinkIndex];
+
     const cheerio = await this.load(link);
     const href = cheerio(
       '#content [data-type="bottom-paging"] ul [data-type="paging-arrow"] a'
@@ -161,13 +171,15 @@ class Scraper {
       ?.split("/");
 
     if (!href || !href.length) {
-      throw new Error();
+      return 1;
     }
 
     const lastPage = parseInt(href[href.length - 1], 10);
 
     return lastPage;
   }
+
+  private async getSynonymsForWord() {}
 
   private async retry(callback: () => Promise<void>) {
     this.state.attempt++;
