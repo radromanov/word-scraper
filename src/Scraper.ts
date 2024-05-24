@@ -22,6 +22,7 @@ class Scraper {
     currentLinkIndex: number;
     currentLetter: string;
     attempt: number;
+    time: number;
   };
 
   constructor(dev = false) {
@@ -57,7 +58,12 @@ class Scraper {
       y: [],
       z: [],
     };
-    this.state = { currentLetter: "a", currentLinkIndex: 0, attempt: 0 };
+    this.state = {
+      currentLetter: "a",
+      currentLinkIndex: 0,
+      attempt: 0,
+      time: 0,
+    };
   }
 
   async load(url: string) {
@@ -75,8 +81,16 @@ class Scraper {
 
   async exec() {
     // Initializes the scraping
+    const start = performance.now();
     this.prepareLinks();
-    this.getWordsForLetter();
+    await this.getWordsForLetter();
+
+    const end = performance.now();
+    this.state.time = end - start;
+
+    console.log(this.wordsForLetter);
+
+    console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
   private prepareLinks() {
@@ -103,19 +117,22 @@ class Scraper {
   }
 
   private async getWordsForLetter(): Promise<void> {
-    for (let i = 0; i < this.links.length; i++) {
-      this.state.currentLinkIndex = i;
+    // await delay(this.suspense.min, this.suspense.max);
+
+    for (let i = this.state.currentLinkIndex; i < this.links.length; i++) {
       const link = this.links[i];
       this.state.currentLetter = link.slice(-1);
 
       try {
         const cheerio = await this.load(link);
-        const items = cheerio('[data-type="browse-list"] ul li span');
+        const items = cheerio('[data-type="browse-list"] ul li');
         const letter = link.slice(-1) as (typeof CATEGORIES)[number];
 
         if (!items.length) {
           throw new Error();
         }
+
+        // const lastPage = await this.getPagesForLetter(link);
 
         items.each((_i, element) => {
           const word = cheerio(element).text().trim();
@@ -132,6 +149,24 @@ class Scraper {
         await this.retry(this.getWordsForLetter.bind(this));
       }
     }
+  }
+
+  private async getPagesForLetter(link: string) {
+    const cheerio = await this.load(link);
+    const href = cheerio(
+      '#content [data-type="bottom-paging"] ul [data-type="paging-arrow"] a'
+    )
+      .last()
+      .attr("href")
+      ?.split("/");
+
+    if (!href || !href.length) {
+      throw new Error();
+    }
+
+    const lastPage = parseInt(href[href.length - 1], 10);
+
+    return lastPage;
   }
 
   private async retry(callback: () => Promise<void>) {
