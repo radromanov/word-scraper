@@ -12,6 +12,7 @@ import {
 } from "../lib/helpers";
 import type { Suspense } from "../lib/types";
 
+type Letter = (typeof CATEGORIES)[number];
 interface Variant {
   type:
     | "ONE_LETTER_NO_PAGE"
@@ -24,14 +25,14 @@ interface Variant {
 }
 
 interface LetterParam extends Variant {
-  letter: string;
+  letter: Letter;
   letters?: never;
   page?: never;
   startPage?: never;
   endPage?: never;
 }
 interface LettersParam extends Variant {
-  letters: string[];
+  letters: Letter[];
   letter?: never;
   page?: never;
   startPage?: never;
@@ -52,21 +53,21 @@ interface PagesParam extends Variant {
   page?: never;
 }
 interface LetterPageParam extends Variant {
-  letter: string;
+  letter: Letter;
   page: number;
   letters?: never;
   startPage?: never;
   endPage?: never;
 }
 interface LettersPageParam extends Variant {
-  letters: string[];
+  letters: Letter[];
   page: number;
   letter?: never;
   startPage?: never;
   endPage?: never;
 }
 interface LettersPagesParam extends Variant {
-  letters: string[];
+  letters: Letter[];
   startPage: number;
   endPage: number;
   letter?: never;
@@ -84,12 +85,13 @@ type PrepareLinkParams =
 class Scraper {
   private suspense: Suspense = { min: 0, max: 0 };
   private links: { link: string; lastPage: number | null }[];
-  private wordsForLetter: { [K in (typeof CATEGORIES)[number]]: string[] };
+  private wordsForLetter: { [K in Letter]: string[] };
 
   private MAX_RETRIES = 5;
   private state: {
     currentLinkIndex: number;
-    currentLetter: string;
+    currentLink: string;
+    currentLetter: Letter;
     currentWord: string;
     attempt: number;
     time: number;
@@ -129,6 +131,7 @@ class Scraper {
     };
     this.state = {
       currentLetter: "a",
+      currentLink: "",
       currentLinkIndex: 0,
       currentWord: "",
       attempt: 0,
@@ -152,7 +155,7 @@ class Scraper {
   async exec() {
     // Initializes the scraping
     const start = performance.now();
-    this.prepareLinks("abc");
+    await this.prepareLinks({ letter: "a", type: "ONE_LETTER_NO_PAGE" });
     // await this.getWordsForLetter();
 
     const end = performance.now();
@@ -218,13 +221,12 @@ class Scraper {
     // await delay(this.suspense.min, this.suspense.max);
 
     for (let i = this.state.currentLinkIndex; i < this.links.length; i++) {
-      const link = this.links[i];
-      this.state.currentLetter = link.slice(-1);
+      const link = this.links[i].link;
+      this.state.currentLetter = link.slice(-1) as Letter;
 
       try {
         const cheerio = await this.load(link);
         const items = cheerio('[data-type="browse-list"] ul li');
-        const letter = link.slice(-1) as (typeof CATEGORIES)[number];
 
         if (!items.length) throw new Error();
 
@@ -238,7 +240,7 @@ class Scraper {
           if (!word.length) throw new Error();
 
           if (isValid(word)) {
-            this.wordsForLetter[letter].push(word);
+            this.wordsForLetter[this.state.currentLetter].push(word);
 
             this.state.currentLinkIndex = i + 1;
             this.state.currentWord = word;
@@ -256,7 +258,7 @@ class Scraper {
   }
 
   private async getPagesForLetter() {
-    const link = this.links[this.state.currentLinkIndex];
+    const link = this.links[this.state.currentLinkIndex].link;
 
     const cheerio = await this.load(link);
     const href = cheerio(
@@ -285,7 +287,7 @@ class Scraper {
     await callback();
   }
 
-  private async getLastPage(letter: string) {
+  private async getLastPage(letter: Letter) {
     const link = process.env.BASE_LINK + letter;
 
     const cheerio = await this.load(link);
@@ -305,11 +307,37 @@ class Scraper {
     return lastPage;
   }
 
-  private async getSingleLetterAllPages(letter: string): Promise<any> {
+  private async getSingleLetterAllPages(letter: Letter): Promise<any> {
     // Implementation for getting all pages of a single letter
+    const link = process.env.BASE_LINK + letter + "/";
+    const lastPage = await this.getLastPage(letter);
+    const allPages = Array.from({ length: lastPage }, (_, i) => i + 1);
+    this.state.currentLetter = letter;
+
+    for (const page of allPages) {
+      this.state.currentLink = link + page;
+
+      const cheerio = await this.load(this.state.currentLink);
+      const items = cheerio('[data-type="browse-list"] ul li');
+
+      if (!items.length) throw new Error();
+
+      items.each((_i, element) => {
+        const word = cheerio(element).text().trim();
+
+        if (!word.length) throw new Error();
+
+        if (isValid(word)) {
+          this.wordsForLetter[this.state.currentLetter].push(word);
+
+          this.state.currentLinkIndex += 1;
+          this.state.currentWord = word;
+        }
+      });
+    }
   }
 
-  private async getMultipleLettersAllPages(letters: string[]): Promise<any> {
+  private async getMultipleLettersAllPages(letters: Letter[]): Promise<any> {
     // Implementation for getting all pages of multiple letters
   }
 
@@ -325,21 +353,21 @@ class Scraper {
   }
 
   private async getSingleLetterOnePage(
-    letter: string,
+    letter: Letter,
     page: number
   ): Promise<any> {
     // Implementation for getting a single letter on a specific page
   }
 
   private async getMultipleLettersOnePage(
-    letters: string[],
+    letters: Letter[],
     page: number
   ): Promise<any> {
     // Implementation for getting multiple letters on a specific page
   }
 
   private async getMultipleLettersStartEndPages(
-    letters: string[],
+    letters: Letter[],
     startPage: number,
     endPage: number
   ): Promise<any> {
