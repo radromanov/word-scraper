@@ -38,6 +38,30 @@ export const CATEGORIES = [
   "z",
 ] as const;
 
+export function splitLetters(letter: string | string[]) {
+  let letters: string[] = [];
+
+  if (typeof letter === "string") {
+    letter = letter.toLowerCase();
+    if (letter.length > 1) {
+      const letters = letter.match(/[(\s+\-,)]/)
+        ? letter.split(/[(\s+\-,)]/)
+        : letter.split("");
+      for (const l of letters) {
+        letters.push(process.env.BASE_LINK + l.toLowerCase());
+      }
+    } else {
+      letters = [process.env.BASE_LINK + letter];
+    }
+  } else {
+    for (const l of letter) {
+      letters.push(process.env.BASE_LINK + l.toLowerCase());
+    }
+  }
+
+  return letters;
+}
+
 // Helper function to introduce a random delay
 export function delay(min: number, max: number) {
   const delay = Math.floor(Math.random() * (max - min + 1)) + min;

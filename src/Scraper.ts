@@ -8,6 +8,7 @@ import {
   duration,
   isValid,
   linkify,
+  splitLetters,
 } from "../lib/helpers";
 import type { Suspense } from "../lib/types";
 
@@ -82,7 +83,7 @@ class Scraper {
   async exec() {
     // Initializes the scraping
     const start = performance.now();
-    this.prepareLinks(["a", "b", "c"]);
+    this.prepareLinks("abc");
     await this.getWordsForLetter();
 
     const end = performance.now();
@@ -96,20 +97,14 @@ class Scraper {
   private prepareLinks(letter?: string | string[]) {
     const start = performance.now();
 
-    if (letter && letter.length) {
+    if (letter) {
       console.log(
         `🪄 Preparing links for ${
           letter.length > 1 ? "letters" : "letter"
         } ${letter}.`
       );
 
-      if (typeof letter === "string") {
-        this.links = [process.env.BASE_LINK + letter];
-      } else {
-        for (const l of letter) {
-          this.links.push(process.env.BASE_LINK + l);
-        }
-      }
+      this.links = splitLetters(letter);
     } else {
       console.log(`🪄 Preparing links...`);
       for (const cat of CATEGORIES) {
