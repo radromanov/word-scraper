@@ -185,18 +185,29 @@ class Scraper {
     // check type of overload
     switch (param.type) {
       case "ONE_LETTER_NO_PAGE":
+        await this.getSingleLetterAllPages(param.letter);
         break;
       case "MULTIPLE_LETTERS_NO_PAGE":
+        await this.getMultipleLettersAllPages(param.letters);
         break;
       case "NO_LETTER_ONE_PAGE":
+        await this.getAllLettersOnePage(param.page);
         break;
       case "NO_LETTER_START_END_PAGE":
+        await this.getAllLettersStartEndPages(param.startPage, param.endPage);
         break;
       case "ONE_LETTER_ONE_PAGE":
+        await this.getSingleLetterOnePage(param.letter, param.page);
         break;
       case "MULTIPLE_LETTERS_ONE_PAGE":
+        await this.getMultipleLettersOnePage(param.letters, param.page);
         break;
       case "MULTIPLE_LETTERS_START_END_PAGE":
+        await this.getMultipleLettersStartEndPages(
+          param.letters,
+          param.startPage,
+          param.endPage
+        );
         break;
       default:
         throw new Error("Invalid type");
