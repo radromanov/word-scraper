@@ -12,7 +12,6 @@ import {
 import type { Suspense } from "../lib/types";
 
 class Scraper {
-  private dev: boolean;
   private suspense: Suspense = { min: 0, max: 0 };
   private links: string[];
   private wordsForLetter: { [K in (typeof CATEGORIES)[number]]: string[] };
@@ -26,8 +25,7 @@ class Scraper {
     time: number;
   };
 
-  constructor(dev = false) {
-    this.dev = dev;
+  constructor() {
     this.suspense.min = 2500;
     this.suspense.max = 5000;
     this.links = [];
@@ -84,7 +82,7 @@ class Scraper {
   async exec() {
     // Initializes the scraping
     const start = performance.now();
-    this.prepareLinks();
+    this.prepareLinks(["a", "b", "c"]);
     await this.getWordsForLetter();
 
     const end = performance.now();
@@ -95,18 +93,25 @@ class Scraper {
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
-  private prepareLinks() {
-    console.log("🪄 Preparing links...");
+  private prepareLinks(letter?: string | string[]) {
     const start = performance.now();
 
-    if (this.dev) {
-      console.log("⚠️ Preparing dev mode links only.");
-      this.links = [
-        process.env.BASE_LINK + "a",
-        process.env.BASE_LINK + "b",
-        process.env.BASE_LINK + "c",
-      ];
+    if (letter && letter.length) {
+      console.log(
+        `🪄 Preparing links for ${
+          letter.length > 1 ? "letters" : "letter"
+        } ${letter}.`
+      );
+
+      if (typeof letter === "string") {
+        this.links = [process.env.BASE_LINK + letter];
+      } else {
+        for (const l of letter) {
+          this.links.push(process.env.BASE_LINK + l);
+        }
+      }
     } else {
+      console.log(`🪄 Preparing links...`);
       for (const cat of CATEGORIES) {
         this.links.push(linkify(cat));
       }

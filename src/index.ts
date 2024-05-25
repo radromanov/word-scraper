@@ -13,5 +13,5 @@ declare module "bun" {
 // const { scrape } = scraper;
 
 // await scrape();
-const scraper = new Scraper(true);
+const scraper = new Scraper();
 await scraper.exec();
