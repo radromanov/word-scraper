@@ -1,86 +1,8 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
 
-import {
-  AXIOS_CONFIG,
-  CATEGORIES,
-  delay,
-  duration,
-  isValid,
-  linkify,
-  splitLetters,
-} from "../lib/helpers";
-import type { Suspense } from "../lib/types";
-
-type Letter = (typeof CATEGORIES)[number];
-interface Variant {
-  type:
-    | "ONE_LETTER_NO_PAGE"
-    | "MULTIPLE_LETTERS_NO_PAGE"
-    | "NO_LETTER_ONE_PAGE"
-    | "NO_LETTER_START_END_PAGE"
-    | "ONE_LETTER_ONE_PAGE"
-    | "MULTIPLE_LETTERS_ONE_PAGE"
-    | "MULTIPLE_LETTERS_START_END_PAGE";
-}
-
-interface LetterParam extends Variant {
-  letter: Letter;
-  letters?: never;
-  page?: never;
-  startPage?: never;
-  endPage?: never;
-}
-interface LettersParam extends Variant {
-  letters: Letter[];
-  letter?: never;
-  page?: never;
-  startPage?: never;
-  endPage?: never;
-}
-interface PageParam extends Variant {
-  page: number;
-  letter?: never;
-  letters?: never;
-  startPage?: never;
-  endPage?: never;
-}
-interface PagesParam extends Variant {
-  startPage: number;
-  endPage: number;
-  letter?: never;
-  letters?: never;
-  page?: never;
-}
-interface LetterPageParam extends Variant {
-  letter: Letter;
-  page: number;
-  letters?: never;
-  startPage?: never;
-  endPage?: never;
-}
-interface LettersPageParam extends Variant {
-  letters: Letter[];
-  page: number;
-  letter?: never;
-  startPage?: never;
-  endPage?: never;
-}
-interface LettersPagesParam extends Variant {
-  letters: Letter[];
-  startPage: number;
-  endPage: number;
-  letter?: never;
-  page?: never;
-}
-type PrepareLinkParams =
-  | (LetterParam & { type: "ONE_LETTER_NO_PAGE" })
-  | (LettersParam & { type: "MULTIPLE_LETTERS_NO_PAGE" })
-  | (PageParam & { type: "NO_LETTER_ONE_PAGE" })
-  | (PagesParam & { type: "NO_LETTER_START_END_PAGE" })
-  | (LetterPageParam & { type: "ONE_LETTER_ONE_PAGE" })
-  | (LettersPageParam & { type: "MULTIPLE_LETTERS_ONE_PAGE" })
-  | (LettersPagesParam & { type: "MULTIPLE_LETTERS_START_END_PAGE" });
+import { AXIOS_CONFIG, duration, isValid } from "../lib/helpers";
+import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
 
 class Scraper {
   private suspense: Suspense = { min: 0, max: 0 };
@@ -165,24 +87,6 @@ class Scraper {
 
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
-
-  // No params - get all letters, all pages
-  // set of letters - 1 or more
-  //  - get letters, all pages
-  // no letters, page
-  //  - get all letters, that page, if page doesn't exist, return [] for letter
-  // no letters, start page - end page
-  //  - get all letters, start page - end page
-  //    * start page must be less or equal to end page
-  //    * start page doesn't exist, return [] for letter
-  //    * end page doesn't exist, return [] for letter
-  // set of letters, page
-  //  - get `page` for the set of letters - if letter doesn't have `page`, return [] for letter
-  // set of letters, start page - end page
-  //  - get start - end page for letters
-  //    * start page must be less or equal to end page
-  //    * start page doesn't exist, return [] for letter
-  //    * end page doesn't exist, return [] for letter
 
   private async prepareLinks(param: PrepareLinkParams): Promise<any> {
     // check type of overload
