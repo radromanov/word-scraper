@@ -183,3 +183,41 @@ export function captureGroup(
     )
     .get();
 }
+
+/** */
+export async function getSingleLetterAllPages(letter: string): Promise<any> {
+  // Implementation for getting all pages of a single letter
+}
+export async function getMultipleLettersAllPages(
+  letters: string[]
+): Promise<any> {
+  // Implementation for getting all pages of multiple letters
+}
+export async function getAllLettersOnePage(page: number): Promise<any> {
+  // Implementation for getting all letters of one page
+}
+export async function getAllLettersStartEndPages(
+  startPage: number,
+  endPage: number
+): Promise<any> {
+  // Implementation for getting all letters from start page to end page
+}
+export async function getSingleLetterOnePage(
+  letter: string,
+  page: number
+): Promise<any> {
+  // Implementation for getting a single letter on a specific page
+}
+export async function getMultipleLettersOnePage(
+  letters: string[],
+  page: number
+): Promise<any> {
+  // Implementation for getting multiple letters on a specific page
+}
+export async function getMultipleLettersStartEndPages(
+  letters: string[],
+  startPage: number,
+  endPage: number
+): Promise<any> {
+  // Implementation for getting multiple letters from start page to end page
+}

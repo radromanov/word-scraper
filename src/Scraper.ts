@@ -12,9 +12,78 @@ import {
 } from "../lib/helpers";
 import type { Suspense } from "../lib/types";
 
+interface Variant {
+  type:
+    | "ONE_LETTER_NO_PAGE"
+    | "MULTIPLE_LETTERS_NO_PAGE"
+    | "NO_LETTER_ONE_PAGE"
+    | "NO_LETTER_START_END_PAGE"
+    | "ONE_LETTER_ONE_PAGE"
+    | "MULTIPLE_LETTERS_ONE_PAGE"
+    | "MULTIPLE_LETTERS_START_END_PAGE";
+}
+
+interface LetterParam extends Variant {
+  letter: string;
+  letters?: never;
+  page?: never;
+  startPage?: never;
+  endPage?: never;
+}
+interface LettersParam extends Variant {
+  letters: string[];
+  letter?: never;
+  page?: never;
+  startPage?: never;
+  endPage?: never;
+}
+interface PageParam extends Variant {
+  page: number;
+  letter?: never;
+  letters?: never;
+  startPage?: never;
+  endPage?: never;
+}
+interface PagesParam extends Variant {
+  startPage: number;
+  endPage: number;
+  letter?: never;
+  letters?: never;
+  page?: never;
+}
+interface LetterPageParam extends Variant {
+  letter: string;
+  page: number;
+  letters?: never;
+  startPage?: never;
+  endPage?: never;
+}
+interface LettersPageParam extends Variant {
+  letters: string[];
+  page: number;
+  letter?: never;
+  startPage?: never;
+  endPage?: never;
+}
+interface LettersPagesParam extends Variant {
+  letters: string[];
+  startPage: number;
+  endPage: number;
+  letter?: never;
+  page?: never;
+}
+type PrepareLinkParams =
+  | (LetterParam & { type: "ONE_LETTER_NO_PAGE" })
+  | (LettersParam & { type: "MULTIPLE_LETTERS_NO_PAGE" })
+  | (PageParam & { type: "NO_LETTER_ONE_PAGE" })
+  | (PagesParam & { type: "NO_LETTER_START_END_PAGE" })
+  | (LetterPageParam & { type: "ONE_LETTER_ONE_PAGE" })
+  | (LettersPageParam & { type: "MULTIPLE_LETTERS_ONE_PAGE" })
+  | (LettersPagesParam & { type: "MULTIPLE_LETTERS_START_END_PAGE" });
+
 class Scraper {
   private suspense: Suspense = { min: 0, max: 0 };
-  private links: string[];
+  private links: { link: string; lastPage: number | null }[];
   private wordsForLetter: { [K in (typeof CATEGORIES)[number]]: string[] };
 
   private MAX_RETRIES = 5;
@@ -84,7 +153,7 @@ class Scraper {
     // Initializes the scraping
     const start = performance.now();
     this.prepareLinks("abc");
-    await this.getWordsForLetter();
+    // await this.getWordsForLetter();
 
     const end = performance.now();
     this.state.time = end - start;
@@ -94,28 +163,44 @@ class Scraper {
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
-  private prepareLinks(letter?: string | string[]) {
-    const start = performance.now();
+  // No params - get all letters, all pages
+  // set of letters - 1 or more
+  //  - get letters, all pages
+  // no letters, page
+  //  - get all letters, that page, if page doesn't exist, return [] for letter
+  // no letters, start page - end page
+  //  - get all letters, start page - end page
+  //    * start page must be less or equal to end page
+  //    * start page doesn't exist, return [] for letter
+  //    * end page doesn't exist, return [] for letter
+  // set of letters, page
+  //  - get `page` for the set of letters - if letter doesn't have `page`, return [] for letter
+  // set of letters, start page - end page
+  //  - get start - end page for letters
+  //    * start page must be less or equal to end page
+  //    * start page doesn't exist, return [] for letter
+  //    * end page doesn't exist, return [] for letter
 
-    if (letter) {
-      console.log(
-        `🪄 Preparing links for ${
-          letter.length > 1 ? "letters" : "letter"
-        } ${letter}.`
-      );
-
-      this.links = splitLetters(letter);
-    } else {
-      console.log(`🪄 Preparing links...`);
-      for (const cat of CATEGORIES) {
-        this.links.push(linkify(cat));
-      }
+  private async prepareLinks(param: PrepareLinkParams): Promise<any> {
+    // check type of overload
+    switch (param.type) {
+      case "ONE_LETTER_NO_PAGE":
+        break;
+      case "MULTIPLE_LETTERS_NO_PAGE":
+        break;
+      case "NO_LETTER_ONE_PAGE":
+        break;
+      case "NO_LETTER_START_END_PAGE":
+        break;
+      case "ONE_LETTER_ONE_PAGE":
+        break;
+      case "MULTIPLE_LETTERS_ONE_PAGE":
+        break;
+      case "MULTIPLE_LETTERS_START_END_PAGE":
+        break;
+      default:
+        throw new Error("Invalid type");
     }
-
-    const end = performance.now();
-    const time = duration(end - start);
-
-    console.log(`🔗 Prepared ${this.links.length} links -- ${time}`);
   }
 
   private async getWordsForLetter(): Promise<void> {
@@ -179,8 +264,6 @@ class Scraper {
     return lastPage;
   }
 
-  private async getSynonymsForWord() {}
-
   private async retry(callback: () => Promise<void>) {
     this.state.attempt++;
     if (this.state.attempt >= this.MAX_RETRIES) {
@@ -189,6 +272,67 @@ class Scraper {
     }
 
     await callback();
+  }
+
+  private async getLastPage(letter: string) {
+    const link = process.env.BASE_LINK + letter;
+
+    const cheerio = await this.load(link);
+    const href = cheerio(
+      '#content [data-type="bottom-paging"] ul [data-type="paging-arrow"] a'
+    )
+      .last()
+      .attr("href")
+      ?.split("/");
+
+    if (!href || !href.length) {
+      return 1;
+    }
+
+    const lastPage = parseInt(href[href.length - 1], 10);
+
+    return lastPage;
+  }
+
+  private async getSingleLetterAllPages(letter: string): Promise<any> {
+    // Implementation for getting all pages of a single letter
+  }
+
+  private async getMultipleLettersAllPages(letters: string[]): Promise<any> {
+    // Implementation for getting all pages of multiple letters
+  }
+
+  private async getAllLettersOnePage(page: number): Promise<any> {
+    // Implementation for getting all letters of one page
+  }
+
+  private async getAllLettersStartEndPages(
+    startPage: number,
+    endPage: number
+  ): Promise<any> {
+    // Implementation for getting all letters from start page to end page
+  }
+
+  private async getSingleLetterOnePage(
+    letter: string,
+    page: number
+  ): Promise<any> {
+    // Implementation for getting a single letter on a specific page
+  }
+
+  private async getMultipleLettersOnePage(
+    letters: string[],
+    page: number
+  ): Promise<any> {
+    // Implementation for getting multiple letters on a specific page
+  }
+
+  private async getMultipleLettersStartEndPages(
+    letters: string[],
+    startPage: number,
+    endPage: number
+  ): Promise<any> {
+    // Implementation for getting multiple letters from start page to end page
   }
 }
 
