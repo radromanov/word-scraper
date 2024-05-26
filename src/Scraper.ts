@@ -16,9 +16,9 @@ import type {
 } from "../lib/types";
 
 class Scraper {
-  private words: Record<Letter, Record<string, Definition>> = {} as Record<
+  private words: Record<Letter, Record<string, Definition[]>> = {} as Record<
     Letter,
-    Record<string, Definition>
+    Record<string, Definition[]>
   >;
 
   private state = {
@@ -38,7 +38,7 @@ class Scraper {
       this.words[letter] = {};
     });
 
-    console.log(this.words);
+    this.loadExistingWords();
   }
 
   private async load(url: string) {
@@ -53,14 +53,14 @@ class Scraper {
   async exec() {
     const start = performance.now();
     await this.handler({
-      letter: "a",
       page: 1,
-      type: "ONE_LETTER_ONE_PAGE",
+      type: "NO_LETTER_ONE_PAGE",
     });
     const end = performance.now();
     this.state.time = end - start;
 
-    console.log(this.words);
+    await Bun.write("az-1.json", JSON.stringify(this.words));
+
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
@@ -265,16 +265,13 @@ class Scraper {
 
     items.each((_i, element) => {
       const word = cheerio(element).text().trim();
-      if (word.length && isValid(word)) {
-        this.words[this.state.currentLetter][word] = {
-          type: "noun", // Default type, will be updated below
-          examples: [],
-          synonyms: {
-            strongest: [],
-            strong: [],
-            weak: [],
-          },
-        };
+
+      if (!word.length) throw new Error("No word found.");
+
+      const existingDefinitions = this.words[this.state.currentLetter];
+
+      if (!existingDefinitions[word] && isValid(word)) {
+        this.words[this.state.currentLetter][word] = [];
         totalWords++;
         this.state.currentLinkIndex++;
       }
@@ -295,10 +292,13 @@ class Scraper {
     const cheerio = await this.load(`${process.env.WORD_LINK}${word}`);
     const items = cheerio(selector);
 
-    if (!items.length) return;
+    // Remove object property if no word definition
+    if (!items.length) delete this.words[this.state.currentLetter][word];
 
     items.each((_i, element) => {
       const item = cheerio(element).text().trim();
+
+      if (!item.length) throw new Error("No word definition found.");
 
       const type = (item.match(/^\w+/)?.[0] ?? "") as LexicalType;
       const examples = captureExamples(cheerio, element);
@@ -308,12 +308,20 @@ class Scraper {
         weak: captureGroup("Weak", cheerio, element),
       };
 
-      this.words[this.state.currentLetter][word] = {
+      this.words[this.state.currentLetter][word].push({
         type,
         examples,
         synonyms,
-      };
+      });
     });
+  }
+
+  private async loadExistingWords() {
+    try {
+      this.words = await Bun.file("az-1.json").json();
+    } catch (error) {
+      console.log("No existing data found, starting fresh.");
+    }
   }
 }
 
