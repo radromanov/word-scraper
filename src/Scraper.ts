@@ -40,9 +40,9 @@ class Scraper {
   async exec() {
     const start = performance.now();
     await this.handler({
-      startPage: 2,
-      endPage: 4,
-      type: "NO_LETTER_START_END_PAGE",
+      page: 22,
+      type: "ONE_LETTER_ONE_PAGE",
+      letter: "a",
     });
     const end = performance.now();
     this.state.time = end - start;
@@ -108,13 +108,15 @@ class Scraper {
   }
 
   private async getAllLettersOnePage(page: number): Promise<void> {
-    console.log(`⚙️ Collecting page ${page} for all letters...\n`);
+    console.log(`⚙️ Collecting page ${page} for all letters...`);
     for (const letter of ALPHABET) {
       const link = `${process.env.BASE_LINK}${letter}/`;
       const lastPage = await this.getLastPage(letter);
       this.state.currentLetter = letter;
 
       if (page <= lastPage) {
+        console.log(`✈️ Loading page ${link + page}`);
+
         await this.loadAndExtractWordsWithRetry(link + page);
       }
     }
@@ -138,6 +140,7 @@ class Scraper {
 
       if (endPage <= lastPage) {
         for (let page = startPage; page <= endPage; page++) {
+          console.log(`✈️ Loading page ${link + page}`);
           await this.loadAndExtractWordsWithRetry(link + page);
         }
       }
@@ -148,7 +151,16 @@ class Scraper {
     letter: Letter,
     page: number
   ): Promise<void> {
-    // Implementation for getting a single letter on a specific page
+    const link = `${process.env.BASE_LINK}${letter}/`;
+    const lastPage = await this.getLastPage(letter);
+    this.state.currentLetter = letter;
+
+    if (page > lastPage)
+      throw new Error(`Page ${page} for letter ${letter} doesn't exist.`);
+
+    console.log(`✈️ Loading page ${link + page}`);
+
+    await this.loadAndExtractWordsWithRetry(link + page);
   }
 
   private async getMultipleLettersOnePage(
@@ -173,18 +185,18 @@ class Scraper {
         return;
       } catch (error: any) {
         console.log(
-          `   ⮡ ⚠️ Letter ${this.state.currentLetter}, attempt ${attempt} failed: ${error.message}`
+          `     ⮡ ⚠️ Letter ${this.state.currentLetter}, attempt ${attempt} failed: ${error.message}`
         );
         if (attempt < Scraper.MAX_RETRIES) {
           console.log(
-            `   ⮡ ♻️ Retrying letter ${this.state.currentLetter} in ${
+            `     ⮡ ♻️ Retrying letter ${this.state.currentLetter} in ${
               Scraper.RETRY_DELAY_MS / 1000
             } seconds...`
           );
           await new Promise((res) => setTimeout(res, Scraper.RETRY_DELAY_MS));
         } else {
           console.error(
-            `   ⮡ ❌ Failed to extract words from ${url} after ${Scraper.MAX_RETRIES} attempts.`
+            `     ⮡ ❌ Failed to extract words from ${url} after ${Scraper.MAX_RETRIES} attempts.`
           );
         }
       }
@@ -192,10 +204,10 @@ class Scraper {
   }
 
   private async loadAndExtractWords(url: string): Promise<void> {
-    console.log(`\n⚙️ Collecting word(s) from ${url}`);
+    console.log(`   ⮡ ⚙️ Collecting word(s)...`);
     this.state.currentLink = url;
     const wordsCount = await this.extractWords();
-    console.log(`   ⮡ ✅ Collected ${wordsCount} word(s).`);
+    console.log(`     ⮡ ✅ Collected ${wordsCount} word(s).`);
   }
 
   private async extractWords(): Promise<number> {
