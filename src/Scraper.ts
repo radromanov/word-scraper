@@ -1,6 +1,6 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
-import { AXIOS_CONFIG, CATEGORIES, duration, isValid } from "../lib/helpers";
+import { AXIOS_CONFIG, ALPHABET, duration, isValid } from "../lib/helpers";
 import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
 
 class Scraper {
@@ -23,7 +23,7 @@ class Scraper {
   private static readonly RETRY_DELAY_MS = 2000;
 
   constructor() {
-    CATEGORIES.forEach((letter) => {
+    ALPHABET.forEach((letter) => {
       this.wordsForLetter[letter] = [];
     });
   }
@@ -39,7 +39,11 @@ class Scraper {
 
   async exec() {
     const start = performance.now();
-    await this.prepareLinks({ page: 2, type: "NO_LETTER_ONE_PAGE" });
+    await this.handler({
+      startPage: 2,
+      endPage: 4,
+      type: "NO_LETTER_START_END_PAGE",
+    });
     const end = performance.now();
     this.state.time = end - start;
 
@@ -47,7 +51,7 @@ class Scraper {
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
-  private async prepareLinks(param: PrepareLinkParams): Promise<void> {
+  private async handler(param: PrepareLinkParams): Promise<void> {
     const linkHandlers = {
       ONE_LETTER_NO_PAGE: () => this.getSingleLetterAllPages(param.letter!),
       MULTIPLE_LETTERS_NO_PAGE: () =>
@@ -105,7 +109,7 @@ class Scraper {
 
   private async getAllLettersOnePage(page: number): Promise<void> {
     console.log(`⚙️ Collecting page ${page} for all letters...\n`);
-    for (const letter of CATEGORIES) {
+    for (const letter of ALPHABET) {
       const link = `${process.env.BASE_LINK}${letter}/`;
       const lastPage = await this.getLastPage(letter);
       this.state.currentLetter = letter;
@@ -120,7 +124,24 @@ class Scraper {
     startPage: number,
     endPage: number
   ): Promise<void> {
-    // Implementation for getting all letters from start page to end page
+    if (startPage > endPage)
+      throw new Error("Start page must be less or equal to end page.");
+
+    console.log(
+      `⚙️ Collecting pages ${startPage}-${endPage} for all letters...\n`
+    );
+
+    for (const letter of ALPHABET) {
+      const link = `${process.env.BASE_LINK}${letter}/`;
+      const lastPage = await this.getLastPage(letter);
+      this.state.currentLetter = letter;
+
+      if (endPage <= lastPage) {
+        for (let page = startPage; page <= endPage; page++) {
+          await this.loadAndExtractWordsWithRetry(link + page);
+        }
+      }
+    }
   }
 
   private async getSingleLetterOnePage(
@@ -171,7 +192,7 @@ class Scraper {
   }
 
   private async loadAndExtractWords(url: string): Promise<void> {
-    console.log(`\n⚙️ Collecting word(s) from ${url}...`);
+    console.log(`\n⚙️ Collecting word(s) from ${url}`);
     this.state.currentLink = url;
     const wordsCount = await this.extractWords();
     console.log(`   ⮡ ✅ Collected ${wordsCount} word(s).`);

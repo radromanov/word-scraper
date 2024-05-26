@@ -9,7 +9,7 @@ export const AXIOS_CONFIG = {
   validateStatus: (status: number) => status < 500, // Resolve only if the status code is less than 500; 4xx errors are handled in catch
 };
 
-export const CATEGORIES = [
+export const ALPHABET = [
   "a",
   "b",
   "c",
