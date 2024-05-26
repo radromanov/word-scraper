@@ -1,130 +1,78 @@
 import axios from "axios";
-import {
-  load as chload,
-  type Cheerio,
-  type CheerioAPI,
-  type Element,
-} from "cheerio";
-
+import { load as chload } from "cheerio";
 import { AXIOS_CONFIG, CATEGORIES, duration, isValid } from "../lib/helpers";
 import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
 
 class Scraper {
-  private suspense: Suspense = { min: 0, max: 0 };
-  private wordsForLetter: { [K in Letter]: string[] };
+  private suspense: Suspense = { min: 2500, max: 5000 };
+  private wordsForLetter: Record<Letter, string[]> = {} as Record<
+    Letter,
+    string[]
+  >;
 
-  private state: {
-    currentLinkIndex: number;
-    currentLink: string;
-    currentLetter: Letter;
-    currentWord: string;
-    attempt: number;
-    time: number;
+  private state = {
+    currentLinkIndex: 0,
+    currentLink: "",
+    currentLetter: "a" as Letter,
+    currentWord: "",
+    attempt: 0,
+    time: 0,
   };
 
   constructor() {
-    this.suspense.min = 2500;
-    this.suspense.max = 5000;
-    this.wordsForLetter = {
-      a: [],
-      b: [],
-      c: [],
-      d: [],
-      e: [],
-      f: [],
-      g: [],
-      h: [],
-      i: [],
-      j: [],
-      k: [],
-      l: [],
-      m: [],
-      n: [],
-      o: [],
-      p: [],
-      q: [],
-      r: [],
-      s: [],
-      t: [],
-      u: [],
-      v: [],
-      w: [],
-      x: [],
-      y: [],
-      z: [],
-    };
-    this.state = {
-      currentLetter: "a",
-      currentLink: "",
-      currentLinkIndex: 0,
-      currentWord: "",
-      attempt: 0,
-      time: 0,
-    };
+    CATEGORIES.forEach((letter) => {
+      this.wordsForLetter[letter] = [];
+    });
   }
 
-  async load(url: string) {
-    // await delay(this.suspense.min, this.suspense.max);
-
+  private async load(url: string) {
     try {
       const response = await axios.get(url, AXIOS_CONFIG);
-      const html = response.data;
-
-      return chload(html);
+      return chload(response.data);
     } catch (error) {
       throw new Error(`Unable to load Cheerio API with url ${url}`);
     }
   }
 
   async exec() {
-    // Initializes the scraping
     const start = performance.now();
     await this.prepareLinks({ page: 2, type: "NO_LETTER_ONE_PAGE" });
-
     const end = performance.now();
     this.state.time = end - start;
 
     console.log(this.wordsForLetter);
-
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
   private async prepareLinks(param: PrepareLinkParams): Promise<any> {
-    // check type of overload
-    switch (param.type) {
-      case "ONE_LETTER_NO_PAGE":
-        await this.getSingleLetterAllPages(param.letter);
-        break;
-      case "MULTIPLE_LETTERS_NO_PAGE":
-        await this.getMultipleLettersAllPages(param.letters);
-        break;
-      case "NO_LETTER_ONE_PAGE":
-        await this.getAllLettersOnePage(param.page);
-        break;
-      case "NO_LETTER_START_END_PAGE":
-        await this.getAllLettersStartEndPages(param.startPage, param.endPage);
-        break;
-      case "ONE_LETTER_ONE_PAGE":
-        await this.getSingleLetterOnePage(param.letter, param.page);
-        break;
-      case "MULTIPLE_LETTERS_ONE_PAGE":
-        await this.getMultipleLettersOnePage(param.letters, param.page);
-        break;
-      case "MULTIPLE_LETTERS_START_END_PAGE":
-        await this.getMultipleLettersStartEndPages(
-          param.letters,
-          param.startPage,
-          param.endPage
-        );
-        break;
-      default:
-        throw new Error("Invalid type");
+    const linkHandlers = {
+      ONE_LETTER_NO_PAGE: () => this.getSingleLetterAllPages(param.letter!),
+      MULTIPLE_LETTERS_NO_PAGE: () =>
+        this.getMultipleLettersAllPages(param.letters!),
+      NO_LETTER_ONE_PAGE: () => this.getAllLettersOnePage(param.page!),
+      NO_LETTER_START_END_PAGE: () =>
+        this.getAllLettersStartEndPages(param.startPage!, param.endPage!),
+      ONE_LETTER_ONE_PAGE: () =>
+        this.getSingleLetterOnePage(param.letter!, param.page!),
+      MULTIPLE_LETTERS_ONE_PAGE: () =>
+        this.getMultipleLettersOnePage(param.letters!, param.page!),
+      MULTIPLE_LETTERS_START_END_PAGE: () =>
+        this.getMultipleLettersStartEndPages(
+          param.letters!,
+          param.startPage!,
+          param.endPage!
+        ),
+    };
+
+    if (!linkHandlers[param.type]) {
+      throw new Error("Invalid type");
     }
+
+    await linkHandlers[param.type]();
   }
 
-  private async getLastPage(letter: Letter) {
-    const link = process.env.BASE_LINK + letter;
-
+  private async getLastPage(letter: Letter): Promise<number> {
+    const link = `${process.env.BASE_LINK}${letter}`;
     const cheerio = await this.load(link);
     const href = cheerio(
       '#content [data-type="bottom-paging"] ul [data-type="paging-arrow"] a'
@@ -133,28 +81,42 @@ class Scraper {
       .attr("href")
       ?.split("/");
 
-    if (!href || !href.length) {
-      return 1;
-    }
+    return href && href.length ? parseInt(href[href.length - 1], 10) : 1;
+  }
 
-    const lastPage = parseInt(href[href.length - 1], 10);
+  private async loadAndExtractWords(url: string): Promise<void> {
+    this.state.currentLink = url;
+    const wordsCount = await this.extractWords();
+    console.log(`✅ Collected ${wordsCount} word(s) from ${url}.`);
+  }
 
-    return lastPage;
+  private async extractWords(): Promise<number> {
+    let words = 0;
+    const cheerio = await this.load(this.state.currentLink);
+    const items = cheerio('[data-type="browse-list"] ul li');
+
+    if (!items.length) throw new Error("No items found");
+
+    items.each((_i, element) => {
+      const word = cheerio(element).text().trim();
+      if (word.length && isValid(word)) {
+        this.wordsForLetter[this.state.currentLetter].push(word);
+        words++;
+        this.state.currentLinkIndex++;
+        this.state.currentWord = word;
+      }
+    });
+
+    return words;
   }
 
   private async getSingleLetterAllPages(letter: Letter): Promise<void> {
-    const link = process.env.BASE_LINK + letter + "/";
+    const link = `${process.env.BASE_LINK}${letter}/`;
     const lastPage = await this.getLastPage(letter);
     this.state.currentLetter = letter;
 
-    const allPages = Array.from({ length: lastPage }, (_, i) => i + 1);
-
-    let total = 0;
-
-    for (const page of allPages) {
-      this.state.currentLink = link + page;
-      const words = await this.extractWords();
-      total += words;
+    for (let page = 1; page <= lastPage; page++) {
+      await this.loadAndExtractWords(link + page);
     }
   }
 
@@ -166,32 +128,15 @@ class Scraper {
 
   private async getAllLettersOnePage(page: number): Promise<void> {
     console.log(`⚙️ Collecting page ${page} for all letters...\n`);
-    let total = 0;
-
     for (const letter of CATEGORIES) {
-      const link = process.env.BASE_LINK + letter + "/";
+      const link = `${process.env.BASE_LINK}${letter}/`;
       const lastPage = await this.getLastPage(letter);
       this.state.currentLetter = letter;
 
-      // If page doesn't exist, skip this iteration
-      if (page > lastPage) continue;
-
-      console.log(`⏸️ Loading words for letter ${letter}...`);
-
-      this.state.currentLink = link + page;
-      const words = await this.extractWords();
-      total += words;
-
-      console.log(
-        `✅ Collected ${words} ${
-          words === 0 || words > 1 ? "words" : "word"
-        } for letter ${letter}.\n`
-      );
+      if (page <= lastPage) {
+        await this.loadAndExtractWords(link + page);
+      }
     }
-
-    console.log(
-      `📦 Finished collecting ${total} words on page ${page} for all letters.`
-    );
   }
 
   private async getAllLettersStartEndPages(
@@ -221,32 +166,6 @@ class Scraper {
     endPage: number
   ): Promise<any> {
     // Implementation for getting multiple letters from start page to end page
-  }
-
-  private async extractWords() {
-    let words = 0;
-
-    const cheerio = await this.load(this.state.currentLink);
-    const items = cheerio('[data-type="browse-list"] ul li');
-
-    if (!items.length) throw new Error();
-
-    items.each((_i, element) => {
-      const word = cheerio(element).text().trim();
-
-      if (!word.length) throw new Error();
-
-      if (isValid(word)) {
-        this.wordsForLetter[this.state.currentLetter].push(word);
-
-        words++;
-
-        this.state.currentLinkIndex += 1;
-        this.state.currentWord = word;
-      }
-    });
-
-    return words;
   }
 }
 
