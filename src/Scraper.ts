@@ -19,6 +19,9 @@ class Scraper {
     time: 0,
   };
 
+  private static readonly MAX_RETRIES = 3;
+  private static readonly RETRY_DELAY_MS = 2000;
+
   constructor() {
     CATEGORIES.forEach((letter) => {
       this.wordsForLetter[letter] = [];
@@ -44,7 +47,7 @@ class Scraper {
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
-  private async prepareLinks(param: PrepareLinkParams): Promise<any> {
+  private async prepareLinks(param: PrepareLinkParams): Promise<void> {
     const linkHandlers = {
       ONE_LETTER_NO_PAGE: () => this.getSingleLetterAllPages(param.letter!),
       MULTIPLE_LETTERS_NO_PAGE: () =>
@@ -84,10 +87,94 @@ class Scraper {
     return href && href.length ? parseInt(href[href.length - 1], 10) : 1;
   }
 
+  private async getSingleLetterAllPages(letter: Letter): Promise<void> {
+    const link = `${process.env.BASE_LINK}${letter}/`;
+    const lastPage = await this.getLastPage(letter);
+    this.state.currentLetter = letter;
+
+    for (let page = 1; page <= lastPage; page++) {
+      await this.loadAndExtractWordsWithRetry(link + page);
+    }
+  }
+
+  private async getMultipleLettersAllPages(letters: Letter[]): Promise<void> {
+    for (const letter of letters) {
+      await this.getSingleLetterAllPages(letter);
+    }
+  }
+
+  private async getAllLettersOnePage(page: number): Promise<void> {
+    console.log(`⚙️ Collecting page ${page} for all letters...\n`);
+    for (const letter of CATEGORIES) {
+      const link = `${process.env.BASE_LINK}${letter}/`;
+      const lastPage = await this.getLastPage(letter);
+      this.state.currentLetter = letter;
+
+      if (page <= lastPage) {
+        await this.loadAndExtractWordsWithRetry(link + page);
+      }
+    }
+  }
+
+  private async getAllLettersStartEndPages(
+    startPage: number,
+    endPage: number
+  ): Promise<void> {
+    // Implementation for getting all letters from start page to end page
+  }
+
+  private async getSingleLetterOnePage(
+    letter: Letter,
+    page: number
+  ): Promise<void> {
+    // Implementation for getting a single letter on a specific page
+  }
+
+  private async getMultipleLettersOnePage(
+    letters: Letter[],
+    page: number
+  ): Promise<void> {
+    // Implementation for getting multiple letters on a specific page
+  }
+
+  private async getMultipleLettersStartEndPages(
+    letters: Letter[],
+    startPage: number,
+    endPage: number
+  ): Promise<void> {
+    // Implementation for getting multiple letters from start page to end page
+  }
+
+  private async loadAndExtractWordsWithRetry(url: string): Promise<void> {
+    for (let attempt = 1; attempt <= Scraper.MAX_RETRIES; attempt++) {
+      try {
+        await this.loadAndExtractWords(url);
+        return;
+      } catch (error: any) {
+        console.log(
+          `   ⮡ ⚠️ Letter ${this.state.currentLetter}, attempt ${attempt} failed: ${error.message}`
+        );
+        if (attempt < Scraper.MAX_RETRIES) {
+          console.log(
+            `   ⮡ ♻️ Retrying letter ${this.state.currentLetter} in ${
+              Scraper.RETRY_DELAY_MS / 1000
+            } seconds...`
+          );
+          await new Promise((res) => setTimeout(res, Scraper.RETRY_DELAY_MS));
+        } else {
+          console.error(
+            `   ⮡ ❌ Failed to extract words from ${url} after ${Scraper.MAX_RETRIES} attempts.`
+          );
+        }
+      }
+    }
+  }
+
   private async loadAndExtractWords(url: string): Promise<void> {
+    console.log(`\n⚙️ Collecting word(s) from ${url}...`);
     this.state.currentLink = url;
     const wordsCount = await this.extractWords();
-    console.log(`✅ Collected ${wordsCount} word(s) from ${url}.`);
+    console.log(`   ⮡ ✅ Collected ${wordsCount} word(s).`);
   }
 
   private async extractWords(): Promise<number> {
@@ -108,64 +195,6 @@ class Scraper {
     });
 
     return words;
-  }
-
-  private async getSingleLetterAllPages(letter: Letter): Promise<void> {
-    const link = `${process.env.BASE_LINK}${letter}/`;
-    const lastPage = await this.getLastPage(letter);
-    this.state.currentLetter = letter;
-
-    for (let page = 1; page <= lastPage; page++) {
-      await this.loadAndExtractWords(link + page);
-    }
-  }
-
-  private async getMultipleLettersAllPages(letters: Letter[]): Promise<void> {
-    for (const letter of letters) {
-      await this.getSingleLetterAllPages(letter);
-    }
-  }
-
-  private async getAllLettersOnePage(page: number): Promise<void> {
-    console.log(`⚙️ Collecting page ${page} for all letters...\n`);
-    for (const letter of CATEGORIES) {
-      const link = `${process.env.BASE_LINK}${letter}/`;
-      const lastPage = await this.getLastPage(letter);
-      this.state.currentLetter = letter;
-
-      if (page <= lastPage) {
-        await this.loadAndExtractWords(link + page);
-      }
-    }
-  }
-
-  private async getAllLettersStartEndPages(
-    startPage: number,
-    endPage: number
-  ): Promise<any> {
-    // Implementation for getting all letters from start page to end page
-  }
-
-  private async getSingleLetterOnePage(
-    letter: Letter,
-    page: number
-  ): Promise<any> {
-    // Implementation for getting a single letter on a specific page
-  }
-
-  private async getMultipleLettersOnePage(
-    letters: Letter[],
-    page: number
-  ): Promise<any> {
-    // Implementation for getting multiple letters on a specific page
-  }
-
-  private async getMultipleLettersStartEndPages(
-    letters: Letter[],
-    startPage: number,
-    endPage: number
-  ): Promise<any> {
-    // Implementation for getting multiple letters from start page to end page
   }
 }
 
