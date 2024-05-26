@@ -69,27 +69,6 @@ export function delay(min: number, max: number) {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
-export async function limit<T>(
-  context: string,
-  attempt: number,
-  callback: () => Promise<T>
-): Promise<T> {
-  const MAX_RETRIES = 5;
-
-  if (attempt < MAX_RETRIES) {
-    console.log(
-      `[${context.toUpperCase()}]   --- Attempt ${
-        attempt + 1
-      } of ${MAX_RETRIES}`
-    );
-  } else {
-    console.log(
-      `[${context.toUpperCase()}]   --- ❌Max retries reached. Exiting.`
-    );
-  }
-  return await callback();
-}
-
 export function linkify(category: string) {
   const link = `${process.env.BASE_LINK}${category}`;
 

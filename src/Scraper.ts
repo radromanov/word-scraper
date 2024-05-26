@@ -1,15 +1,13 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
 
-import { AXIOS_CONFIG, duration, isValid } from "../lib/helpers";
+import { AXIOS_CONFIG, CATEGORIES, duration, isValid } from "../lib/helpers";
 import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
 
 class Scraper {
   private suspense: Suspense = { min: 0, max: 0 };
-  private links: { link: string; lastPage: number | null }[];
   private wordsForLetter: { [K in Letter]: string[] };
 
-  private MAX_RETRIES = 5;
   private state: {
     currentLinkIndex: number;
     currentLink: string;
@@ -22,7 +20,6 @@ class Scraper {
   constructor() {
     this.suspense.min = 2500;
     this.suspense.max = 5000;
-    this.links = [];
     this.wordsForLetter = {
       a: [],
       b: [],
@@ -77,8 +74,7 @@ class Scraper {
   async exec() {
     // Initializes the scraping
     const start = performance.now();
-    await this.prepareLinks({ letter: "a", type: "ONE_LETTER_NO_PAGE" });
-    // await this.getWordsForLetter();
+    await this.prepareLinks({ page: 2, type: "NO_LETTER_ONE_PAGE" });
 
     const end = performance.now();
     this.state.time = end - start;
@@ -121,76 +117,6 @@ class Scraper {
     }
   }
 
-  private async getWordsForLetter(): Promise<void> {
-    // await delay(this.suspense.min, this.suspense.max);
-
-    for (let i = this.state.currentLinkIndex; i < this.links.length; i++) {
-      const link = this.links[i].link;
-      this.state.currentLetter = link.slice(-1) as Letter;
-
-      try {
-        const cheerio = await this.load(link);
-        const items = cheerio('[data-type="browse-list"] ul li');
-
-        if (!items.length) throw new Error();
-
-        const lastPage = await this.getPagesForLetter();
-
-        console.log(lastPage);
-
-        items.each((_i, element) => {
-          const word = cheerio(element).text().trim();
-
-          if (!word.length) throw new Error();
-
-          if (isValid(word)) {
-            this.wordsForLetter[this.state.currentLetter].push(word);
-
-            this.state.currentLinkIndex = i + 1;
-            this.state.currentWord = word;
-          }
-        });
-      } catch (error) {
-        console.warn(
-          `⚠️ Retrying for letter ${this.state.currentLetter} -- [${
-            this.state.attempt + 1
-          }/${this.MAX_RETRIES}]`
-        );
-        await this.retry(this.getWordsForLetter.bind(this));
-      }
-    }
-  }
-
-  private async getPagesForLetter() {
-    const link = this.links[this.state.currentLinkIndex].link;
-
-    const cheerio = await this.load(link);
-    const href = cheerio(
-      '#content [data-type="bottom-paging"] ul [data-type="paging-arrow"] a'
-    )
-      .last()
-      .attr("href")
-      ?.split("/");
-
-    if (!href || !href.length) {
-      return 1;
-    }
-
-    const lastPage = parseInt(href[href.length - 1], 10);
-
-    return lastPage;
-  }
-
-  private async retry(callback: () => Promise<void>) {
-    this.state.attempt++;
-    if (this.state.attempt >= this.MAX_RETRIES) {
-      console.error(`Failed operation: attempts exceeded ${this.MAX_RETRIES}`);
-      throw new Error("Too many attempts");
-    }
-
-    await callback();
-  }
-
   private async getLastPage(letter: Letter) {
     const link = process.env.BASE_LINK + letter;
 
@@ -211,8 +137,7 @@ class Scraper {
     return lastPage;
   }
 
-  private async getSingleLetterAllPages(letter: Letter): Promise<any> {
-    // Implementation for getting all pages of a single letter
+  private async getSingleLetterAllPages(letter: Letter): Promise<void> {
     const link = process.env.BASE_LINK + letter + "/";
     const lastPage = await this.getLastPage(letter);
     const allPages = Array.from({ length: lastPage }, (_, i) => i + 1);
@@ -241,12 +166,60 @@ class Scraper {
     }
   }
 
-  private async getMultipleLettersAllPages(letters: Letter[]): Promise<any> {
-    // Implementation for getting all pages of multiple letters
+  private async getMultipleLettersAllPages(letters: Letter[]): Promise<void> {
+    for (const letter of letters) {
+      await this.getSingleLetterAllPages(letter);
+    }
   }
 
-  private async getAllLettersOnePage(page: number): Promise<any> {
-    // Implementation for getting all letters of one page
+  private async getAllLettersOnePage(page: number): Promise<void> {
+    console.log(`⚙️ Collecting page ${page} for all letters...\n`);
+    let total = 0;
+
+    for (const letter of CATEGORIES) {
+      this.state.currentLetter = letter;
+      const link = process.env.BASE_LINK + letter + "/";
+      const lastPage = await this.getLastPage(letter);
+
+      // If page doesn't exist, skip this iteration
+      if (page > lastPage) continue;
+
+      console.log(`⏸️ Loading words for letter ${letter}...`);
+
+      this.state.currentLink = link + page;
+
+      const cheerio = await this.load(this.state.currentLink);
+      const items = cheerio('[data-type="browse-list"] ul li');
+
+      if (!items.length) continue;
+
+      let words = 0;
+
+      items.each((_i, element) => {
+        const word = cheerio(element).text().trim();
+
+        if (!word.length) throw new Error();
+
+        if (isValid(word)) {
+          this.wordsForLetter[this.state.currentLetter].push(word);
+
+          words++;
+
+          this.state.currentLinkIndex += 1;
+          this.state.currentWord = word;
+        }
+      });
+      total += words;
+      console.log(
+        `✅ Collected ${words} ${
+          words === 0 || words > 1 ? "words" : "word"
+        } for letter ${letter}.\n`
+      );
+    }
+
+    console.log(
+      `📦 Finished collecting ${total} words on page ${page} for all letters.`
+    );
   }
 
   private async getAllLettersStartEndPages(
