@@ -1,4 +1,4 @@
-import type { CATEGORIES } from "./helpers";
+import type { ALPHABET } from "./helpers";
 
 export type Suspense = {
   min: number;
@@ -24,7 +24,7 @@ export interface Definition {
   synonyms: Match;
 }
 
-interface Variant {
+export interface Variant {
   type:
     | "ONE_LETTER_NO_PAGE"
     | "MULTIPLE_LETTERS_NO_PAGE"
@@ -32,6 +32,7 @@ interface Variant {
     | "NO_LETTER_START_END_PAGE"
     | "ONE_LETTER_ONE_PAGE"
     | "MULTIPLE_LETTERS_ONE_PAGE"
+    | "SINGLE_LETTER_START_END_PAGE"
     | "MULTIPLE_LETTERS_START_END_PAGE";
 }
 
@@ -77,6 +78,13 @@ interface LettersPageParam extends Variant {
   startPage?: never;
   endPage?: never;
 }
+interface LetterPagesParam extends Variant {
+  letter: Letter;
+  startPage: number;
+  endPage: number;
+  letters?: never;
+  page?: never;
+}
 interface LettersPagesParam extends Variant {
   letters: Letter[];
   startPage: number;
@@ -85,13 +93,14 @@ interface LettersPagesParam extends Variant {
   page?: never;
 }
 
-export type Letter = (typeof CATEGORIES)[number];
+export type Letter = (typeof ALPHABET)[number];
 
 export type PrepareLinkParams =
-  | (LetterParam & { type: "ONE_LETTER_NO_PAGE" })
-  | (LettersParam & { type: "MULTIPLE_LETTERS_NO_PAGE" })
-  | (PageParam & { type: "NO_LETTER_ONE_PAGE" })
-  | (PagesParam & { type: "NO_LETTER_START_END_PAGE" })
-  | (LetterPageParam & { type: "ONE_LETTER_ONE_PAGE" })
-  | (LettersPageParam & { type: "MULTIPLE_LETTERS_ONE_PAGE" })
-  | (LettersPagesParam & { type: "MULTIPLE_LETTERS_START_END_PAGE" });
+  | (LetterParam & Variant)
+  | (LettersParam & Variant)
+  | (PageParam & Variant)
+  | (PagesParam & Variant)
+  | (LetterPageParam & Variant)
+  | (LettersPageParam & Variant)
+  | (LetterPagesParam & Variant)
+  | (LettersPagesParam & Variant);

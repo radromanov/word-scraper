@@ -1,7 +1,12 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
 import { AXIOS_CONFIG, ALPHABET, duration, isValid } from "../lib/helpers";
-import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
+import type {
+  Letter,
+  PrepareLinkParams,
+  Suspense,
+  Variant,
+} from "../lib/types";
 
 class Scraper {
   private suspense: Suspense = { min: 2500, max: 5000 };
@@ -52,7 +57,7 @@ class Scraper {
   }
 
   private async handler(param: PrepareLinkParams): Promise<void> {
-    const linkHandlers = {
+    const linkHandlers: { [K in Variant["type"]]: () => Promise<void> } = {
       ONE_LETTER_NO_PAGE: () => this.getSingleLetterAllPages(param.letter!),
       MULTIPLE_LETTERS_NO_PAGE: () =>
         this.getMultipleLettersAllPages(param.letters!),
@@ -63,6 +68,12 @@ class Scraper {
         this.getSingleLetterOnePage(param.letter!, param.page!),
       MULTIPLE_LETTERS_ONE_PAGE: () =>
         this.getMultipleLettersOnePage(param.letters!, param.page!),
+      SINGLE_LETTER_START_END_PAGE: () =>
+        this.getSingleLetterStartEndPages(
+          param.letter!,
+          param.startPage!,
+          param.endPage!
+        ),
       MULTIPLE_LETTERS_START_END_PAGE: () =>
         this.getMultipleLettersStartEndPages(
           param.letters!,
@@ -167,7 +178,35 @@ class Scraper {
     letters: Letter[],
     page: number
   ): Promise<void> {
-    // Implementation for getting multiple letters on a specific page
+    for (const letter of letters) {
+      await this.getSingleLetterOnePage(letter, page);
+    }
+  }
+
+  private async getSingleLetterStartEndPages(
+    letter: Letter,
+    startPage: number,
+    endPage: number
+  ): Promise<void> {
+    if (startPage > endPage)
+      throw new Error("Start page must be less or equal to end page.");
+
+    const link = `${process.env.BASE_LINK}${letter}/`;
+    const lastPage = await this.getLastPage(letter);
+    this.state.currentLetter = letter;
+
+    if (endPage >= lastPage)
+      throw new Error(`Page ${endPage} for letter ${letter} doesn't exist.`);
+
+    console.log(
+      `⚙️ Collecting pages ${startPage}-${endPage} for letter ${letter}...\n`
+    );
+
+    for (let page = startPage; page <= endPage; page++) {
+      console.log(`✈️ Loading page ${link + page}`);
+
+      await this.loadAndExtractWordsWithRetry(link + page);
+    }
   }
 
   private async getMultipleLettersStartEndPages(
@@ -175,7 +214,9 @@ class Scraper {
     startPage: number,
     endPage: number
   ): Promise<void> {
-    // Implementation for getting multiple letters from start page to end page
+    for (const letter of letters) {
+      await this.getSingleLetterStartEndPages(letter, startPage, endPage);
+    }
   }
 
   private async loadAndExtractWordsWithRetry(url: string): Promise<void> {
