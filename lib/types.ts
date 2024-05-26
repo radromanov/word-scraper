@@ -96,11 +96,11 @@ interface LettersPagesParam extends Variant {
 export type Letter = (typeof ALPHABET)[number];
 
 export type PrepareLinkParams =
-  | (LetterParam & Variant)
-  | (LettersParam & Variant)
-  | (PageParam & Variant)
-  | (PagesParam & Variant)
-  | (LetterPageParam & Variant)
-  | (LettersPageParam & Variant)
-  | (LetterPagesParam & Variant)
-  | (LettersPagesParam & Variant);
+  | (LetterParam & { type: "ONE_LETTER_NO_PAGE" })
+  | (LettersParam & { type: "MULTIPLE_LETTERS_NO_PAGE" })
+  | (PageParam & { type: "NO_LETTER_ONE_PAGE" })
+  | (PagesParam & { type: "NO_LETTER_START_END_PAGE" })
+  | (LetterPageParam & { type: "ONE_LETTER_ONE_PAGE" })
+  | (LettersPageParam & { type: "MULTIPLE_LETTERS_ONE_PAGE" })
+  | (LetterPagesParam & { type: "SINGLE_LETTER_START_END_PAGE" })
+  | (LettersPagesParam & { type: "MULTIPLE_LETTERS_START_END_PAGE" });

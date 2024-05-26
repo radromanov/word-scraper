@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   AXIOS_CONFIG,
-  CATEGORIES,
+  ALPHABET,
   captureExamples,
   captureGroup,
   delay,
@@ -41,8 +41,8 @@ function populateLinks() {
   if (dev) {
     links = [process.env.BASE_LINK + "a", process.env.BASE_LINK + "b"];
   } else {
-    CATEGORIES.map((category) => {
-      links.push(linkify(category));
+    ALPHABET.map((letter) => {
+      links.push(linkify(letter));
     });
   }
 

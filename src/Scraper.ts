@@ -1,18 +1,24 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
-import { AXIOS_CONFIG, ALPHABET, duration, isValid } from "../lib/helpers";
+import {
+  AXIOS_CONFIG,
+  ALPHABET,
+  duration,
+  isValid,
+  captureExamples,
+  captureGroup,
+} from "../lib/helpers";
 import type {
+  Definition,
   Letter,
+  LexicalType,
   PrepareLinkParams,
-  Suspense,
-  Variant,
 } from "../lib/types";
 
 class Scraper {
-  private suspense: Suspense = { min: 2500, max: 5000 };
-  private wordsForLetter: Record<Letter, string[]> = {} as Record<
+  private words: Record<Letter, Record<string, Definition>> = {} as Record<
     Letter,
-    string[]
+    Record<string, Definition>
   >;
 
   private state = {
@@ -29,8 +35,10 @@ class Scraper {
 
   constructor() {
     ALPHABET.forEach((letter) => {
-      this.wordsForLetter[letter] = [];
+      this.words[letter] = {};
     });
+
+    console.log(this.words);
   }
 
   private async load(url: string) {
@@ -45,19 +53,19 @@ class Scraper {
   async exec() {
     const start = performance.now();
     await this.handler({
-      page: 22,
-      type: "ONE_LETTER_ONE_PAGE",
       letter: "a",
+      page: 1,
+      type: "ONE_LETTER_ONE_PAGE",
     });
     const end = performance.now();
     this.state.time = end - start;
 
-    console.log(this.wordsForLetter);
+    console.log(this.words);
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
   }
 
   private async handler(param: PrepareLinkParams): Promise<void> {
-    const linkHandlers: { [K in Variant["type"]]: () => Promise<void> } = {
+    const linkHandlers = {
       ONE_LETTER_NO_PAGE: () => this.getSingleLetterAllPages(param.letter!),
       MULTIPLE_LETTERS_NO_PAGE: () =>
         this.getMultipleLettersAllPages(param.letters!),
@@ -127,7 +135,6 @@ class Scraper {
 
       if (page <= lastPage) {
         console.log(`✈️ Loading page ${link + page}`);
-
         await this.loadAndExtractWordsWithRetry(link + page);
       }
     }
@@ -170,7 +177,6 @@ class Scraper {
       throw new Error(`Page ${page} for letter ${letter} doesn't exist.`);
 
     console.log(`✈️ Loading page ${link + page}`);
-
     await this.loadAndExtractWordsWithRetry(link + page);
   }
 
@@ -204,7 +210,6 @@ class Scraper {
 
     for (let page = startPage; page <= endPage; page++) {
       console.log(`✈️ Loading page ${link + page}`);
-
       await this.loadAndExtractWordsWithRetry(link + page);
     }
   }
@@ -252,7 +257,7 @@ class Scraper {
   }
 
   private async extractWords(): Promise<number> {
-    let words = 0;
+    let totalWords = 0;
     const cheerio = await this.load(this.state.currentLink);
     const items = cheerio('[data-type="browse-list"] ul li');
 
@@ -261,14 +266,54 @@ class Scraper {
     items.each((_i, element) => {
       const word = cheerio(element).text().trim();
       if (word.length && isValid(word)) {
-        this.wordsForLetter[this.state.currentLetter].push(word);
-        words++;
+        this.words[this.state.currentLetter][word] = {
+          type: "noun", // Default type, will be updated below
+          examples: [],
+          synonyms: {
+            strongest: [],
+            strong: [],
+            weak: [],
+          },
+        };
+        totalWords++;
         this.state.currentLinkIndex++;
-        this.state.currentWord = word;
       }
     });
 
-    return words;
+    for (const word of Object.keys(this.words[this.state.currentLetter])) {
+      this.state.currentWord = word;
+      await this.loadWordDefinition(word);
+    }
+
+    return totalWords;
+  }
+
+  private async loadWordDefinition(word: string): Promise<void> {
+    const selector =
+      '[data-type="synonym-antonym-module"] [data-type="synonym-and-antonym-card"]';
+
+    const cheerio = await this.load(`${process.env.WORD_LINK}${word}`);
+    const items = cheerio(selector);
+
+    if (!items.length) return;
+
+    items.each((_i, element) => {
+      const item = cheerio(element).text().trim();
+
+      const type = (item.match(/^\w+/)?.[0] ?? "") as LexicalType;
+      const examples = captureExamples(cheerio, element);
+      const synonyms = {
+        strongest: captureGroup("Strongest", cheerio, element),
+        strong: captureGroup("Strong", cheerio, element),
+        weak: captureGroup("Weak", cheerio, element),
+      };
+
+      this.words[this.state.currentLetter][word] = {
+        type,
+        examples,
+        synonyms,
+      };
+    });
   }
 }
 
