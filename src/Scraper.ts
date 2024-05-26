@@ -1,5 +1,10 @@
 import axios from "axios";
-import { load as chload } from "cheerio";
+import {
+  load as chload,
+  type Cheerio,
+  type CheerioAPI,
+  type Element,
+} from "cheerio";
 
 import { AXIOS_CONFIG, CATEGORIES, duration, isValid } from "../lib/helpers";
 import type { Letter, PrepareLinkParams, Suspense } from "../lib/types";
@@ -140,29 +145,16 @@ class Scraper {
   private async getSingleLetterAllPages(letter: Letter): Promise<void> {
     const link = process.env.BASE_LINK + letter + "/";
     const lastPage = await this.getLastPage(letter);
-    const allPages = Array.from({ length: lastPage }, (_, i) => i + 1);
     this.state.currentLetter = letter;
+
+    const allPages = Array.from({ length: lastPage }, (_, i) => i + 1);
+
+    let total = 0;
 
     for (const page of allPages) {
       this.state.currentLink = link + page;
-
-      const cheerio = await this.load(this.state.currentLink);
-      const items = cheerio('[data-type="browse-list"] ul li');
-
-      if (!items.length) throw new Error();
-
-      items.each((_i, element) => {
-        const word = cheerio(element).text().trim();
-
-        if (!word.length) throw new Error();
-
-        if (isValid(word)) {
-          this.wordsForLetter[this.state.currentLetter].push(word);
-
-          this.state.currentLinkIndex += 1;
-          this.state.currentWord = word;
-        }
-      });
+      const words = await this.extractWords();
+      total += words;
     }
   }
 
@@ -177,9 +169,9 @@ class Scraper {
     let total = 0;
 
     for (const letter of CATEGORIES) {
-      this.state.currentLetter = letter;
       const link = process.env.BASE_LINK + letter + "/";
       const lastPage = await this.getLastPage(letter);
+      this.state.currentLetter = letter;
 
       // If page doesn't exist, skip this iteration
       if (page > lastPage) continue;
@@ -187,29 +179,9 @@ class Scraper {
       console.log(`⏸️ Loading words for letter ${letter}...`);
 
       this.state.currentLink = link + page;
-
-      const cheerio = await this.load(this.state.currentLink);
-      const items = cheerio('[data-type="browse-list"] ul li');
-
-      if (!items.length) continue;
-
-      let words = 0;
-
-      items.each((_i, element) => {
-        const word = cheerio(element).text().trim();
-
-        if (!word.length) throw new Error();
-
-        if (isValid(word)) {
-          this.wordsForLetter[this.state.currentLetter].push(word);
-
-          words++;
-
-          this.state.currentLinkIndex += 1;
-          this.state.currentWord = word;
-        }
-      });
+      const words = await this.extractWords();
       total += words;
+
       console.log(
         `✅ Collected ${words} ${
           words === 0 || words > 1 ? "words" : "word"
@@ -249,6 +221,32 @@ class Scraper {
     endPage: number
   ): Promise<any> {
     // Implementation for getting multiple letters from start page to end page
+  }
+
+  private async extractWords() {
+    let words = 0;
+
+    const cheerio = await this.load(this.state.currentLink);
+    const items = cheerio('[data-type="browse-list"] ul li');
+
+    if (!items.length) throw new Error();
+
+    items.each((_i, element) => {
+      const word = cheerio(element).text().trim();
+
+      if (!word.length) throw new Error();
+
+      if (isValid(word)) {
+        this.wordsForLetter[this.state.currentLetter].push(word);
+
+        words++;
+
+        this.state.currentLinkIndex += 1;
+        this.state.currentWord = word;
+      }
+    });
+
+    return words;
   }
 }
 
