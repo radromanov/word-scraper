@@ -134,15 +134,20 @@ export async function loadState<T>(filename: string, state: T): Promise<T> {
 }
 
 export function captureExamples(cheerio: CheerioAPI, element: Element) {
-  return cheerio(element)
+  let examples = "";
+  const items = cheerio(element)
     .find("strong")
-    .map((_i, el) =>
-      cheerio(el)
-        .text()
-        .split(/(;|,)\s+/)
-        .filter((el) => el !== "," && el !== ";")
-    )
-    .get();
+    .each((i, el) => {
+      const item = cheerio(el).text();
+      const cleaned = item.replace(/[;\/]/g, ", ");
+
+      examples += cleaned;
+      if (i > 0 && i !== items.length - 1) {
+        examples += ",";
+      }
+    });
+
+  return examples;
 }
 
 export function captureGroup(

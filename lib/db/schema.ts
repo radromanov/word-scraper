@@ -27,6 +27,7 @@ export const definitionsTable = pgTable("questaurus_definitions", {
       "pronoun",
     ],
   }),
+  examples: text("examples").notNull(),
 });
 
 // Relations

@@ -19,7 +19,7 @@ export type SynonymStrength = "strongest" | "strong" | "weak";
 
 interface Definition {
   type: LexicalType;
-  examples: string[];
+  examples: string;
   synonyms: {
     [key in SynonymStrength]: string[];
   };

@@ -54,7 +54,8 @@ class Scraper {
     const start = performance.now();
     await this.handler({
       page: Scraper.TARGET_PAGE,
-      type: "NO_LETTER_ONE_PAGE",
+      letter: "a",
+      type: "ONE_LETTER_ONE_PAGE",
     });
     const end = performance.now();
     this.state.time = end - start;
@@ -323,7 +324,7 @@ class Scraper {
       const isNewDefinition = !existingDefinitions.some(
         (def) =>
           def.type === type &&
-          def.examples.every((example) => examples.includes(example)) &&
+          def.examples.includes(examples) &&
           def.synonyms.strongest.every((synonym) =>
             synonyms.strongest.includes(synonym)
           ) &&

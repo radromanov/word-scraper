@@ -58,9 +58,11 @@ async function createDefinitions(data: Words) {
         .where(eq(vocabularyTable.word, word));
 
       for (const definition of definitions) {
-        await db
-          .insert(definitionsTable)
-          .values({ type: definition.type, wordId: w.id });
+        await db.insert(definitionsTable).values({
+          type: definition.type,
+          wordId: w.id,
+          examples: definition.examples,
+        });
       }
     }
   }

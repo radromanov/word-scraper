@@ -1,56 +1,85 @@
 {
   "a": {
-    "abacus": [
+    "abandon": [
       {
         "type": "noun",
-        "examples": ["adding machine"],
+        "examples": "careless disregard for consequences",
         "synonyms": {
-          "strongest": [],
-          "strong": [],
+          "strongest": ["spontaneity"],
+          "strong": [
+            "disregard",
+            "freedom",
+            "impulse",
+            "licentiousness",
+            "recklessness",
+            "thoughtlessness",
+            "unrestraint",
+            "wantonness",
+            "wildness"
+          ],
+          "weak": ["uninhibitedness"]
+        }
+      },
+      {
+        "type": "verb",
+        "examples": "leave behind, relinquish",
+        "synonyms": {
+          "strongest": [
+            "desert",
+            "discard",
+            "discontinue",
+            "ditch",
+            "drop out",
+            "dump",
+            "leave",
+            "pull out",
+            "quit",
+            "stop",
+            "surrender",
+            "vacate",
+            "withdraw"
+          ],
+          "strong": ["abdicate", "drop", "duck", "dust", "screw", "yield"],
           "weak": [
-            "calculator",
-            "computer",
-            "electronic calculator",
-            "pocket calculator",
-            "totaliser",
-            "totalizer"
+            "back out",
+            "bail out",
+            "bow out",
+            "chicken out",
+            "cop out",
+            "cut loose",
+            "flake out",
+            "fly the coop",
+            "give up the ship",
+            "kiss goodbye",
+            "leg it",
+            "let go",
+            "opt out",
+            "run out on",
+            "ship out",
+            "storm out",
+            "take a powder",
+            "take a walk",
+            "throw over",
+            "walk out on",
+            "wash hands of"
           ]
         }
       },
       {
-        "type": "noun",
-        "examples": ["computer"],
+        "type": "verb",
+        "examples": "leave in troubled state",
         "synonyms": {
           "strongest": [
-            "data processor",
-            "desktop computer",
-            "PC",
-            "personal computer"
+            "desert",
+            "forsake",
+            "leave",
+            "leave behind",
+            "quit",
+            "reject",
+            "renounce"
           ],
-          "strong": [
-            "central processing unit",
-            "CPU",
-            "device",
-            "handheld computer",
-            "laptop",
-            "machine",
-            "mainframe",
-            "micro",
-            "microcomputer",
-            "mini",
-            "minicomputer",
-            "notebook",
-            "notebook computer",
-            "processor",
-            "tablet"
-          ],
-          "weak": [
-            "artificial intelligence",
-            "brain",
-            "electronic brain",
-            "number cruncher",
-            "thinking machine"
-          ]
+          "strong": ["disown", "jilt"],
+          "weak": ["back out", "throw over", "walk out on"]
         }
       }
     ]
