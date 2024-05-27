@@ -7,6 +7,7 @@ declare module "bun" {
     BASE_LINK: string;
     CATEGORY_LINK: string;
     WORD_LINK: string;
+    NEON_PG_CONNECTION_URL: string;
   }
 }
 

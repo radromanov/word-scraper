@@ -1,13 +1,8 @@
-import type { ALPHABET } from "./helpers";
+import { ALPHABET } from "./helpers";
 
 export type Suspense = {
   min: number;
   max: number;
-};
-export type Match = {
-  strongest: string[];
-  strong: string[];
-  weak: string[];
 };
 
 export type LexicalType =
@@ -16,13 +11,29 @@ export type LexicalType =
   | "adverb"
   | "verb"
   | "conjunction"
-  | "preposition";
+  | "preposition"
+  | "interjection"
+  | "pronoun";
 
-export interface Definition {
+export type SynonymStrength = "strongest" | "strong" | "weak";
+
+interface Term {
   type: LexicalType;
   examples: string[];
-  synonyms: Match;
+  synonyms: {
+    [key in SynonymStrength]: string[];
+  };
 }
+
+interface TermsDictionary {
+  [word: string]: Term[];
+}
+
+type CategoryKey = (typeof ALPHABET)[number];
+
+export type Words = {
+  [K in CategoryKey]: TermsDictionary;
+};
 
 export interface Variant {
   type:

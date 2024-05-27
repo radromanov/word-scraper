@@ -1,4 +1,4 @@
-az-1.json
+az-*.json
 
 node_modules.DS_Store
 .env

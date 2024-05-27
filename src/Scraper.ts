@@ -9,17 +9,14 @@ import {
   captureGroup,
 } from "../lib/helpers";
 import type {
-  Definition,
   Letter,
   LexicalType,
   PrepareLinkParams,
+  Words,
 } from "../lib/types";
 
 class Scraper {
-  private words: Record<Letter, Record<string, Definition[]>> = {} as Record<
-    Letter,
-    Record<string, Definition[]>
-  >;
+  private words: Words = {} as Words;
 
   private state = {
     currentLinkIndex: 0,
@@ -28,10 +25,13 @@ class Scraper {
     currentWord: "",
     attempt: 0,
     time: 0,
+    totalWords: 0,
+    totalSynonyms: 0,
   };
 
   private static readonly MAX_RETRIES = 3;
   private static readonly RETRY_DELAY_MS = 2000;
+  private static readonly TARGET_PAGE = 1;
 
   constructor() {
     ALPHABET.forEach((letter) => {
@@ -53,15 +53,21 @@ class Scraper {
   async exec() {
     const start = performance.now();
     await this.handler({
-      page: 1,
+      page: Scraper.TARGET_PAGE,
       type: "NO_LETTER_ONE_PAGE",
     });
     const end = performance.now();
     this.state.time = end - start;
 
-    await Bun.write("az-1.json", JSON.stringify(this.words));
+    await Bun.write(
+      `az-${Scraper.TARGET_PAGE}.json`,
+      JSON.stringify(this.words)
+    );
 
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
+    console.log(
+      `📦 Collected ${this.state.totalWords} words and ${this.state.totalSynonyms} synonyms!`
+    );
   }
 
   private async handler(param: PrepareLinkParams): Promise<void> {
@@ -273,6 +279,7 @@ class Scraper {
       if (!existingDefinitions[word] && isValid(word)) {
         this.words[this.state.currentLetter][word] = [];
         totalWords++;
+        this.state.totalWords++;
         this.state.currentLinkIndex++;
       }
     });
@@ -292,8 +299,11 @@ class Scraper {
     const cheerio = await this.load(`${process.env.WORD_LINK}${word}`);
     const items = cheerio(selector);
 
-    // Remove object property if no word definition
-    if (!items.length) delete this.words[this.state.currentLetter][word];
+    // If no word definition found, skip this word
+    if (!items.length) {
+      delete this.words[this.state.currentLetter][word];
+      return;
+    }
 
     items.each((_i, element) => {
       const item = cheerio(element).text().trim();
@@ -308,17 +318,35 @@ class Scraper {
         weak: captureGroup("Weak", cheerio, element),
       };
 
-      this.words[this.state.currentLetter][word].push({
-        type,
-        examples,
-        synonyms,
-      });
+      const newDefinition = { type, examples, synonyms };
+      const existingDefinitions = this.words[this.state.currentLetter][word];
+      const isNewDefinition = !existingDefinitions.some(
+        (def) =>
+          def.type === type &&
+          def.examples.every((example) => examples.includes(example)) &&
+          def.synonyms.strongest.every((synonym) =>
+            synonyms.strongest.includes(synonym)
+          ) &&
+          def.synonyms.strong.every((synonym) =>
+            synonyms.strong.includes(synonym)
+          ) &&
+          def.synonyms.weak.every((synonym) => synonyms.weak.includes(synonym))
+      );
+
+      if (isNewDefinition) {
+        this.state.totalSynonyms +=
+          synonyms.strongest.length +
+          synonyms.strong.length +
+          synonyms.weak.length;
+
+        this.words[this.state.currentLetter][word].push(newDefinition);
+      }
     });
   }
 
   private async loadExistingWords() {
     try {
-      this.words = await Bun.file("az-1.json").json();
+      this.words = await Bun.file(`az-${Scraper.TARGET_PAGE}.json`).json();
     } catch (error) {
       console.log("No existing data found, starting fresh.");
     }
