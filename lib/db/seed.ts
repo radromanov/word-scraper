@@ -1,6 +1,6 @@
 import { db } from "./index";
 import type { Words } from "../types";
-import { categoriesTable, vocabularyTable } from "./schema";
+import { categoriesTable, definitionsTable, vocabularyTable } from "./schema";
 import { ALPHABET, duration } from "../helpers";
 import { eq } from "drizzle-orm";
 
@@ -11,12 +11,13 @@ async function getFile(): Promise<Words> {
 }
 
 async function reset() {
-  await db.delete(categoriesTable);
+  await db.delete(definitionsTable);
   await db.delete(vocabularyTable);
+  await db.delete(categoriesTable);
 }
 
 async function createCategories(data: Words) {
-  const letters = Object.keys(data);
+  const letters = Object.keys(data) as (typeof ALPHABET)[number][];
 
   for (const letter of letters) {
     await db.insert(categoriesTable).values({ letter }).onConflictDoNothing();
@@ -24,10 +25,10 @@ async function createCategories(data: Words) {
 }
 
 async function createWords(data: Words) {
-  const letters = Object.keys(data);
+  const letters = Object.keys(data) as (typeof ALPHABET)[number][];
 
   for (const letter of letters) {
-    const words = Object.keys(data[letter as (typeof ALPHABET)[number]]);
+    const words = Object.keys(data[letter]);
     const [category] = await db
       .select({ id: categoriesTable.id })
       .from(categoriesTable)
@@ -42,6 +43,29 @@ async function createWords(data: Words) {
   }
 }
 
+async function createDefinitions(data: Words) {
+  const letters = Object.keys(data) as (typeof ALPHABET)[number][];
+
+  for (const letter of letters) {
+    const words = Object.keys(data[letter]);
+
+    for (const word of words) {
+      const definitions = data[letter][word];
+
+      const [w] = await db
+        .select({ id: vocabularyTable.id })
+        .from(vocabularyTable)
+        .where(eq(vocabularyTable.word, word));
+
+      for (const definition of definitions) {
+        await db
+          .insert(definitionsTable)
+          .values({ type: definition.type, wordId: w.id });
+      }
+    }
+  }
+}
+
 async function seed() {
   console.log("🌱 Seeding database...");
 
@@ -51,6 +75,7 @@ async function seed() {
 
   await createCategories(data);
   await createWords(data);
+  await createDefinitions(data);
 
   const end = performance.now();
   const time = duration(end - start);
@@ -58,5 +83,5 @@ async function seed() {
   console.log(`🌳 Seeding the database took ${time}.`);
 }
 
-reset();
-seed();
+await reset();
+await seed();

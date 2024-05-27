@@ -17,7 +17,7 @@ export type LexicalType =
 
 export type SynonymStrength = "strongest" | "strong" | "weak";
 
-interface Term {
+interface Definition {
   type: LexicalType;
   examples: string[];
   synonyms: {
@@ -25,14 +25,14 @@ interface Term {
   };
 }
 
-interface TermsDictionary {
-  [word: string]: Term[];
+interface DefinitionDictionary {
+  [word: string]: Definition[];
 }
 
 type CategoryKey = (typeof ALPHABET)[number];
 
 export type Words = {
-  [K in CategoryKey]: TermsDictionary;
+  [K in CategoryKey]: DefinitionDictionary;
 };
 
 export interface Variant {

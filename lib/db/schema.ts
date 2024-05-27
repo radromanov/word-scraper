@@ -12,13 +12,43 @@ export const vocabularyTable = pgTable("questaurus_vocabulary", {
   categoryId: integer("category_id").references(() => categoriesTable.id),
 });
 
+export const definitionsTable = pgTable("questaurus_definitions", {
+  id: serial("id").primaryKey(),
+  wordId: integer("word_id").references(() => vocabularyTable.id),
+  type: text("type", {
+    enum: [
+      "noun",
+      "adjective",
+      "adverb",
+      "verb",
+      "conjunction",
+      "preposition",
+      "interjection",
+      "pronoun",
+    ],
+  }),
+});
+
+// Relations
+
 export const categoriesRelations = relations(categoriesTable, ({ many }) => ({
   words: many(vocabularyTable),
 }));
 
-export const vocabularyRelations = relations(vocabularyTable, ({ one }) => ({
-  letter: one(categoriesTable, {
-    fields: [vocabularyTable.categoryId],
-    references: [categoriesTable.id],
+export const vocabularyRelations = relations(
+  vocabularyTable,
+  ({ one, many }) => ({
+    letter: one(categoriesTable, {
+      fields: [vocabularyTable.categoryId],
+      references: [categoriesTable.id],
+    }),
+    definitions: many(definitionsTable),
+  })
+);
+
+export const definitionsRelations = relations(definitionsTable, ({ one }) => ({
+  word: one(vocabularyTable, {
+    fields: [definitionsTable.wordId],
+    references: [vocabularyTable.id],
   }),
 }));
