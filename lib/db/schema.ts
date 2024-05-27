@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  json,
+  pgTable,
+  serial,
+  text,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const categoriesTable = pgTable("questaurus_categories", {
   id: serial("id").primaryKey(),
@@ -28,6 +35,7 @@ export const definitionsTable = pgTable("questaurus_definitions", {
     ],
   }),
   examples: text("examples").notNull(),
+  synonyms: json("synonyms").notNull(),
 });
 
 // Relations

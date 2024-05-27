@@ -5,7 +5,7 @@ import { ALPHABET, duration } from "../helpers";
 import { eq } from "drizzle-orm";
 
 async function getFile(): Promise<Words> {
-  const path = Bun.pathToFileURL("sample.json");
+  const path = Bun.pathToFileURL("az-1.json");
   const file = (await Bun.file(path).json()) as Words;
   return file;
 }
@@ -59,9 +59,10 @@ async function createDefinitions(data: Words) {
 
       for (const definition of definitions) {
         await db.insert(definitionsTable).values({
-          type: definition.type,
           wordId: w.id,
+          type: definition.type,
           examples: definition.examples,
+          synonyms: definition.synonyms,
         });
       }
     }

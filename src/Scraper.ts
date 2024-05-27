@@ -54,8 +54,7 @@ class Scraper {
     const start = performance.now();
     await this.handler({
       page: Scraper.TARGET_PAGE,
-      letter: "a",
-      type: "ONE_LETTER_ONE_PAGE",
+      type: "NO_LETTER_ONE_PAGE",
     });
     const end = performance.now();
     this.state.time = end - start;
