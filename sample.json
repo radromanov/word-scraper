@@ -1,0 +1,58 @@
+{
+  "a": {
+    "abacus": [
+      {
+        "type": "noun",
+        "examples": ["adding machine"],
+        "synonyms": {
+          "strongest": [],
+          "strong": [],
+          "weak": [
+            "calculator",
+            "computer",
+            "electronic calculator",
+            "pocket calculator",
+            "totaliser",
+            "totalizer"
+          ]
+        }
+      },
+      {
+        "type": "noun",
+        "examples": ["computer"],
+        "synonyms": {
+          "strongest": [
+            "data processor",
+            "desktop computer",
+            "PC",
+            "personal computer"
+          ],
+          "strong": [
+            "central processing unit",
+            "CPU",
+            "device",
+            "handheld computer",
+            "laptop",
+            "machine",
+            "mainframe",
+            "micro",
+            "microcomputer",
+            "mini",
+            "minicomputer",
+            "notebook",
+            "notebook computer",
+            "processor",
+            "tablet"
+          ],
+          "weak": [
+            "artificial intelligence",
+            "brain",
+            "electronic brain",
+            "number cruncher",
+            "thinking machine"
+          ]
+        }
+      }
+    ]
+  }
+}

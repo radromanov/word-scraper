@@ -1,10 +1,5 @@
-import {
-  relations,
-  type InferInsertModel,
-  type InferSelectModel,
-} from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
-import type { ALPHABET } from "../helpers";
 
 export const categoriesTable = pgTable("questaurus_categories", {
   id: serial("id").primaryKey(),
