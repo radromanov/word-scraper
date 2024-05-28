@@ -14,6 +14,7 @@ import type {
   PrepareLinkParams,
   Words,
 } from "../lib/types";
+import { seed } from "../lib/db/seed";
 
 class Scraper {
   private words: Words = {} as Words;
@@ -31,7 +32,7 @@ class Scraper {
 
   private static readonly MAX_RETRIES = 3;
   private static readonly RETRY_DELAY_MS = 2000;
-  private static readonly TARGET_PAGE = 1;
+  private static readonly TARGET_PAGE = 2;
 
   constructor() {
     ALPHABET.forEach((letter) => {
@@ -68,6 +69,8 @@ class Scraper {
     console.log(
       `📦 Collected ${this.state.totalWords} words and ${this.state.totalSynonyms} synonyms!`
     );
+
+    await seed(Scraper.TARGET_PAGE);
   }
 
   private async handler(param: PrepareLinkParams): Promise<void> {

@@ -4,8 +4,8 @@ import { categoriesTable, definitionsTable, vocabularyTable } from "./schema";
 import { ALPHABET, duration } from "../helpers";
 import { eq } from "drizzle-orm";
 
-async function getFile(): Promise<Words> {
-  const path = Bun.pathToFileURL("az-1.json");
+async function getFile(page: number): Promise<Words> {
+  const path = Bun.pathToFileURL(`az-${page}.json`);
   const file = (await Bun.file(path).json()) as Words;
   return file;
 }
@@ -69,12 +69,12 @@ async function createDefinitions(data: Words) {
   }
 }
 
-async function seed() {
-  console.log("🌱 Seeding database...");
+export async function seed(page: number) {
+  console.log("🌱 Initializing database seeding...");
 
   const start = performance.now();
 
-  const data = await getFile();
+  const data = await getFile(page);
 
   await createCategories(data);
   await createWords(data);
@@ -83,8 +83,5 @@ async function seed() {
   const end = performance.now();
   const time = duration(end - start);
 
-  console.log(`🌳 Seeding the database took ${time}.`);
+  console.log(`🌳 Seeding the database completed -- ${time}`);
 }
-
-await reset();
-await seed();
