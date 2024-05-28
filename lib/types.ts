@@ -1,4 +1,4 @@
-import { ALPHABET } from "./helpers";
+import type { ALPHABET } from "./constants";
 
 export type Suspense = {
   min: number;

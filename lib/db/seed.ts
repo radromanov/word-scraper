@@ -1,19 +1,14 @@
 import { db } from "./index";
 import type { Words } from "../types";
 import { categoriesTable, definitionsTable, vocabularyTable } from "./schema";
-import { ALPHABET, duration } from "../helpers";
+import { duration } from "../helpers";
 import { eq } from "drizzle-orm";
+import type { ALPHABET } from "../constants";
 
 async function getFile(page: number): Promise<Words> {
   const path = Bun.pathToFileURL(`az-${page}.json`);
   const file = (await Bun.file(path).json()) as Words;
   return file;
-}
-
-async function reset() {
-  await db.delete(definitionsTable);
-  await db.delete(vocabularyTable);
-  await db.delete(categoriesTable);
 }
 
 async function createCategories(data: Words) {

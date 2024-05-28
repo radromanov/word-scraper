@@ -1,8 +1,6 @@
 import axios from "axios";
 import { load as chload } from "cheerio";
 import {
-  AXIOS_CONFIG,
-  ALPHABET,
   duration,
   isValid,
   captureExamples,
@@ -15,6 +13,7 @@ import type {
   Words,
 } from "../lib/types";
 import { seed } from "../lib/db/seed";
+import { ALPHABET, AXIOS_CONFIG } from "../lib/constants";
 
 class Scraper {
   private words: Words = {} as Words;
