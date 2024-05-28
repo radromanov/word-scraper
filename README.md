@@ -129,7 +129,7 @@ To set up the database, use the following commands:
    ```bash
    bun db:view
    ```
-3. **Seed the database** (seeded automatically via `bun dev` unless `package.json` was changed as per [Usage](https://github.com/radromanov/word-scraper?tab=readme-ov-file#Usage)):
+3. **Seed the database** (seeded automatically via `bun dev` unless `package.json` was changed. Check [Usage](https://github.com/radromanov/word-scraper?tab=readme-ov-file#Usage) if you want to know more):
    ```bash
    bun db:seed
    ```
