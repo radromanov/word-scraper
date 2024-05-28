@@ -12,8 +12,8 @@ import type {
   PrepareLinkParams,
   Words,
 } from "../lib/types";
-import { seed } from "../lib/db/seed";
 import { ALPHABET, AXIOS_CONFIG } from "../lib/constants";
+import { seed } from "../lib/db/seed";
 
 class Scraper {
   private words: Words = {} as Words;
@@ -31,7 +31,7 @@ class Scraper {
 
   private static readonly MAX_RETRIES = 3;
   private static readonly RETRY_DELAY_MS = 2000;
-  private static readonly TARGET_PAGE = 2;
+  static TARGET_PAGE: number | null = null;
 
   constructor() {
     ALPHABET.forEach((letter) => {
@@ -50,26 +50,21 @@ class Scraper {
     }
   }
 
-  async exec() {
+  async exec(param: PrepareLinkParams) {
     const start = performance.now();
-    await this.handler({
-      page: Scraper.TARGET_PAGE,
-      type: "NO_LETTER_ONE_PAGE",
-    });
+    await this.handler(param);
     const end = performance.now();
     this.state.time = end - start;
 
-    await Bun.write(
-      `az-${Scraper.TARGET_PAGE}.json`,
-      JSON.stringify(this.words)
-    );
+    const filename = this.generateFileName(param);
+    await Bun.write(filename, JSON.stringify(this.words));
 
     console.log(`🎉 Operation complete in ${duration(this.state.time)}.`);
     console.log(
-      `📦 Collected ${this.state.totalWords} words and ${this.state.totalSynonyms} synonyms!`
+      `📦 Collected ${this.state.totalWords} words and ${this.state.totalSynonyms} synonyms! Data saved to ${filename}`
     );
 
-    await seed(Scraper.TARGET_PAGE);
+    await seed(filename);
   }
 
   private async handler(param: PrepareLinkParams): Promise<void> {
@@ -351,6 +346,31 @@ class Scraper {
       this.words = await Bun.file(`az-${Scraper.TARGET_PAGE}.json`).json();
     } catch (error) {
       console.log("No existing data found, starting fresh.");
+    }
+  }
+
+  private generateFileName(param: PrepareLinkParams): string {
+    switch (param.type) {
+      case "ONE_LETTER_NO_PAGE":
+        return `words-${param.letter}.json`;
+      case "MULTIPLE_LETTERS_NO_PAGE":
+        return `words-${param.letters.join("-")}.json`;
+      case "NO_LETTER_ONE_PAGE":
+        return `words-page-${param.page}.json`;
+      case "NO_LETTER_START_END_PAGE":
+        return `words-pages-${param.startPage}-${param.endPage}.json`;
+      case "ONE_LETTER_ONE_PAGE":
+        return `words-${param.letter}-page-${param.page}.json`;
+      case "MULTIPLE_LETTERS_ONE_PAGE":
+        return `words-${param.letters.join("-")}-page-${param.page}.json`;
+      case "SINGLE_LETTER_START_END_PAGE":
+        return `words-${param.letter}-pages-${param.startPage}-${param.endPage}.json`;
+      case "MULTIPLE_LETTERS_START_END_PAGE":
+        return `words-${param.letters.join("-")}-pages-${param.startPage}-${
+          param.endPage
+        }.json`;
+      default:
+        throw new Error("Invalid type");
     }
   }
 }

@@ -4,9 +4,11 @@ import { categoriesTable, definitionsTable, vocabularyTable } from "./schema";
 import { duration } from "../helpers";
 import { eq } from "drizzle-orm";
 import type { ALPHABET } from "../constants";
+import Scraper from "../../src/Scraper";
 
-async function getFile(page: number): Promise<Words> {
-  const path = Bun.pathToFileURL(`az-${page}.json`);
+async function getFile(filename: string): Promise<Words> {
+  const path = Bun.pathToFileURL(filename);
+
   const file = (await Bun.file(path).json()) as Words;
   return file;
 }
@@ -64,12 +66,12 @@ async function createDefinitions(data: Words) {
   }
 }
 
-export async function seed(page: number) {
+export async function seed(file: string) {
   console.log("🌱 Initializing database seeding...");
 
   const start = performance.now();
 
-  const data = await getFile(page);
+  const data = await getFile(file);
 
   await createCategories(data);
   await createWords(data);

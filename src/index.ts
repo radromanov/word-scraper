@@ -9,4 +9,4 @@ declare module "bun" {
 }
 
 const scraper = new Scraper();
-await scraper.exec();
+await scraper.exec({ page: 3, type: "NO_LETTER_ONE_PAGE" });
