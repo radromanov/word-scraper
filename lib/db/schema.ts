@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+import { uniqueIndex } from "drizzle-orm/pg-core";
 import {
   integer,
   json,
@@ -8,16 +9,32 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const categoriesTable = pgTable("questaurus_categories", {
-  id: serial("id").primaryKey(),
-  letter: varchar("letter", { length: 1 }).notNull().unique(),
-});
+export const categoriesTable = pgTable(
+  "questaurus_categories",
+  {
+    id: serial("id").primaryKey(),
+    letter: varchar("letter", { length: 1 }).notNull().unique(),
+  },
+  (table) => {
+    return {
+      letterIndex: uniqueIndex("letter_idx").on(table.letter),
+    };
+  }
+);
 
-export const vocabularyTable = pgTable("questaurus_vocabulary", {
-  id: serial("id").primaryKey(),
-  word: varchar("word", { length: 255 }).notNull().unique(),
-  categoryId: integer("category_id").references(() => categoriesTable.id),
-});
+export const vocabularyTable = pgTable(
+  "questaurus_vocabulary",
+  {
+    id: serial("id").primaryKey(),
+    word: varchar("word", { length: 255 }).notNull().unique(),
+    categoryId: integer("category_id").references(() => categoriesTable.id),
+  },
+  (table) => {
+    return {
+      wordIndex: uniqueIndex("word_idx").on(table.word),
+    };
+  }
+);
 
 export const definitionsTable = pgTable("questaurus_definitions", {
   id: serial("id").primaryKey(),
@@ -33,7 +50,7 @@ export const definitionsTable = pgTable("questaurus_definitions", {
       "interjection",
       "pronoun",
     ],
-  }),
+  }).notNull(),
   examples: text("examples").notNull(),
   synonyms: json("synonyms").notNull(),
 });

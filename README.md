@@ -49,45 +49,46 @@ bun dev
 
 This will start the scraper, which will fetch data from Thesaurus.com and store it in the configured PostgreSQL database.
 
-- Note: the default behavior of the scraper is to create a json file, which it then uses to seed the database. You can alter this behavior by removing the following line from `src/Scraper.ts`:
+- Note: the default behavior of the scraper is to create a `json` file, which it then uses to seed the database. You can alter this behavior by updating `src/Scraper.ts` and `lib/db/seed.ts`:
 
-```bash
-# src/Scraper.ts
+```diff
+--- src/Scraper.ts
 class Scraper {
    constructor() { ... }
 
    async exec(param: PrepareLinkParams) {
-      # ...function logic
-      await seed(filename); # ❌ Remove this
+      ...
+-     await seed(filename);
    }
 }
 
-# lib/db/seed.ts
+--- lib/db/seed.ts
 export async function seed(
-   file: string # ❌ Remove this
+-  file: string
 ) {
-  # ...function logic
-
-  const data = await getFile(file); # ❌ Remove `file`
-
-  # ...function logic
+  ...
++ const data = await getFile();
+  ...
 }
 
+--- ✅ Add this
++ await seed()
+
 async function getFile(
-   filename: string # ❌ Remove this
+-  filename: string
 ): Promise<Words> {
-  const path = Bun.pathToFileURL("path/to/file"); # Manually provide filepath
++ const path = Bun.pathToFileURL("path/to/file");
 
   const file = (await Bun.file(path).json()) as Words;
   return file;
 }
 ```
 
-Altering the above would mean you would have to run the seed script manually, using `bun db:seed`.
+- Altering the above would mean having to run the seed script manually, using `bun db:seed`.
 
 ### Example Output
 
-Upon successful execution, the scraper will output JSON files containing the scraped words and their synonyms. For example, running the scraper for a specific target page will generate a file named az-2.json.
+Upon successful execution, the scraper will output JSON files containing the scraped words and their synonyms. For example, running the scraper for a specific target page will generate a file named `words-page-3.json`.
 
 ### Logging
 
@@ -121,15 +122,15 @@ word-scraper/
 
 To set up the database, use the following commands:
 
-1. **Push database schema changes**:
+1. **Update the database changes using [Drizzle Kit Push](https://orm.drizzle.team/kit-docs/overview#prototyping-with-db-push)**:
    ```bash
    bun db:push
    ```
-2. **View and manage the database schema**:
+2. **View the database in [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview)**:
    ```bash
    bun db:view
    ```
-3. **Seed the database** (seeded automatically via `bun dev` unless `package.json` was changed. Check [Usage](https://github.com/radromanov/word-scraper?tab=readme-ov-file#Usage) if you want to know more):
+3. _(Optional)_ **Seed the database** (seeded automatically via `bun dev` unless `package.json` was changed. Check [Usage](https://github.com/radromanov/word-scraper?tab=readme-ov-file#Usage) if you want to know more):
    ```bash
    bun db:seed
    ```

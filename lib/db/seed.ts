@@ -4,7 +4,6 @@ import { categoriesTable, definitionsTable, vocabularyTable } from "./schema";
 import { duration } from "../helpers";
 import { eq } from "drizzle-orm";
 import type { ALPHABET } from "../constants";
-import Scraper from "../../src/Scraper";
 
 async function getFile(filename: string): Promise<Words> {
   const path = Bun.pathToFileURL(filename);
